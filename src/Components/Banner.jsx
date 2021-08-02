@@ -43,7 +43,7 @@ const Banner = () => {
     ) {
       setDate2(date1.addDays(1));
       setItem(true);
-      console.log(date1, "date", date2, item);
+      // console.log(date1, "date", date2, item);
     }
   }, [handleChange, date1, setDate2]);
 

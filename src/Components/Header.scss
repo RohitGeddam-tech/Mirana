@@ -10,6 +10,7 @@
     background-color: #ba7f45;
     .container {
       text-align: end;
+      width: 95%;
       height: 40px;
       display: flex;
       align-items: center;
@@ -28,6 +29,7 @@
     .container {
       display: flex;
       height: 70px;
+      width: 95%;
       align-items: center;
       justify-content: space-between;
       .navbar {
@@ -55,6 +57,13 @@
             color: white;
           }
         }
+      }
+    }
+  }
+  @media(max-width:450px){
+    .mob{
+      .container{
+        justify-content: center;
       }
     }
   }
