@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/Mirana/static/css/main.d2b82c32.chunk.css",
-    "main.js": "/Mirana/static/js/main.6d5985da.chunk.js",
-    "main.js.map": "/Mirana/static/js/main.6d5985da.chunk.js.map",
+    "main.css": "/Mirana/static/css/main.0e08a057.chunk.css",
+    "main.js": "/Mirana/static/js/main.23c6cd11.chunk.js",
+    "main.js.map": "/Mirana/static/js/main.23c6cd11.chunk.js.map",
     "runtime-main.js": "/Mirana/static/js/runtime-main.c0e02fb9.js",
     "runtime-main.js.map": "/Mirana/static/js/runtime-main.c0e02fb9.js.map",
     "static/css/2.4c3b8b5f.chunk.css": "/Mirana/static/css/2.4c3b8b5f.chunk.css",
@@ -12,7 +12,7 @@
     "static/js/3.2dbce3fb.chunk.js.map": "/Mirana/static/js/3.2dbce3fb.chunk.js.map",
     "index.html": "/Mirana/index.html",
     "static/css/2.4c3b8b5f.chunk.css.map": "/Mirana/static/css/2.4c3b8b5f.chunk.css.map",
-    "static/css/main.d2b82c32.chunk.css.map": "/Mirana/static/css/main.d2b82c32.chunk.css.map",
+    "static/css/main.0e08a057.chunk.css.map": "/Mirana/static/css/main.0e08a057.chunk.css.map",
     "static/js/2.24a5d716.chunk.js.LICENSE.txt": "/Mirana/static/js/2.24a5d716.chunk.js.LICENSE.txt",
     "static/media/Banner.6daf63bc.png": "/Mirana/static/media/Banner.6daf63bc.png",
     "static/media/about1.2c8a48c0.png": "/Mirana/static/media/about1.2c8a48c0.png",
@@ -25,7 +25,7 @@
     "static/js/runtime-main.c0e02fb9.js",
     "static/css/2.4c3b8b5f.chunk.css",
     "static/js/2.24a5d716.chunk.js",
-    "static/css/main.d2b82c32.chunk.css",
-    "static/js/main.6d5985da.chunk.js"
+    "static/css/main.0e08a057.chunk.css",
+    "static/js/main.23c6cd11.chunk.js"
   ]
 }
