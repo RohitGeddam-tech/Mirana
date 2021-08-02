@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/Mirana/static/css/main.d2b82c32.chunk.css",
+    "main.js": "/Mirana/static/js/main.6d5985da.chunk.js",
+    "main.js.map": "/Mirana/static/js/main.6d5985da.chunk.js.map",
+    "runtime-main.js": "/Mirana/static/js/runtime-main.c0e02fb9.js",
+    "runtime-main.js.map": "/Mirana/static/js/runtime-main.c0e02fb9.js.map",
+    "static/css/2.4c3b8b5f.chunk.css": "/Mirana/static/css/2.4c3b8b5f.chunk.css",
+    "static/js/2.24a5d716.chunk.js": "/Mirana/static/js/2.24a5d716.chunk.js",
+    "static/js/2.24a5d716.chunk.js.map": "/Mirana/static/js/2.24a5d716.chunk.js.map",
+    "static/js/3.2dbce3fb.chunk.js": "/Mirana/static/js/3.2dbce3fb.chunk.js",
+    "static/js/3.2dbce3fb.chunk.js.map": "/Mirana/static/js/3.2dbce3fb.chunk.js.map",
+    "index.html": "/Mirana/index.html",
+    "static/css/2.4c3b8b5f.chunk.css.map": "/Mirana/static/css/2.4c3b8b5f.chunk.css.map",
+    "static/css/main.d2b82c32.chunk.css.map": "/Mirana/static/css/main.d2b82c32.chunk.css.map",
+    "static/js/2.24a5d716.chunk.js.LICENSE.txt": "/Mirana/static/js/2.24a5d716.chunk.js.LICENSE.txt",
+    "static/media/Banner.6daf63bc.png": "/Mirana/static/media/Banner.6daf63bc.png",
+    "static/media/about1.2c8a48c0.png": "/Mirana/static/media/about1.2c8a48c0.png",
+    "static/media/about2.1cbf7388.png": "/Mirana/static/media/about2.1cbf7388.png",
+    "static/media/slick-theme.css": "/Mirana/static/media/slick.c94f7671.ttf",
+    "static/media/slide1.e61cc62e.png": "/Mirana/static/media/slide1.e61cc62e.png",
+    "static/media/slide2.068fd82a.png": "/Mirana/static/media/slide2.068fd82a.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c0e02fb9.js",
+    "static/css/2.4c3b8b5f.chunk.css",
+    "static/js/2.24a5d716.chunk.js",
+    "static/css/main.d2b82c32.chunk.css",
+    "static/js/main.6d5985da.chunk.js"
+  ]
+}
