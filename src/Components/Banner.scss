@@ -1,0 +1,201 @@
+.banner {
+  width: 100%;
+  // background-color: rgba(0, 0, 0, 0.5);
+  position: relative;
+  height: 650px;
+  img {
+    width: 100%;
+    height: 570px;
+  }
+  .container {
+    width: fit-content;
+    position: absolute;
+    top: 70px;
+    left: 7%;
+    h2 {
+      font-weight: normal;
+      font-size: 30px;
+      line-height: 40px;
+      color: #ffffff;
+      margin-bottom: 5px;
+    }
+    h1 {
+      font-weight: 900;
+      font-size: 70px;
+      line-height: 93px;
+      color: #ffffff;
+      margin: 0;
+      margin-bottom: 25px;
+    }
+    p {
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 27px;
+      color: white;
+      margin: 0;
+      margin-bottom: 30px;
+    }
+    .btn {
+      color: #ba7f45;
+      background-color: white;
+      display: flex;
+      align-items: center;
+      span {
+        margin-left: 10px;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        img {
+          width: 27px;
+          height: 27px;
+        }
+      }
+    }
+  }
+  .avail {
+    width: 80%;
+    background: #ffffff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    position: absolute;
+    top: 490px;
+    left: 50%;
+    transform: translate(-50%);
+    display: flex;
+    align-items: center;
+    // justify-content: space-between;
+    padding: 40px 30px;
+    padding-right: 15px;
+    h1 {
+      width: 282px;
+      font-size: 30px;
+      line-height: 37px;
+      margin: 0;
+      // margin-right: 20px;
+      color: #8892a0;
+    }
+    .textInput {
+      width: 200px;
+      height: 72px;
+      margin: 0 20px;
+      p {
+        // text-align: center;
+        margin: 0;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 17px;
+        margin-top: 3px;
+      }
+      .text-input{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 0;
+        padding-bottom: 0;
+        span{
+          height: fit-content;
+          width: 15%;
+          border: 1.8px solid #ba7f45;
+          color: #ba7f45;
+          border-radius: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          // font-size: 15px;
+          font-weight: bolder;
+          cursor: pointer;
+        }
+        .input {
+          border: none;
+          font-family: "Montserrat";
+          // font-family: "Playfair Display", serif;
+          // width: 100%;
+          font-size: 30px;
+          font-weight: bold;
+          line-height: 40px;
+          // text-align: center;
+          margin: 0;
+          color: #ba7f45;
+        }
+        h1 {
+          // font-family: "Playfair Display", serif;
+          font-family: "Montserrat";
+          width: 100%;
+          font-size: 30px;
+          line-height: 40px;
+          text-align: center;
+          // padding: 14px 0;
+          margin: 0;
+          padding-bottom: 0;
+          color: #ba7f45;
+          // white-space: nowrap;
+        }
+      }
+    }
+    .date {
+      display: flex;
+      width: 345px;
+      // margin-bottom: 3px;
+      padding-right: 15px;
+      .MuiInput-underline:before {
+        border-bottom: none;
+      }
+      .MuiInput-underline:after {
+        border-bottom: none;
+      }
+      .MuiFormControl-root {
+        width: fit-content;
+        max-width: 174px;
+        height: 72px;
+        margin: 0 18px;
+      }
+      .MuiInputLabel-shrink {
+        transform: translate(0, 1.5px) scale(1);
+        transform-origin: top left;
+      }
+      .MuiFormLabel-root {
+        font-family: "Playfair Display", serif;
+        font-style: normal;
+        font-weight: 500 !important;
+        font-size: 14px !important;
+        line-height: 17px;
+        color: #667c8a;
+      }
+      .MuiInputBase-input {
+        font-family: "Playfair Display", serif;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 30px;
+        line-height: 37px;
+        /* identical to box height */
+        padding: 18px 0;
+        padding-bottom: 0;
+        font-feature-settings: "pnum" on, "lnum" on;
+
+        color: #ba7f45;
+      }
+      .MuiFormLabel-root.Mui-focused {
+        color: rgba(0, 0, 0, 0.54);
+      }
+    }
+    .btn {
+      // color: #ba7f45;
+      // background-color: white;
+      display: flex;
+      align-items: center;
+      span {
+        margin-left: 10px;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        img {
+          width: 27px;
+          height: 27px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,226 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
+
+body {
+  margin: 0;
+  font-family: "Playfair Display", serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-style: normal;
+    font-weight: 900;
+    font-size: 40px;
+    line-height: 53px;
+    font-family: "Playfair Display", serif;
+    color: #ba7f45;
+  }
+
+  p {
+    font-family: "Playfair Display", serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    color: #667c8a;
+  }
+
+  .container {
+    width: 90%;
+    margin: auto;
+  }
+
+  .btn {
+    padding: 10px 23px;
+    outline: none;
+    border: none;
+    background-color: #ba7f45;
+    border-radius: 20px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 27px;
+    color: white;
+  }
+
+  .Slider {
+    width: 100%;
+  }
+
+  .Slide {
+    overflow-x: scroll;
+    display: flex;
+    /* width: 2000px; */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .Slide::-webkit-scrollbar {
+    display: none;
+  }
+
+  a {
+    font-family: "Playfair Display", serif;
+    font-style: normal;
+    text-decoration: none;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px #fff inset;
+    -webkit-text-fill-color: #919eab;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+  input:-webkit-autofill:focus {
+    box-shadow: 0 0 0px 1000px #fff inset;
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #919eab;
+  }
+
+  .text-input {
+    position: relative;
+    padding: 0;
+    display: block;
+    .error-text {
+      text-align: start;
+      color: red;
+      font-size: 12px;
+      line-height: 14px;
+      margin: 0;
+      padding-bottom: 5px;
+      padding-left: 5px;
+    }
+    label {
+      position: absolute;
+      top: 19px;
+      left: 15px;
+      padding: 0;
+      color: #919eab;
+      pointer-events: none;
+      transition: 0.5s;
+      z-index: 10;
+      margin-bottom: 0;
+      font-family: "Playfair Display", serif;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 18px;
+      span {
+        color: #e40055;
+      }
+    }
+    .input {
+      width: 100%;
+      height: 40px;
+      border: 1px solid #919eab;
+      outline: none;
+      box-sizing: border-box;
+      border-radius: 4px;
+      margin: 8px 0;
+      padding: 0 10px;
+      font-size: 16px;
+      line-height: 18px;
+      font-family: "Playfair Display", serif;
+      color: #919eab;
+
+      &::-webkit-input-placeholder,
+      &:-moz-placeholder,
+      &:-ms-input-placeholder {
+        color: #919eab;
+        font-size: 14px;
+      }
+
+      &:focus ~ label,
+      &:not([value=""]) ~ label {
+        top: 0px;
+        left: 8px;
+        font-size: 12px;
+        background-color: white;
+        padding-left: 5px;
+        padding-right: 5px;
+        height: none;
+        color: #919eab;
+      }
+
+      &:focus ~ label {
+        color: blue;
+      }
+
+      &:focus,
+      &:valid ~ label,
+      &:not([value=""]) ~ label {
+        outline: none;
+        border-color: blue;
+        box-shadow: none;
+      }
+    }
+
+    textarea.textfield {
+      height: 90px;
+      width: 100%;
+      outline: none;
+      border: 1px solid #919eab;
+      box-sizing: border-box;
+      border-radius: 4px;
+      margin: 8px 0;
+      resize: none;
+      padding: 10px 8px;
+      font-size: 16px;
+      line-height: 18px;
+      font-family: "Playfair Display", serif;
+      color: #919eab;
+
+      &:focus ~ label {
+        color: blue !important;
+      }
+
+      &:focus ~ label {
+        color: blue;
+        top: 0px;
+        left: 10px;
+        font-size: 12px;
+        background-color: white;
+        padding-left: 5px;
+        padding-right: 5px;
+        height: none;
+        color: #919eab;
+      }
+
+      &:focus,
+      &:valid ~ label,
+      &:not([value=""]) ~ label {
+        outline: none;
+        border-color: blue;
+        box-shadow: none;
+      }
+
+      &.has-value ~ label {
+        top: 0px;
+        left: 10px;
+        font-size: 12px;
+        background-color: white;
+        padding-left: 5px;
+        padding-right: 5px;
+        color: #919eab;
+        outline: none;
+        border-color: blue;
+        box-shadow: none;
+      }
+      &.has-value:focus ~ label {
+        color: blue;
+      }
+    }
+  }
+}
+
+code {
+  font-family: "Playfair Display", serif;
+}
