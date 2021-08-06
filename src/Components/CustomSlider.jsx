@@ -26,6 +26,7 @@ const CustomSlider = () => {
           slidesToShow: 1,
           slidesToScroll: 1,
           initialSlide: 1,
+          infinite: true,
           arrows: false,
         },
       },
@@ -34,7 +35,8 @@ const CustomSlider = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          arrows: true,
+          arrows: false,
+          infinite: true,
         },
       },
     ],
