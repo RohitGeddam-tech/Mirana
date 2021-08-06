@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import banner from "../image/Banner.png";
 import arrow from "../image/Frame1.png";
 import arrow2 from "../image/Frame2.png";
+import add from "../image/add.png";
+import minus from "../image/minus.png";
 import "./Banner.scss";
 import DateFnsUtils from "@date-io/date-fns";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
@@ -89,35 +91,34 @@ const Banner = () => {
       <form className="avail" onSubmit={handleSubmit}>
         <h1>Select a date and check availability</h1>
         <div className="textInput">
+          {/* <p><img src={number} alt="num" />No. of guests</p> */}
           <p>No. of guests</p>
           <div className="text-input">
             {num === 1 ? (
-              <span style={{ opacity: "0.5" }}>-</span>
+              <span style={{ opacity: "0.5" }}><img src={minus} alt='minus' /></span>
             ) : (
-              <span onClick={() => setNum(num - 1)}>-</span>
+              <span onClick={() => setNum(num - 1)}><img src={minus} alt='minus' /></span>
             )}
             <h1>{num} Guests</h1>
-            <span onClick={() => setNum(num + 1)}>+</span>
+            <span onClick={() => setNum(num + 1)}><img src={add} alt='add' /></span>
           </div>
         </div>
         <div className="date">
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <DatePicker
               disablePast={true}
-              label="Check-in date"
+              // label={`${<img src={cal} alt="num" />} Check-in date`}
+              label={`Check-in date`}
               value={date1}
               onChange={handleChange}
               format="E, dd MMM"
-              // views={["year", "date", "month"]}
-              // onAbort={handleChange}
               animateYearScrolling
             />
             <DatePicker
               disablePast={true}
-              label="Check-out date"
+              label={`Check-out date`}
               minDate={date2}
               format="E, dd MMM"
-              // views={["year", "date", "month"]}
               value={date2}
               onChange={setDate2}
               animateYearScrolling

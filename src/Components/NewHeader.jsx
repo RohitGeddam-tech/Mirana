@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // import "./Nav.scss";
-import './Header.scss'
+import "./Header.scss";
 import { NavHashLink } from "react-router-hash-link";
 import useWindowSize from "./useWindowSize";
 import Ham from "./Hamburger";
@@ -16,8 +16,10 @@ const NewHeader = () => {
       <div className="mob">
         <div className="container">
           <div className="call">
-            <p>Call Us: {" "}</p>
-            <a href="tel:+919820347152" style={{margin:"0 5px"}}>+91 9820347152  | {" "}</a>
+            <p>Call Us: </p>
+            <a href="tel:+919820347152" style={{ margin: "0 5px" }}>
+              +91 9820347152 |{" "}
+            </a>
             <a href="tel:+919970266970">+91 9970266970</a>
           </div>
         </div>
@@ -59,18 +61,23 @@ const NewHeader = () => {
               </li> */}
               <li>
                 <NavHashLink to="/#top" className="navfade">
-                  Products & Accessories
+                  About Us
                 </NavHashLink>
               </li>
               <li>
                 {" "}
                 <NavHashLink to="/#top" className="navfade">
-                  About Us
+                  Rooms
                 </NavHashLink>
               </li>
               <li>
                 <NavHashLink to="/#top" className="navfade">
-                  FAQs
+                  Restaurant
+                </NavHashLink>
+              </li>
+              <li>
+                <NavHashLink to="/#top" className="navfade">
+                  Attractions
                 </NavHashLink>
               </li>
               <li>
@@ -98,13 +105,16 @@ const NewHeader = () => {
                   Home
                 </NavHashLink> */}
                 <NavHashLink to="/#top" className="navfade">
-                  Products & Accessories
-                </NavHashLink>
-                <NavHashLink to="/#top" className="navfade">
                   About Us
                 </NavHashLink>
                 <NavHashLink to="/#top" className="navfade">
-                  FAQs
+                  Rooms
+                </NavHashLink>
+                <NavHashLink to="/#top" className="navfade">
+                  Restaurant
+                </NavHashLink>
+                <NavHashLink to="/#top" className="navfade">
+                  Attractions
                 </NavHashLink>
                 <NavHashLink to="/#top" className="navfade">
                   Contact Us

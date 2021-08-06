@@ -32,7 +32,7 @@ const Contact = () => {
                 Raigad District, Maharashtra – 402204
               </a>
             </div>
-            <div className="box">
+            <div className="box1">
               <h1>
                 <span>
                   <img src={call} alt="" />
@@ -40,8 +40,8 @@ const Contact = () => {
                 Call us at :
               </h1>
               <div className="inbox">
-                <a href="tel:+919820347152">Rajeev: +91 9820347152</a>
-                <a href="tel:+919970266970">Jiten: +91 9970266970</a>
+                <a href="tel:+919820347152">Rajeev: +919820347152</a>
+                <a href="tel:+919970266970">Jiten: +919970266970</a>
               </div>
             </div>
           </div>

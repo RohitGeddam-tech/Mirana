@@ -22,13 +22,13 @@
           margin: 0;
           font-weight: bold;
           font-size: 16px;
-          line-height: 21px;
+          line-height: 19px;
           color: #ffffff;
         }
         a {
           font-weight: bold;
           font-size: 16px;
-          line-height: 21px;
+          line-height: 19px;
           font-feature-settings: "pnum" on, "lnum" on;
           color: #ffffff;
           &:hover{
@@ -58,12 +58,12 @@
         display: flex;
         align-items: center;
         .navfade {
-          font-weight: normal;
+          font-weight: 500;
           font-size: 16px;
-          line-height: 24px;
+          line-height: 19px;
           margin: 0 20px;
-          margin-top: 5px;
-          color: #8892a0;
+          // margin-top: 5px;
+          color: #667C8A;
           text-transform: capitalize;
           &:hover {
             color: #ba7f45;
@@ -106,7 +106,7 @@
   }
   @media (min-width: 1400px) {
     .container {
-      width: 1200px !important;
+      // width: 1200px !important;
       .navDetails {
         margin-right: -15px;
       }

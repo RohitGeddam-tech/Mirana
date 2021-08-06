@@ -86,9 +86,9 @@ const Footer = () => {
         </div>
         <div className="divider"></div>
         <div className="last">
-          <p>Read Terms & Conditions</p>
+          <div>Read <a href="/#top">Terms & Conditions</a></div>
           <p>© 2021 Mirana Resort. All Rights Reserved.</p>
-          <p>Website by Sugarlogger Technologies Pvt. Ltd.</p>
+          <div>Website by <a href="/#top">Sugarlogger Technologies Pvt. Ltd.</a></div>
         </div>
       </div>
     </div>
