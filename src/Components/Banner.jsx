@@ -89,48 +89,58 @@ const Banner = () => {
         ))}
       </CustomSlider>
       <form className="avail" onSubmit={handleSubmit}>
-        <h1>Select a date and check availability</h1>
-        <div className="textInput">
-          {/* <p><img src={number} alt="num" />No. of guests</p> */}
-          <p>No. of guests</p>
-          <div className="text-input">
-            {num === 1 ? (
-              <span style={{ opacity: "0.5" }}><img src={minus} alt='minus' /></span>
-            ) : (
-              <span onClick={() => setNum(num - 1)}><img src={minus} alt='minus' /></span>
-            )}
-            <h1>{num} Guests</h1>
-            <span onClick={() => setNum(num + 1)}><img src={add} alt='add' /></span>
+        <div className="first">
+          <h1>Select a date and check availability</h1>
+          <div className="textInput">
+            {/* <p><img src={number} alt="num" />No. of guests</p> */}
+            <p>No. of guests</p>
+            <div className="text-input">
+              {num === 1 ? (
+                <span style={{ opacity: "0.5" }}>
+                  <img src={minus} alt="minus" />
+                </span>
+              ) : (
+                <span onClick={() => setNum(num - 1)}>
+                  <img src={minus} alt="minus" />
+                </span>
+              )}
+              <h1>{num} Guests</h1>
+              <span onClick={() => setNum(num + 1)}>
+                <img src={add} alt="add" />
+              </span>
+            </div>
+          </div>
+          <div className="date">
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <DatePicker
+                disablePast={true}
+                // label={`${<img src={cal} alt="num" />} Check-in date`}
+                label={`Check-in date`}
+                value={date1}
+                onChange={handleChange}
+                format="E, dd MMM"
+                animateYearScrolling
+              />
+              <DatePicker
+                disablePast={true}
+                label={`Check-out date`}
+                minDate={date2}
+                format="E, dd MMM"
+                value={date2}
+                onChange={setDate2}
+                animateYearScrolling
+              />
+            </MuiPickersUtilsProvider>
           </div>
         </div>
-        <div className="date">
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DatePicker
-              disablePast={true}
-              // label={`${<img src={cal} alt="num" />} Check-in date`}
-              label={`Check-in date`}
-              value={date1}
-              onChange={handleChange}
-              format="E, dd MMM"
-              animateYearScrolling
-            />
-            <DatePicker
-              disablePast={true}
-              label={`Check-out date`}
-              minDate={date2}
-              format="E, dd MMM"
-              value={date2}
-              onChange={setDate2}
-              animateYearScrolling
-            />
-          </MuiPickersUtilsProvider>
+        <div className="second">
+          <button className="btn" type="submit">
+            Proceed
+            <span>
+              <img src={arrow2} alt="arrow" />
+            </span>
+          </button>
         </div>
-        <button className="btn" type="submit">
-          Proceed
-          <span>
-            <img src={arrow2} alt="arrow" />
-          </span>
-        </button>
       </form>
     </div>
   );
