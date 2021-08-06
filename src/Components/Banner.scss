@@ -215,6 +215,9 @@
           line-height: 16px;
           color: #8892a0;
         }
+        .MuiInputLabel-formControl{
+          left: 0;
+        }
         .MuiInputBase-input {
           font-family: "Raleway", sans-serif;
           font-style: normal;
@@ -225,6 +228,7 @@
           padding-bottom: 0;
           font-feature-settings: "pnum" on, "lnum" on;
           color: #ba7f45;
+          text-align: start;
         }
         .MuiFormLabel-root.Mui-focused {
           color: rgba(0, 0, 0, 0.54);
@@ -276,12 +280,25 @@
   @media (max-width: 540px) {
     .avail {
       .first {
+        text-align: center;
+        h1{
+          width: 100%;
+        }
         .date {
           flex-flow: column;
           .MuiFormControl-root {
             margin: 10px 0;
           }
+          .MuiInputLabel-formControl{
+            left: 25%;
+          }
+          .MuiInputBase-input{
+            text-align: center;
+          }
         }
+      }
+      .second {
+        padding-left: 10px;
       }
     }
   }
