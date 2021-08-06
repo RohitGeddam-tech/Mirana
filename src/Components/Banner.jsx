@@ -18,8 +18,8 @@ const bannerDetails = [
   },
   // {
   //   image: banner,
-  //   title: "Get your business back on track",
-  //   head: "Escape the chaos with",
+  //   title: "Mirana Resort",
+  //   head: "Escape the chaos  with ultra super miramar discounts",
   //   para:'An experience awaits to welcome you.'
   // },
 ];
