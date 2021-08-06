@@ -21,6 +21,9 @@ const About1 = () => {
             Indian meals. Host of flavours that make you want to gobble first
             and ‘gram later!
           </p>
+          <div className="noImg">
+            <img src={banner} alt="about" />
+          </div>
           <button className="btn">
             View More
             <span>

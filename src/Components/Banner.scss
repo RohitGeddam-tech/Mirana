@@ -54,7 +54,8 @@
     }
   }
   .avail {
-    width: 80%;
+    // width: 80%;
+    width: 1131px;
     background: #ffffff;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
@@ -64,11 +65,11 @@
     transform: translate(-50%);
     display: flex;
     align-items: center;
-    // justify-content: space-between;
+    justify-content: center;
     padding: 40px 30px;
-    padding-right: 15px;
+    // padding-right: 15px;
     h1 {
-      width: 282px;
+      width: 272px;
       font-size: 30px;
       line-height: 37px;
       margin: 0;
@@ -80,38 +81,35 @@
       height: 72px;
       margin: 0 20px;
       p {
-        // text-align: center;
         margin: 0;
         font-weight: 500;
         font-size: 14px;
         line-height: 17px;
         margin-top: 3px;
       }
-      .text-input{
+      .text-input {
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding: 12px 0;
         padding-bottom: 0;
-        span{
+        span {
           height: fit-content;
-          width: 15%;
+          width: 15.5%;
           border: 1.8px solid #ba7f45;
           color: #ba7f45;
           border-radius: 50px;
           display: flex;
           align-items: center;
           justify-content: center;
-          // font-size: 15px;
+          font-size: 19px;
           font-weight: bolder;
           cursor: pointer;
         }
         .input {
           border: none;
-          font-family: "Montserrat";
-          // font-family: "Playfair Display", serif;
-          // width: 100%;
+          font-family: "Raleway", sans-serif;
           font-size: 30px;
           font-weight: bold;
           line-height: 40px;
@@ -120,25 +118,22 @@
           color: #ba7f45;
         }
         h1 {
-          // font-family: "Playfair Display", serif;
-          font-family: "Montserrat";
+          font-family: "Raleway", sans-serif;
           width: 100%;
           font-size: 30px;
           line-height: 40px;
           text-align: center;
-          // padding: 14px 0;
           margin: 0;
           padding-bottom: 0;
           color: #ba7f45;
-          // white-space: nowrap;
         }
       }
     }
     .date {
       display: flex;
-      width: 345px;
+      width: 410px;
       // margin-bottom: 3px;
-      padding-right: 15px;
+      padding-right: 25px;
       .MuiInput-underline:before {
         border-bottom: none;
       }
@@ -156,7 +151,7 @@
         transform-origin: top left;
       }
       .MuiFormLabel-root {
-        font-family: "Playfair Display", serif;
+        font-family: "Raleway", sans-serif;
         font-style: normal;
         font-weight: 500 !important;
         font-size: 14px !important;
@@ -164,12 +159,11 @@
         color: #667c8a;
       }
       .MuiInputBase-input {
-        font-family: "Playfair Display", serif;
+        font-family: "Raleway", sans-serif;
         font-style: normal;
         font-weight: bold;
         font-size: 30px;
         line-height: 37px;
-        /* identical to box height */
         padding: 18px 0;
         padding-bottom: 0;
         font-feature-settings: "pnum" on, "lnum" on;
@@ -181,8 +175,6 @@
       }
     }
     .btn {
-      // color: #ba7f45;
-      // background-color: white;
       display: flex;
       align-items: center;
       span {

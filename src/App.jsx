@@ -5,12 +5,14 @@ import Banner from "./Components/Banner";
 import Contact from "./Components/Contact";
 import Footer from "./Components/Footer";
 import Gallery from "./Components/Gallery";
-import Header from "./Components/Header";
+// import Header from "./Components/Header";
+import NewHeader from "./Components/NewHeader";
 
 function App() {
   return (
     <div className="App">
-      <Header />
+      {/* <Header /> */}
+      <NewHeader />
       <div style={{ paddingTop: "110px" }}>
         <Banner />
         <About2 />

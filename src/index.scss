@@ -1,8 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
 
 body {
   margin: 0;
-  font-family: "Playfair Display", serif;
+  font-family: "Raleway", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -12,17 +13,17 @@ body {
   h4,
   h5 {
     font-style: normal;
-    font-weight: 900;
+    font-weight: bold;
     font-size: 40px;
     line-height: 53px;
-    font-family: "Playfair Display", serif;
+    font-family: "Raleway", sans-serif;
     color: #ba7f45;
   }
 
   p {
-    font-family: "Playfair Display", serif;
+    font-family: "Raleway", sans-serif;
     font-style: normal;
-    font-weight: normal;
+    font-weight: 500;
     font-size: 18px;
     line-height: 24px;
     color: #667c8a;
@@ -38,11 +39,13 @@ body {
     outline: none;
     border: none;
     background-color: #ba7f45;
+    font-family: "Raleway", sans-serif;
     border-radius: 20px;
     font-style: normal;
     font-weight: bold;
     font-size: 20px;
     line-height: 27px;
+    cursor: pointer;
     color: white;
   }
 
@@ -63,9 +66,61 @@ body {
   }
 
   a {
-    font-family: "Playfair Display", serif;
+    font-family: "Raleway", sans-serif;
     font-style: normal;
     text-decoration: none;
+  }
+
+  .slickNext {
+    position: absolute;
+    display: block !important;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    top: 45%;
+    transform: translate(0, -45%);
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: transparent;
+    right: -56px;
+  }
+
+  .slickNext img {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .slickNext::before {
+    opacity: 0;
+  }
+
+  .slickPrev::before {
+    opacity: 0;
+  }
+
+  .slick-disabled {
+    opacity: 0;
+  }
+
+  .slickPrev {
+    position: absolute;
+    display: block !important;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    top: 45%;
+    transform: translate(0, -45%);
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: transparent;
+    left: -56px;
+  }
+
+  .slickPrev img {
+    width: 40px !important;
+    height: 40px !important;
   }
 
   input[type="number"]::-webkit-inner-spin-button,
@@ -108,7 +163,7 @@ body {
       transition: 0.5s;
       z-index: 10;
       margin-bottom: 0;
-      font-family: "Playfair Display", serif;
+      font-family: "Raleway", sans-serif;
       font-style: normal;
       font-weight: normal;
       font-size: 16px;
@@ -128,7 +183,7 @@ body {
       padding: 0 10px;
       font-size: 16px;
       line-height: 18px;
-      font-family: "Playfair Display", serif;
+      font-family: "Raleway", sans-serif;
       color: #919eab;
 
       &::-webkit-input-placeholder,
@@ -175,7 +230,7 @@ body {
       padding: 10px 8px;
       font-size: 16px;
       line-height: 18px;
-      font-family: "Playfair Display", serif;
+      font-family: "Raleway", sans-serif;
       color: #919eab;
 
       &:focus ~ label {
@@ -222,5 +277,5 @@ body {
 }
 
 code {
-  font-family: "Playfair Display", serif;
+  font-family: "Raleway", sans-serif;
 }

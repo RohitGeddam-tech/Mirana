@@ -4,7 +4,7 @@ import React from "react";
 // import about1 from "../image/about1.png";
 // import about2 from "../image/about2.png";
 import CustomSlider from "./CustomSlider";
-import arrow from "../image/Frame1.png";
+import arrow from "../image/Frame2.png";
 import "./Gallery.scss";
 
 const Gallery = () => {

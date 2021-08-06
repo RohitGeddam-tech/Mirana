@@ -17,6 +17,9 @@ const About2 = () => {
             greenery is what you'll wake up to and retire into during your stay
             at Mirana. Tempting you to make it a forever home.
           </p>
+          <div className="noImg">
+            <img src={banner} alt="about" />
+          </div>
           <button className="btn">
             View More
             <span>
