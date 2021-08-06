@@ -32,12 +32,14 @@ const Banner1 = ({ image, title, head, para }) => {
         <h2>{head}</h2>
         <h1>{title}</h1>
         <p>{para}</p>
-        <button className="btn">
-          Learn More
-          <span>
-            <img src={arrow} alt="arrow" />
-          </span>
-        </button>
+        <div className="bottom">
+          <button className="btn">
+            Learn More
+            <span>
+              <img src={arrow} alt="arrow" />
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   );

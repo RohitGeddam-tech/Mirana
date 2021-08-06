@@ -314,6 +314,17 @@
       flex-flow: column;
       .modal {
         width: 100%;
+        .alignHeading {
+          h2 {
+            text-align: center;
+          }
+          p {
+            text-align: center;
+          }
+        }
+        .bottom {
+          justify-content: center;
+        }
       }
       .right {
         width: 100%;
@@ -321,9 +332,17 @@
           flex-flow: column;
           .box {
             width: 100%;
+            text-align: center;
+            h1 {
+              justify-content: center;
+            }
           }
-          .box1{
+          .box1 {
             width: 100%;
+            text-align: center;
+            h1 {
+              justify-content: center;
+            }
           }
         }
       }
