@@ -1,5 +1,5 @@
 import React from "react";
-import banner from "../image/about2.png";
+import banner from "../image/about2.webp";
 import arrow from "../image/Frame2.png";
 import "./About.scss";
 

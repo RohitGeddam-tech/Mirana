@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import banner from "../image/Banner.png";
+import banner from "../image/Banner.webp";
 import arrow from "../image/Frame1.png";
 import arrow2 from "../image/Frame2.png";
 import add from "../image/add.png";
