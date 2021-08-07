@@ -5,7 +5,7 @@ import { NavHashLink } from "react-router-hash-link";
 import useWindowSize from "./useWindowSize";
 import Ham from "./Hamburger";
 import XHam from "./Xham";
-import logo from "../image/Logo1.png";
+import logo from "../image/logo.png";
 
 const NewHeader = () => {
   const [width] = useWindowSize();

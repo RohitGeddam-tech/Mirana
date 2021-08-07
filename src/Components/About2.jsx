@@ -9,6 +9,9 @@ const About2 = () => {
       <div className="container">
         <div className="aboutDetail">
           <h1>Our Rooms</h1>
+          <div className="noImg">
+            <img src={banner} alt="about" loading='lazy' />
+          </div>
           <p>
             Spanish architecture coupled with modern Indian aesthetic transforms
             Mirana into a picturesque property. Our spaces that are thoughtfully
@@ -17,9 +20,6 @@ const About2 = () => {
             greenery is what you'll wake up to and retire into during your stay
             at Mirana. Tempting you to make it a forever home.
           </p>
-          <div className="noImg">
-            <img src={banner} alt="about" loading='lazy' />
-          </div>
           <button className="btn">
             View More
             <span>

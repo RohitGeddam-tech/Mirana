@@ -12,6 +12,9 @@ const About1 = () => {
         </div>
         <div className="aboutDetail">
           <h1>The Restaurant</h1>
+          <div className="noImg">
+            <img src={banner} alt="about" loading='lazy' />
+          </div>
           <p>
             If you catch yourself craving something authentic or something avant
             garde our highly experienced chefs have you covered. Mirana’s heart
@@ -21,9 +24,6 @@ const About1 = () => {
             Indian meals. Host of flavours that make you want to gobble first
             and ‘gram later!
           </p>
-          <div className="noImg">
-            <img src={banner} alt="about" loading='lazy' />
-          </div>
           <button className="btn">
             View More
             <span>

@@ -55,6 +55,8 @@
   @media (max-width: 750px) {
     .container {
       flex-flow: column;
+      padding-bottom: 35px;
+      padding-top: 140px;
       .aboutDetail {
         width: 100%;
         display: flex;
@@ -63,12 +65,13 @@
         p{
           text-align: center;
         }
-        .btn{
-          margin-top: 15px;
-        }
+        // .btn{
+        //   margin-top: 15px;
+        // }
       }
       .noImg{
         display: block;
+        padding-bottom: 30px;
       }
       .aboutImg {
         width: 100%;
@@ -144,6 +147,7 @@
   @media (max-width: 750px) {
     .container {
       flex-flow: column;
+      padding: 40px 0 80px;
       .aboutDetail {
         width: 100%;
         display: flex;
@@ -152,12 +156,13 @@
         p{
           text-align: center;
         }
-        .btn{
-          margin-top: 15px;
-        }
+        // .btn{
+        //   margin-top: 15px;
+        // }
       }
       .noImg{
         display: block;
+        padding-bottom: 30px;
       }
       .aboutImg {
         width: 100%;
