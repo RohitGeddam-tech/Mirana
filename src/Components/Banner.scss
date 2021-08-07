@@ -276,9 +276,6 @@
           width: 470px;
         }
         .date {
-          .MuiFormControl-root {
-            margin: 10px 0;
-          }
           .MuiInputLabel-formControl {
             left: 25%;
           }
@@ -306,6 +303,9 @@
         }
         .date{
           flex-flow: column;
+          .MuiFormControl-root {
+            margin: 10px 0;
+          }
         }
       }
       .second {
