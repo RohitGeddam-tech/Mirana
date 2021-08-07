@@ -44,10 +44,10 @@ const CustomSlider = () => {
   return (
     <>
       <Slider {...settings}>
-        <img src={slide1} alt="galleryImg" />
-        <img src={slide2} alt="galleryImg" />
-        <img src={about1} alt="galleryImg" />
-        <img src={about2} alt="galleryImg" />
+        <img src={slide1} alt="galleryImg" loading='lazy' />
+        <img src={slide2} alt="galleryImg" loading='lazy' />
+        <img src={about1} alt="galleryImg" loading='lazy' />
+        <img src={about2} alt="galleryImg" loading='lazy' />
       </Slider>
     </>
   );

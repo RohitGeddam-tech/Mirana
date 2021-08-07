@@ -8,7 +8,7 @@ const About1 = () => {
     <div className="About2">
       <div className="container">
         <div className="aboutImg">
-          <img src={banner} alt="about" />
+          <img src={banner} alt="about" loading='lazy' />
         </div>
         <div className="aboutDetail">
           <h1>The Restaurant</h1>
@@ -22,7 +22,7 @@ const About1 = () => {
             and ‘gram later!
           </p>
           <div className="noImg">
-            <img src={banner} alt="about" />
+            <img src={banner} alt="about" loading='lazy' />
           </div>
           <button className="btn">
             View More

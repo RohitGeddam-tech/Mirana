@@ -18,7 +18,7 @@ const About2 = () => {
             at Mirana. Tempting you to make it a forever home.
           </p>
           <div className="noImg">
-            <img src={banner} alt="about" />
+            <img src={banner} alt="about" loading='lazy' />
           </div>
           <button className="btn">
             View More
@@ -28,7 +28,7 @@ const About2 = () => {
           </button>
         </div>
         <div className="aboutImg">
-          <img src={banner} alt="about" />
+          <img src={banner} alt="about" loading='lazy' />
         </div>
       </div>
     </div>
