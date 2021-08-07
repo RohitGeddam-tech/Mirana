@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Mirana/static/css/main.809f257a.chunk.css",
-    "main.js": "/Mirana/static/js/main.d4622d2c.chunk.js",
-    "main.js.map": "/Mirana/static/js/main.d4622d2c.chunk.js.map",
+    "main.js": "/Mirana/static/js/main.b9fd365a.chunk.js",
+    "main.js.map": "/Mirana/static/js/main.b9fd365a.chunk.js.map",
     "runtime-main.js": "/Mirana/static/js/runtime-main.cd5974d9.js",
     "runtime-main.js.map": "/Mirana/static/js/runtime-main.cd5974d9.js.map",
     "static/css/2.4c3b8b5f.chunk.css": "/Mirana/static/css/2.4c3b8b5f.chunk.css",
@@ -14,18 +14,18 @@
     "static/css/2.4c3b8b5f.chunk.css.map": "/Mirana/static/css/2.4c3b8b5f.chunk.css.map",
     "static/css/main.809f257a.chunk.css.map": "/Mirana/static/css/main.809f257a.chunk.css.map",
     "static/js/2.55ebe39c.chunk.js.LICENSE.txt": "/Mirana/static/js/2.55ebe39c.chunk.js.LICENSE.txt",
-    "static/media/Banner.6daf63bc.png": "/Mirana/static/media/Banner.6daf63bc.png",
-    "static/media/about1.2c8a48c0.png": "/Mirana/static/media/about1.2c8a48c0.png",
-    "static/media/about2.1cbf7388.png": "/Mirana/static/media/about2.1cbf7388.png",
+    "static/media/Banner.d926ffdc.webp": "/Mirana/static/media/Banner.d926ffdc.webp",
+    "static/media/about1.d08785ee.webp": "/Mirana/static/media/about1.d08785ee.webp",
+    "static/media/about2.8338d7d6.webp": "/Mirana/static/media/about2.8338d7d6.webp",
     "static/media/slick-theme.css": "/Mirana/static/media/slick.c94f7671.ttf",
-    "static/media/slide1.e61cc62e.png": "/Mirana/static/media/slide1.e61cc62e.png",
-    "static/media/slide2.068fd82a.png": "/Mirana/static/media/slide2.068fd82a.png"
+    "static/media/slide1.9d349307.webp": "/Mirana/static/media/slide1.9d349307.webp",
+    "static/media/slide2.77d77307.webp": "/Mirana/static/media/slide2.77d77307.webp"
   },
   "entrypoints": [
     "static/js/runtime-main.cd5974d9.js",
     "static/css/2.4c3b8b5f.chunk.css",
     "static/js/2.55ebe39c.chunk.js",
     "static/css/main.809f257a.chunk.css",
-    "static/js/main.d4622d2c.chunk.js"
+    "static/js/main.b9fd365a.chunk.js"
   ]
 }
