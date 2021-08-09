@@ -14,6 +14,12 @@
       margin: auto;
       margin-bottom: 50px;
       .slick-slider {
+        .slick-dots{
+          bottom: -30px;
+          .slick-dots li.slick-active button:before{
+            color: #ba7f45;
+          }
+        }
         .slick-prev.slick-disabled:before,
         .slick-next.slick-disabled:before {
           opacity: 0;
@@ -74,6 +80,9 @@
   }
   @media (max-width: 450px) {
     .container {
+      .Slider{
+        width: 102%;
+      }
       h1 {
         text-align: center;
       }
