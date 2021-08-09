@@ -10,20 +10,24 @@ import "./Ammenity.scss";
 
 const Data = [
   {
-    image: balcony,
-    name: "Private Baclony/Garden",
+    image: smoke,
+    name: "No Smoking",
+  },
+  {
+    image: wifi,
+    name: "Free Wi-fi",
   },
   {
     image: pool,
     name: "Swimming Pool",
   },
   {
-    image: tv,
-    name: "Satellite TV",
+    image: balcony,
+    name: "Private Baclony/Garden",
   },
   {
-    image: wifi,
-    name: "Free Wi-fi",
+    image: tv,
+    name: "Satellite TV",
   },
   {
     image: fridge,
@@ -32,10 +36,6 @@ const Data = [
   {
     image: pet,
     name: "Pet friendly (prior permission required)",
-  },
-  {
-    image: smoke,
-    name: "No Smoking",
   },
 ];
 
