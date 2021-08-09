@@ -131,8 +131,8 @@
       .cards {
         // justify-content: space-between;
         .card {
-            // width: 48%;
-        //   margin-left: 0;
+          // width: 48%;
+          //   margin-left: 0;
           margin-right: 14px;
         }
       }
@@ -141,7 +141,7 @@
       .cards {
         // justify-content: space-between;
         .card {
-            // width: 48%;
+          // width: 48%;
           margin-left: 10px;
           margin-right: 14px;
         }
@@ -151,7 +151,7 @@
       .cards {
         // justify-content: space-between;
         .card {
-            // width: 48%;
+          // width: 48%;
           margin-left: 0;
           margin-right: 14px;
         }
@@ -165,6 +165,17 @@
           margin-left: 0;
           margin-right: 0px;
         }
+      }
+    }
+  }
+}
+@media (max-width: 520px) {
+  .ammen {
+    padding:10px 0 60px;
+    .container {
+      h1 {
+        text-align: center;
+        margin-top: 0;
       }
     }
   }
