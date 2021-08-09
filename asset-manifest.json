@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Mirana/static/css/main.809f257a.chunk.css",
-    "main.js": "/Mirana/static/js/main.ecf25a8e.chunk.js",
-    "main.js.map": "/Mirana/static/js/main.ecf25a8e.chunk.js.map",
+    "main.js": "/Mirana/static/js/main.845cfaa0.chunk.js",
+    "main.js.map": "/Mirana/static/js/main.845cfaa0.chunk.js.map",
     "runtime-main.js": "/Mirana/static/js/runtime-main.cd5974d9.js",
     "runtime-main.js.map": "/Mirana/static/js/runtime-main.cd5974d9.js.map",
     "static/css/2.4c3b8b5f.chunk.css": "/Mirana/static/css/2.4c3b8b5f.chunk.css",
@@ -17,6 +17,7 @@
     "static/media/Banner.d926ffdc.webp": "/Mirana/static/media/Banner.d926ffdc.webp",
     "static/media/about1.d08785ee.webp": "/Mirana/static/media/about1.d08785ee.webp",
     "static/media/about2.8338d7d6.webp": "/Mirana/static/media/about2.8338d7d6.webp",
+    "static/media/map.69a16d25.jpeg": "/Mirana/static/media/map.69a16d25.jpeg",
     "static/media/slick-theme.css": "/Mirana/static/media/slick.c94f7671.ttf",
     "static/media/slide1.9d349307.webp": "/Mirana/static/media/slide1.9d349307.webp",
     "static/media/slide2.77d77307.webp": "/Mirana/static/media/slide2.77d77307.webp"
@@ -26,6 +27,6 @@
     "static/css/2.4c3b8b5f.chunk.css",
     "static/js/2.14f1aa8c.chunk.js",
     "static/css/main.809f257a.chunk.css",
-    "static/js/main.ecf25a8e.chunk.js"
+    "static/js/main.845cfaa0.chunk.js"
   ]
 }
