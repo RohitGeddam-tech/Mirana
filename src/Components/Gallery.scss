@@ -14,9 +14,9 @@
       margin: auto;
       margin-bottom: 50px;
       .slick-slider {
-        .slick-dots{
+        .slick-dots {
           bottom: -30px;
-          .slick-dots li.slick-active button:before{
+          .slick-dots li.slick-active button:before {
             color: #ba7f45;
           }
         }
@@ -46,7 +46,7 @@
                 justify-content: center;
                 div {
                   &:first-child {
-                    padding: 0 10px !important;
+                    padding: 0 5px;
                   }
                 }
               }
@@ -80,8 +80,19 @@
   }
   @media (max-width: 450px) {
     .container {
-      .Slider{
-        width: 102%;
+      .Slider {
+        width: 100%;
+        .slick-slider {
+          .slick-list {
+            .slick-track {
+              .slick-slide {
+                div {
+                  padding: 0 5px;
+                }
+              }
+            }
+          }
+        }
       }
       h1 {
         text-align: center;
