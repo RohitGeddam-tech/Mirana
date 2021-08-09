@@ -1,0 +1,49 @@
+.bannerRoom {
+  width: 100%;
+  position: relative;
+  p{
+    width: 98%;
+    padding: 50px 0 0 0;
+    margin: auto;
+  }
+  .slick-slide {
+    div {
+      &:focus {
+        outline: none !important;
+      }
+      .bannerRoom1 {
+        width: 100%;
+        position: relative;
+        img {
+          width: 100%;
+          height: 570px;
+        }
+        .container {
+          width: fit-content;
+          position: absolute;
+          bottom: 50px;
+          left: 5%;
+          height: fit-content;
+          h1 {
+            font-weight: 700;
+            font-size: 70px;
+            line-height: 82px;
+            color: #ffffff;
+            margin: 0;
+            // margin-bottom: 25px;
+          }
+        }
+      }
+    }
+    @media (max-width: 540px) {
+      .container {
+        width: 85% !important;
+        h1 {
+          // text-align: center;
+          font-size: 40px !important;
+          line-height: 47px !important;
+        }
+      }
+    }
+  }
+}

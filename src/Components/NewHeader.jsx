@@ -66,7 +66,7 @@ const NewHeader = () => {
               </li>
               <li>
                 {" "}
-                <NavHashLink to="/#top" className="navfade">
+                <NavHashLink to="/Rooms#top" className="navfade">
                   Rooms
                 </NavHashLink>
               </li>
@@ -107,7 +107,7 @@ const NewHeader = () => {
                 <NavHashLink to="/#top" className="navfade">
                   About Us
                 </NavHashLink>
-                <NavHashLink to="/#top" className="navfade">
+                <NavHashLink to="/Rooms#top" className="navfade">
                   Rooms
                 </NavHashLink>
                 <NavHashLink to="/#top" className="navfade">

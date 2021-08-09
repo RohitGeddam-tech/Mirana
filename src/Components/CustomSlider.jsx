@@ -9,9 +9,9 @@ import about2 from "../image/about2.webp";
 import SliderNextArrow from "./NextArrow";
 import SliderPrevArrow from "./PrevArrow";
 
-const CustomSlider = () => {
+const CustomSlider = ({dot}) => {
   const settings = {
-    dots: true,
+    dots: dot,
     infinite: false,
     speed: 500,
     slidesToShow: 2.4,
@@ -21,7 +21,27 @@ const CustomSlider = () => {
     prevArrow: <SliderPrevArrow />,
     responsive: [
       {
-        breakpoint: 750,
+        breakpoint: 1100,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          initialSlide: 1,
+          infinite: true,
+          // arrows: false,
+        },
+      },
+      {
+        breakpoint: 900,
+        settings: {
+          slidesToShow: 1.5,
+          slidesToScroll: 1,
+          initialSlide: 1,
+          infinite: true,
+          // arrows: false,
+        },
+      },
+      {
+        breakpoint: 770,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,

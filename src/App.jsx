@@ -1,4 +1,4 @@
-import "./App.scss";
+// import "./App.scss";
 import About1 from "./Components/About1";
 import About2 from "./Components/About2";
 import Banner from "./Components/Banner";

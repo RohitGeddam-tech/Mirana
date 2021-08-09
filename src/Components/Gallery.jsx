@@ -21,7 +21,7 @@ const Gallery = () => {
           </div>
         </div> */}
         <div className="Slider">
-          <CustomSlider />
+          <CustomSlider dot={true} />
         </div>
         <div className="bottom">
           <button className="btn">

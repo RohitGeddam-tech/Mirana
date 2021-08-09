@@ -1,0 +1,102 @@
+.galleryRoom {
+  width: 100%;
+  // background-color: #eaedf1;
+  background-color: #fff;
+  padding: 60px 0 25px;
+  h1 {
+    // color: white;
+    margin-top: 0;
+    margin-bottom: 40px;
+  }
+  .container {
+    .Slider {
+      width: 92%;
+      margin: auto;
+      margin-bottom: 50px;
+      .slick-slider {
+        .slick-dots {
+          bottom: -30px;
+          .slick-dots li.slick-active button:before {
+            color: #ba7f45;
+          }
+        }
+        .slick-prev.slick-disabled:before,
+        .slick-next.slick-disabled:before {
+          opacity: 0;
+          // display: none !important;
+          cursor: none;
+        }
+        .slick-list {
+          .slick-track {
+            .slick-slide {
+              div {
+                padding: 0 10px;
+                &:first-child {
+                  padding-left: 0 !important;
+                }
+                img {
+                  width: 100%;
+                }
+              }
+            }
+            @media (max-width: 450px) {
+              .slick-slide {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                div {
+                  &:first-child {
+                    padding: 0 5px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .bottom {
+      // text-align: center;
+      display: flex;
+      justify-content: center;
+      .btn {
+        // color: #ba7f45;
+        // background-color: white;
+        display: flex;
+        align-items: center;
+        span {
+          margin-left: 10px;
+          width: 24px;
+          height: 24px;
+          display: flex;
+          align-items: center;
+          img {
+            width: 25px;
+            height: 25px;
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 450px) {
+    .container {
+      .Slider {
+        width: 100%;
+        .slick-slider {
+          .slick-list {
+            .slick-track {
+              .slick-slide {
+                div {
+                  padding: 0 5px;
+                }
+              }
+            }
+          }
+        }
+      }
+      h1 {
+        text-align: center;
+      }
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import banner from "../image/Banner.webp";
+// import banner from "../image/banner.png";
 import arrow from "../image/Frame1.png";
 import arrow2 from "../image/Frame2.png";
 import add from "../image/add.png";
