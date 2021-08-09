@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Mirana/static/css/main.937e3165.chunk.css",
-    "main.js": "/Mirana/static/js/main.e319a5db.chunk.js",
-    "main.js.map": "/Mirana/static/js/main.e319a5db.chunk.js.map",
+    "main.js": "/Mirana/static/js/main.527b672e.chunk.js",
+    "main.js.map": "/Mirana/static/js/main.527b672e.chunk.js.map",
     "runtime-main.js": "/Mirana/static/js/runtime-main.186c5e04.js",
     "runtime-main.js.map": "/Mirana/static/js/runtime-main.186c5e04.js.map",
     "static/css/2.4c3b8b5f.chunk.css": "/Mirana/static/css/2.4c3b8b5f.chunk.css",
@@ -26,7 +26,7 @@
     "static/media/slide1.9d349307.webp": "/Mirana/static/media/slide1.9d349307.webp",
     "static/media/slide2.77d77307.webp": "/Mirana/static/media/slide2.77d77307.webp",
     "static/media/smoke.82e3b94e.svg": "/Mirana/static/media/smoke.82e3b94e.svg",
-    "static/media/tv.7b3a7831.svg": "/Mirana/static/media/tv.7b3a7831.svg",
+    "static/media/tv.dea85fcf.svg": "/Mirana/static/media/tv.dea85fcf.svg",
     "static/media/wifi.94d0cfd3.svg": "/Mirana/static/media/wifi.94d0cfd3.svg"
   },
   "entrypoints": [
@@ -34,6 +34,6 @@
     "static/css/2.4c3b8b5f.chunk.css",
     "static/js/2.60ceec74.chunk.js",
     "static/css/main.937e3165.chunk.css",
-    "static/js/main.e319a5db.chunk.js"
+    "static/js/main.527b672e.chunk.js"
   ]
 }
