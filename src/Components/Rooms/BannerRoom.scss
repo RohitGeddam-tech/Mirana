@@ -16,7 +16,7 @@
         position: relative;
         img {
           width: 100%;
-          height: 570px;
+          height: 530px;
         }
         .container {
           width: fit-content;
@@ -36,12 +36,18 @@
       }
     }
     @media (max-width: 540px) {
-      .container {
-        width: 85% !important;
-        h1 {
-          // text-align: center;
-          font-size: 40px !important;
-          line-height: 47px !important;
+      .bannerRoom1{
+        img{
+          height: 300px !important;
+        }
+        .container {
+          width: 85% !important;
+          bottom: 30px !important;
+          h1 {
+            // text-align: center;
+            font-size: 40px !important;
+            line-height: 47px !important;
+          }
         }
       }
     }

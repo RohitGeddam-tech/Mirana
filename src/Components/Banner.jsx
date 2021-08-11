@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import banner from "../image/Banner.webp";
+import bannerMob from "../image/mobBanner.png";
 // import banner from "../image/banner.png";
+import useWindowSize from "./useWindowSize";
 import arrow from "../image/Frame1.png";
 import arrow2 from "../image/Frame2.png";
 import add from "../image/add.png";
@@ -26,9 +28,14 @@ const bannerDetails = [
 ];
 
 const Banner1 = ({ image, title, head, para }) => {
+  const [width] = useWindowSize();
   return (
     <div className="banner1">
-      <img src={image} alt="banner" loading='lazy' />
+      {width > 540 ? (
+        <img src={image} alt="banner" loading="lazy" />
+      ) : (
+        <img src={bannerMob} alt="banner" loading="lazy" />
+      )}
       <div className="container">
         <h2>{head}</h2>
         <h1>{title}</h1>

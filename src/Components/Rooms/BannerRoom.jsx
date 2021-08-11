@@ -1,7 +1,9 @@
 import React from "react";
-import banner from "../../image/Banner.webp";
+import banner from "../../image/BannerRoom.png";
+import bannerMob from "../../image/mobBannerRoom.png";
 import "./BannerRoom.scss";
 import CustomSlider from "../Slider";
+import useWindowSize from "../useWindowSize";
 
 const bannerDetails = [
   {
@@ -15,9 +17,14 @@ const bannerDetails = [
 ];
 
 const Banner1 = ({ image, title }) => {
+  const [width] = useWindowSize();
   return (
     <div className="bannerRoom1">
+    {width > 540 ? (
       <img src={image} alt="banner" loading="lazy" />
+    ) : (
+      <img src={bannerMob} alt="banner" loading="lazy" />
+    )}
       <div className="container">
         <h1>{title}</h1>
       </div>
