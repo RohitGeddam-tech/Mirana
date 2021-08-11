@@ -15,8 +15,12 @@
       margin-bottom: 50px;
       .slick-slider {
         .slick-dots {
-          bottom: -30px;
-          .slick-dots li.slick-active button:before {
+          bottom: -40px;
+          li button:before{
+            font-size: 10px;
+            color: #ba7f45;
+          }
+          li.slick-active button:before {
             color: #ba7f45;
           }
         }

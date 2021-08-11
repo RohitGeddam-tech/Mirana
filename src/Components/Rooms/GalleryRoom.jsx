@@ -13,7 +13,7 @@ const Gallery = () => {
       <div className="container">
         <h1>Room Gallery</h1>
         <div className="Slider">
-          <CustomSlider dot={false} />
+          <CustomSlider dot={true} />
         </div>
       </div>
     </div>

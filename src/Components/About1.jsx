@@ -1,4 +1,5 @@
 import React from "react";
+import { NavHashLink } from "react-router-hash-link";
 import banner from "../image/about2.webp";
 import arrow from "../image/Frame2.png";
 import "./About.scss";
@@ -24,12 +25,14 @@ const About1 = () => {
             Indian meals. Host of flavours that make you want to gobble first
             and ‘gram later!
           </p>
-          <button className="btn">
-            View More
-            <span>
-              <img src={arrow} alt="arrow" />
-            </span>
-          </button>
+          <div className="bottom">
+            <NavHashLink to="/#top" className="btn">
+              View More
+              <span>
+                <img src={arrow} alt="arrow" />
+              </span>
+            </NavHashLink>
+          </div>
         </div>
       </div>
     </div>
