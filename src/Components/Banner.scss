@@ -20,7 +20,7 @@
         .container {
           width: fit-content;
           position: absolute;
-          top: 70px;
+          top: 80px;
           left: 7%;
           h2 {
             font-weight: 500;
@@ -73,7 +73,7 @@
     @media (max-width: 540px) {
       .container {
         width: 85% !important;
-        top: 50px !important;
+        // top: 50px !important;
         h2 {
           // text-align: center;
           font-size: 22px !important;
@@ -294,7 +294,7 @@
   }
   @media (max-width: 540px) {
     .avail {
-      top: 340px;
+      top: 450px;
       .first {
         text-align: center;
         h1 {
@@ -324,7 +324,7 @@
 
 @media (max-width: 540px) {
   .banner {
-    height: 760px;
+    height: 860px;
     // max-height: 1000px;
   }
 }
