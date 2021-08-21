@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Mirana/static/css/main.1e1a7330.chunk.css",
-    "main.js": "/Mirana/static/js/main.deca49e8.chunk.js",
-    "main.js.map": "/Mirana/static/js/main.deca49e8.chunk.js.map",
+    "main.js": "/Mirana/static/js/main.691f1293.chunk.js",
+    "main.js.map": "/Mirana/static/js/main.691f1293.chunk.js.map",
     "runtime-main.js": "/Mirana/static/js/runtime-main.11a735d7.js",
     "runtime-main.js.map": "/Mirana/static/js/runtime-main.11a735d7.js.map",
     "static/css/2.d05b1cce.chunk.css": "/Mirana/static/css/2.d05b1cce.chunk.css",
@@ -29,7 +29,7 @@
     "static/media/fridge.f622823b.svg": "/Mirana/static/media/fridge.f622823b.svg",
     "static/media/map.69a16d25.jpeg": "/Mirana/static/media/map.69a16d25.jpeg",
     "static/media/menu.f560329f.pdf": "/Mirana/static/media/menu.f560329f.pdf",
-    "static/media/mobBanner.4fe8a428.png": "/Mirana/static/media/mobBanner.4fe8a428.png",
+    "static/media/mobBanner.2428c3af.webp": "/Mirana/static/media/mobBanner.2428c3af.webp",
     "static/media/mobBannerRoom.d5223f53.png": "/Mirana/static/media/mobBannerRoom.d5223f53.png",
     "static/media/pet.e0da7be3.svg": "/Mirana/static/media/pet.e0da7be3.svg",
     "static/media/pool.4821ab96.svg": "/Mirana/static/media/pool.4821ab96.svg",
@@ -46,6 +46,6 @@
     "static/css/2.d05b1cce.chunk.css",
     "static/js/2.c4021fe1.chunk.js",
     "static/css/main.1e1a7330.chunk.css",
-    "static/js/main.deca49e8.chunk.js"
+    "static/js/main.691f1293.chunk.js"
   ]
 }
