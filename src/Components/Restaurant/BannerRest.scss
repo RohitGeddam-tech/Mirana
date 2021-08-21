@@ -55,7 +55,7 @@
   }
   @media (max-width: 540px) {
     p {
-      text-align: center;
+      text-align: left;
     }
   }
 }
@@ -85,7 +85,8 @@
         }
         p {
           width: 100%;
-          text-align: center;
+          text-align: left;
+          margin-left: 5px;
         }
       }
     }

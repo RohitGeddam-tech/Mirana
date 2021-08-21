@@ -60,10 +60,10 @@
   }
   @media (max-width: 540px) {
     .head {
-      text-align: center;
+      text-align: left;
     }
     p {
-      text-align: center;
+      text-align: left;
     }
   }
 }
@@ -155,63 +155,13 @@
         }
       }
     }
-    // .Slider {
-    //   width: 92%;
-    //   margin: auto;
-    //   margin-bottom: 50px;
-    //   .slick-slider {
-    //     padding-top: 20px;
-    //     .slick-dots {
-    //       bottom: -40px;
-    //       li button:before {
-    //         font-size: 10px;
-    //         color: #ba7f45;
-    //       }
-    //       li.slick-active button:before {
-    //         color: #ba7f45;
-    //       }
-    //     }
-    //     .slick-prev.slick-disabled:before,
-    //     .slick-next.slick-disabled:before {
-    //       opacity: 0;
-    //       // display: none !important;
-    //       cursor: none;
-    //     }
-    //     .slick-slide {
-    //       width: 430px !important;
-    //       margin-bottom: 20px;
-    //       div {
-    //         width: 400px;
-    //         .atslide {
-    //           border: 1px solid #e6e3e3;
-    //           box-sizing: border-box;
-    //           box-shadow: 4px 5px 14px rgba(0, 0, 0, 0.09);
-    //           border-radius: 10px;
-    //           img {
-    //             width: 100%;
-    //           }
-    //           .Attext {
-    //             width: 90%;
-    //             margin: auto;
-    //             display: flex;
-    //             align-items: center;
-    //             justify-content: space-between;
-    //             .brown {
-    //               color: #ba7f45;
-    //             }
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
   }
   @media (max-width: 750px) {
     h1 {
-      text-align: center;
+      text-align: left;
     }
     p {
-      text-align: center;
+      text-align: left;
     }
   }
 }
