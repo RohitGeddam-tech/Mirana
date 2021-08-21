@@ -10,7 +10,7 @@ const ContactPage = () => {
   return (
     <div className="App">
       <NewHeader />
-      <div style={{ paddingTop: "110px" }}>
+      <div style={{ paddingTop: "70px" }}>
         <Contact src={state} setSrc={setState} />
         <Footer />
       </div>
