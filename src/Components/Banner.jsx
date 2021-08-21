@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import banner from "../image/Banner.webp";
-import bannerMob from "../image/mobBanner.png";
+import bannerMob from "../image/mobBanner.webp";
 // import banner from "../image/banner.png";
 import useWindowSize from "./useWindowSize";
 import arrow from "../image/Frame1.png";
