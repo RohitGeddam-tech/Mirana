@@ -68,9 +68,12 @@
       justify-content: space-between;
       // align-items: center;
       padding-top: 22px;
-      img {
+      .blockImg {
         width: 27%;
         border-radius: 10px;
+      }
+      .noImg{
+        display: none;
       }
       .box {
         width: 70%;
@@ -92,10 +95,22 @@
         img {
           width: 100%;
         }
+        .blockImg{
+          display: none;
+        }
+        .noImg{
+          display: block;
+          padding-bottom: 30px;
+        }
         .box {
           width: 100%;
           text-align: left;
-          margin-left: 5px;
+          h1{
+            padding-top: 0;
+          }
+          p{
+            margin-left: 5px;
+          }
         }
       }
     }

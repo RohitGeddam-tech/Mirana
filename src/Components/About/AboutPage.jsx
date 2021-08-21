@@ -14,9 +14,10 @@ const Rooms = () => {
           <div className="container">
             {/* <h1>Our Chef</h1> */}
             <div className="info">
-              <img src={chef} alt="chef" />
+              <img className="blockImg" src={chef} alt="chef" />
               <div className="box">
                 <h1>The Founder</h1>
+                <img className="noImg" src={chef} alt="chef" />
                 <p>
                   Rajeev Chakrabarti, Mirana’s founder, has always had his head
                   full of dreams. After all, that’s the skill set required to be
