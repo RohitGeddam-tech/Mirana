@@ -1,7 +1,7 @@
 .bannerRoom {
   width: 100%;
   position: relative;
-  p{
+  p {
     width: 98%;
     padding: 70px 0 0 0;
     margin: auto;
@@ -36,8 +36,8 @@
       }
     }
     @media (max-width: 540px) {
-      .bannerRoom1{
-        img{
+      .bannerRoom1 {
+        img {
           height: 300px !important;
         }
         .container {
@@ -53,8 +53,40 @@
     }
   }
   @media (max-width: 540px) {
-    p{
+    p {
       text-align: center;
+    }
+  }
+}
+
+.end {
+  width: 100%;
+  background-color: #ba7f45;
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 70px 0;
+    h1{
+      margin: 0;
+    }
+    .btn {
+      background-color: white;
+      color: #ba7f45;
+      margin-left: 50px;
+      // margin-bottom: -5px;
+    }
+  }
+  @media(max-width:830px){
+    .container{
+      flex-flow: column;
+      h1{
+        text-align: center;
+        padding-bottom: 25px;
+      }
+      .btn{
+        margin: 0;
+      }
     }
   }
 }
