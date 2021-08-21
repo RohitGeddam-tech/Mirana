@@ -60,7 +60,7 @@ const NewHeader = () => {
                 </NavHashLink>
               </li> */}
               <li>
-                <NavHashLink to="/#top" className="navfade">
+                <NavHashLink to="/About#top" className="navfade">
                   About Us
                 </NavHashLink>
               </li>
@@ -71,17 +71,17 @@ const NewHeader = () => {
                 </NavHashLink>
               </li>
               <li>
-                <NavHashLink to="/#top" className="navfade">
+                <NavHashLink to="/Restaurant#top" className="navfade">
                   Restaurant
                 </NavHashLink>
               </li>
               <li>
-                <NavHashLink to="/#top" className="navfade">
+                <NavHashLink to="/Attract#top" className="navfade">
                   Attractions
                 </NavHashLink>
               </li>
               <li>
-                <NavHashLink to="/#top" className="navfade">
+                <NavHashLink to="/Contact#top" className="navfade">
                   Contact Us
                 </NavHashLink>
               </li>
@@ -104,19 +104,19 @@ const NewHeader = () => {
                 {/* <NavHashLink to="/#top" className="navfade">
                   Home
                 </NavHashLink> */}
-                <NavHashLink to="/#top" className="navfade">
+                <NavHashLink to="/About#top" className="navfade">
                   About Us
                 </NavHashLink>
                 <NavHashLink to="/Rooms#top" className="navfade">
                   Rooms
                 </NavHashLink>
-                <NavHashLink to="/#top" className="navfade">
+                <NavHashLink to="/Restaurant#top" className="navfade">
                   Restaurant
                 </NavHashLink>
-                <NavHashLink to="/#top" className="navfade">
+                <NavHashLink to="/Attract#top" className="navfade">
                   Attractions
                 </NavHashLink>
-                <NavHashLink to="/#top" className="navfade">
+                <NavHashLink to="/Contact#top" className="navfade">
                   Contact Us
                 </NavHashLink>
                 <NavHashLink

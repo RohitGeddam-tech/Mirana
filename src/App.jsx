@@ -1,4 +1,5 @@
 // import "./App.scss";
+import React, { useState } from "react";
 import About1 from "./Components/About1";
 import About2 from "./Components/About2";
 import Banner from "./Components/Banner";
@@ -9,6 +10,7 @@ import Gallery from "./Components/Gallery";
 import NewHeader from "./Components/NewHeader";
 
 function App() {
+  const [state, setState] = useState("");
   return (
     <div className="App">
       {/* <Header /> */}
@@ -18,7 +20,7 @@ function App() {
         <About2 />
         <About1 />
         <Gallery />
-        <Contact />
+        <Contact src={state} setSrc={setState} />
         <Footer />
       </div>
     </div>

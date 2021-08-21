@@ -15,10 +15,10 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      .call{
+      .call {
         display: flex;
         align-items: center;
-        p{
+        p {
           margin: 0;
           font-weight: bold;
           font-size: 16px;
@@ -31,7 +31,7 @@
           line-height: 19px;
           font-feature-settings: "pnum" on, "lnum" on;
           color: #ffffff;
-          &:hover{
+          &:hover {
             text-decoration: underline;
           }
         }
@@ -63,7 +63,7 @@
           line-height: 19px;
           margin: 0 20px;
           // margin-top: 5px;
-          color: #667C8A;
+          color: #667c8a;
           text-transform: capitalize;
           &:hover {
             color: #ba7f45;
@@ -140,14 +140,14 @@
         list-style: none;
         padding: 25px 0;
         padding-left: 20px;
-      }
-      .navfade {
-        font-weight: 500;
-        font-size: 30px;
-        line-height: 34px;
-        color: #8892a0;
-        text-transform: capitalize;
-        text-align: center;
+        .navfade {
+          font-weight: 500;
+          font-size: 24px;
+          line-height: 28px;
+          color: #667c8a;
+          text-transform: capitalize;
+          text-align: center;
+        }
       }
     }
   }
@@ -157,8 +157,13 @@
         justify-content: center;
       }
     }
-    .btn {
-      padding: 10px 40px;
+    a{
+      &.btn{
+        padding: 10px 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
     }
   }
 }

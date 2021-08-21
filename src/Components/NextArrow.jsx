@@ -1,5 +1,5 @@
 import React from "react";
-import next from "../image/brown.png";
+import next from "../image/right.png";
 
 const SliderNextArrow = (props) => {
   const { onClick } = props;

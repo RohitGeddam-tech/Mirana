@@ -189,16 +189,17 @@
   }
   @media (max-width: 1190px) {
     .container {
+      padding-top: 40px;
       .up {
         flex-flow: column;
-        padding-bottom: 20px;
+        padding-bottom: 40px;
         .connect {
           width: 100%;
           flex-flow: column;
           // align-items: flex-start;
           .icons {
             margin-left: 5px;
-            padding: 15px 0;
+            padding: 15px 0 45px;
           }
         }
         .form {
@@ -217,6 +218,7 @@
         width: 100%;
         align-items: center;
         flex-flow: column;
+        padding-top: 30px;
         p {
           padding: 7px 0;
         }

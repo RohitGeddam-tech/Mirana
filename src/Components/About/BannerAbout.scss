@@ -1,7 +1,7 @@
-.bannerRoom {
+.bannerRest {
   width: 100%;
   position: relative;
-  p{
+  p {
     width: 98%;
     padding: 70px 0 0 0;
     margin: auto;
@@ -11,12 +11,13 @@
       &:focus {
         outline: none !important;
       }
-      .bannerRoom1 {
+      .bannerRest1 {
         width: 100%;
         position: relative;
         img {
           width: 100%;
           height: 460px;
+          object-fit: cover;
         }
         .container {
           width: fit-content;
@@ -36,8 +37,8 @@
       }
     }
     @media (max-width: 540px) {
-      .bannerRoom1{
-        img{
+      .bannerRest1 {
+        img {
           height: 300px !important;
         }
         .container {
@@ -53,8 +54,48 @@
     }
   }
   @media (max-width: 540px) {
-    p{
+    p {
       text-align: center;
+    }
+  }
+}
+.aboutPage {
+  width: 100%;
+  padding: 40px 0 100px;
+  .container {
+    .info {
+      display: flex;
+      justify-content: space-between;
+      // align-items: center;
+      padding-top: 22px;
+      img {
+        width: 27%;
+      }
+      .box {
+        width: 70%;
+        h1{
+          padding: 40px 0 30px;
+          margin: 0;
+        }
+        p{
+          width: 95%;
+          margin: 0;
+        }
+      }
+    }
+  }
+  @media (max-width: 750px) {
+    .container {
+      .info {
+        flex-flow: column;
+        img {
+          width: 100%;
+        }
+        .box {
+          width: 100%;
+          text-align: center;
+        }
+      }
     }
   }
 }

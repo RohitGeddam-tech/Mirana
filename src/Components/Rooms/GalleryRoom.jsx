@@ -1,4 +1,6 @@
 import React from "react";
+import { NavHashLink } from "react-router-hash-link";
+import arrow from "../../image/Frame2.png";
 // import slide1 from "../image/slide1.png";
 // import slide2 from "../image/slide2.png";
 // import about1 from "../image/about1.png";
@@ -14,6 +16,14 @@ const Gallery = () => {
         <h1>Room Gallery</h1>
         <div className="Slider">
           <CustomSlider dot={true} />
+        </div>
+        <div className="bottom">
+          <NavHashLink to="/#top" className="btn" style={{backgroundColor:"#BA7F45", color:"#fff", marginTop:"10px"}}>
+            Book Now
+            <span>
+              <img src={arrow} alt="arrow" />
+            </span>
+          </NavHashLink>
         </div>
       </div>
     </div>
