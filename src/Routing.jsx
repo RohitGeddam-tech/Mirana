@@ -6,6 +6,7 @@ import Rest from "./Components/Restaurant/Rest";
 import Attract from "./Components/Attract/Attract";
 import AboutPage from "./Components/About/AboutPage";
 import ContactPage from "./Components/ContactPage";
+import Sign from "./Components/Sign";
 
 const Routing = () => {
   return (
@@ -19,6 +20,7 @@ const Routing = () => {
           <Route path="/Restaurant" exact component={Rest} />
           <Route path="/Attract" exact component={Attract} />
           <Route path="/About" exact component={AboutPage} />
+          <Route path="/Sign" exact component={Sign} />
         </Switch>
       </>
     </Router>
