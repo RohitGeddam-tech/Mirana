@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from "react";
 import arrow from "../image/Frame2.png";
 import axios from "axios";
-import { Modal } from "@material-ui/core";
+import Modal from "react-modal";
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 
 const Form = ({ className = "" }) => {
   // const [details, setDetails] = useState({ ...defaultFormState });
@@ -20,9 +31,16 @@ const Form = ({ className = "" }) => {
   const [form, setForm] = useState({});
   const [validity, setValidity] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [btnLoading, setBtnLoading] = useState(false);
+  const [formEmpty, setFormEmpty] = useState(false);
   // const [error, setError] = useState({});
 
+  const textchange = () => {
+    if (text.split(" ").length < 10) {
+      setTextInvalid(true);
+    } else {
+      setTextInvalid(false);
+    }
+  };
 
   const handleChange = (e) => {
     // console.log("e value", e);
@@ -59,6 +77,12 @@ const Form = ({ className = "" }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (Object.values(form).every((each) => each === "")) {
+      setFormEmpty(true);
+      setValidity(false);
+    } else {
+      setFormEmpty(false);
+    }
     if (
       !(
         fnameInvalid ||
@@ -76,10 +100,7 @@ const Form = ({ className = "" }) => {
         mobile: mobile,
         email: email,
         message: text,
-        city: city,
       });
-      setBtnLoading(true);
-      console.log(form);
     } else {
       setValidity(false);
     }
@@ -92,13 +113,12 @@ const Form = ({ className = "" }) => {
         .then((res) => {
           if (res) {
             console.log("response msg", res);
-            setBtnLoading(false);
+            setFormEmpty(false);
             setSuccess(true);
           }
         })
         .catch((err) => {
           console.log(err);
-          setBtnLoading(false);
         });
     }
   }, [form, validity]);
@@ -227,38 +247,26 @@ const Form = ({ className = "" }) => {
           ) : null}
         </div>
         <div className="bottom">
-          <button type="submit" className="btn" disabled={btnLoading}>
-            {btnLoading ? (
-              "Sending..."
-            ) : (
-              <>
-                Send
-                <span>
-                  <img src={arrow} alt="arrow" />
-                </span>
-              </>
-            )}
+          <button type="submit" className="btn">
+            Send
+            <span>
+              <img src={arrow} alt="arrow" />
+            </span>
           </button>
         </div>
+        {formEmpty ? (
+          <p className="error-text">Please fill in the form</p>
+        ) : null}
+        <Modal
+          isOpen={success}
+          onRequestClose={() => setSuccess(false)}
+          shouldCloseOnOverlayClick={true}
+          style={customStyles}
+          className="modal"
+        >
+          <p>Thanks we will be contacting you soon</p>
+        </Modal>
       </form>
-      <Modal
-        className="modal"
-        open={success}
-        onClose={() => {
-          setSuccess(false);
-        }}
-      >
-        <div className="box">
-          <h1>Thank you</h1>
-          <p>
-            Thank you for your interest. Our team will get in touch with you
-            soon.
-          </p>
-          <button className="btn" onClick={() => setSuccess(false)}>
-            Close
-          </button>
-        </div>
-      </Modal>
     </>
   );
 };
