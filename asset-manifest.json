@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/Mirana/static/css/main.2b28f773.chunk.css",
-    "main.js": "/Mirana/static/js/main.29b21c32.chunk.js",
-    "main.js.map": "/Mirana/static/js/main.29b21c32.chunk.js.map",
-    "runtime-main.js": "/Mirana/static/js/runtime-main.11a735d7.js",
-    "runtime-main.js.map": "/Mirana/static/js/runtime-main.11a735d7.js.map",
+    "main.css": "/Mirana/static/css/main.07896912.chunk.css",
+    "main.js": "/Mirana/static/js/main.e517914c.chunk.js",
+    "main.js.map": "/Mirana/static/js/main.e517914c.chunk.js.map",
+    "runtime-main.js": "/Mirana/static/js/runtime-main.828a6f9a.js",
+    "runtime-main.js.map": "/Mirana/static/js/runtime-main.828a6f9a.js.map",
     "static/css/2.d05b1cce.chunk.css": "/Mirana/static/css/2.d05b1cce.chunk.css",
-    "static/js/2.c4021fe1.chunk.js": "/Mirana/static/js/2.c4021fe1.chunk.js",
-    "static/js/2.c4021fe1.chunk.js.map": "/Mirana/static/js/2.c4021fe1.chunk.js.map",
-    "static/js/3.0545fd79.chunk.js": "/Mirana/static/js/3.0545fd79.chunk.js",
-    "static/js/3.0545fd79.chunk.js.map": "/Mirana/static/js/3.0545fd79.chunk.js.map",
+    "static/js/2.dd2158d6.chunk.js": "/Mirana/static/js/2.dd2158d6.chunk.js",
+    "static/js/2.dd2158d6.chunk.js.map": "/Mirana/static/js/2.dd2158d6.chunk.js.map",
+    "static/js/3.1948be8d.chunk.js": "/Mirana/static/js/3.1948be8d.chunk.js",
+    "static/js/3.1948be8d.chunk.js.map": "/Mirana/static/js/3.1948be8d.chunk.js.map",
     "index.html": "/Mirana/index.html",
     "static/css/2.d05b1cce.chunk.css.map": "/Mirana/static/css/2.d05b1cce.chunk.css.map",
-    "static/css/main.2b28f773.chunk.css.map": "/Mirana/static/css/main.2b28f773.chunk.css.map",
-    "static/js/2.c4021fe1.chunk.js.LICENSE.txt": "/Mirana/static/js/2.c4021fe1.chunk.js.LICENSE.txt",
+    "static/css/main.07896912.chunk.css.map": "/Mirana/static/css/main.07896912.chunk.css.map",
+    "static/js/2.dd2158d6.chunk.js.LICENSE.txt": "/Mirana/static/js/2.dd2158d6.chunk.js.LICENSE.txt",
     "static/media/AboutBanner.e05dc2f6.png": "/Mirana/static/media/AboutBanner.e05dc2f6.png",
     "static/media/Banner.d926ffdc.webp": "/Mirana/static/media/Banner.d926ffdc.webp",
     "static/media/BannerRest.98355914.png": "/Mirana/static/media/BannerRest.98355914.png",
@@ -42,10 +42,10 @@
     "static/media/wifi.94d0cfd3.svg": "/Mirana/static/media/wifi.94d0cfd3.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.11a735d7.js",
+    "static/js/runtime-main.828a6f9a.js",
     "static/css/2.d05b1cce.chunk.css",
-    "static/js/2.c4021fe1.chunk.js",
-    "static/css/main.2b28f773.chunk.css",
-    "static/js/main.29b21c32.chunk.js"
+    "static/js/2.dd2158d6.chunk.js",
+    "static/css/main.07896912.chunk.css",
+    "static/js/main.e517914c.chunk.js"
   ]
 }
