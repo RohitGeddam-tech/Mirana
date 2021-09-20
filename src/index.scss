@@ -53,6 +53,37 @@ body {
     margin: auto;
   }
 
+  .modal{
+    position: relative;
+    outline: none !important;
+    .box{
+      position: absolute;
+      z-index: 800;
+      top: 50%;
+      left: 45%;
+      transform: translate(-45%, -50%);
+      background-color: white;
+      outline: none !important;
+      width: 510px;
+      height: 270px;
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      h1{
+        margin: 0;
+        margin-bottom: 28px;
+      }
+      p{
+        width: 80%;
+        margin: 0;
+        padding-bottom: 40px;
+        text-align: center;
+      }
+    }
+  }
+
   .btn {
     padding: 10px 23px;
     outline: none;
@@ -69,6 +100,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    &:disabled{
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
     span {
       margin-left: 10px;
       width: 24px;
