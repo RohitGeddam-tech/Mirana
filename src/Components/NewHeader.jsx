@@ -120,7 +120,7 @@ const NewHeader = () => {
                   Contact Us
                 </NavHashLink>
                 <NavHashLink
-                  to="/Sign"
+                  to="/Sign#top"
                   className="btn"
                   style={{ marginLeft: "10px" }}
                 >
