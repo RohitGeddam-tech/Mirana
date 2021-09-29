@@ -6,6 +6,7 @@ import useWindowSize from "./useWindowSize";
 import Ham from "./Hamburger";
 import XHam from "./Xham";
 import logo from "../image/logo.png";
+import account from "../image/account.png";
 
 const NewHeader = () => {
   const [width] = useWindowSize();
@@ -24,7 +25,7 @@ const NewHeader = () => {
           </div>
         </div>
       </div>
-      {width < 1020 ? (
+      {width < 1170 ? (
         <>
           <div className="header">
             <nav className="container">
@@ -86,8 +87,16 @@ const NewHeader = () => {
                 </NavHashLink>
               </li>
               <li>
-                <NavHashLink to="/#top" className="btn">
+                <NavHashLink to="/Book#top" className="btn">
                   Book Now
+                </NavHashLink>
+              </li>
+              <li>
+                <NavHashLink to="/Sign#top" className="loginBtn">
+                  <span>
+                    <img src={account} alt="account" />
+                  </span>
+                  Login
                 </NavHashLink>
               </li>
             </div>
@@ -120,11 +129,21 @@ const NewHeader = () => {
                   Contact Us
                 </NavHashLink>
                 <NavHashLink
-                  to="/Sign#top"
+                  to="/Book#top"
                   className="btn"
                   style={{ marginLeft: "10px" }}
                 >
                   Book Now
+                </NavHashLink>
+                <NavHashLink
+                  to="/Sign#top"
+                  className="loginBtn"
+                  style={{ marginLeft: "20px" }}
+                >
+                  <span>
+                    <img src={account} alt="account" />
+                  </span>
+                  Login
                 </NavHashLink>
               </div>
             </div>

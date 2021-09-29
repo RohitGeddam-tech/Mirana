@@ -6,6 +6,7 @@ body {
   font-family: "Raleway", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-variant-numeric: lining-nums;
 
   .App {
     width: 100%;
@@ -106,6 +107,40 @@ body {
     }
     span {
       margin-left: 10px;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      img {
+        width: 27px;
+        height: 27px;
+      }
+    }
+  }
+
+  .loginBtn {
+    padding: 10px 23px;
+    // padding: 7px 20px;
+    outline: none;
+    border: none;
+    background-color: #EAEDF1;
+    font-family: "Raleway", sans-serif;
+    border-radius: 20px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    cursor: pointer;
+    color: #BA7F45;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:disabled{
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    span {
+      margin-right: 10px !important;
       width: 24px;
       height: 24px;
       display: flex;
@@ -233,9 +268,9 @@ body {
       margin-bottom: 0;
       font-family: "Raleway", sans-serif;
       font-style: normal;
-      font-weight: normal;
+      font-weight: 500;
       font-size: 16px;
-      line-height: 18px;
+      line-height: 19px;
       span {
         color: #ba7f45;
       }
@@ -246,11 +281,12 @@ body {
       border: 1px solid #919eab;
       outline: none;
       box-sizing: border-box;
-      border-radius: 4px;
+      border-radius: 10px;
       margin: 8px 0;
       padding: 0 10px;
       font-size: 16px;
-      line-height: 18px;
+      line-height: 19px;
+      font-weight: 500;
       font-family: "Raleway", sans-serif;
       color: #919eab;
 
@@ -274,14 +310,14 @@ body {
       }
 
       &:focus ~ label {
-        color: blue;
+        color: #ba7f45;
       }
 
       &:focus,
       &:valid ~ label,
       &:not([value=""]) ~ label {
         outline: none;
-        border-color: blue;
+        border-color: #ba7f45;
         box-shadow: none;
       }
     }
@@ -292,21 +328,22 @@ body {
       outline: none;
       border: 1px solid #919eab;
       box-sizing: border-box;
-      border-radius: 4px;
+      border-radius: 10px;
       margin: 8px 0;
       resize: none;
       padding: 10px 8px;
       font-size: 16px;
-      line-height: 18px;
+      line-height: 19px;
+      font-weight: 500;
       font-family: "Raleway", sans-serif;
       color: #919eab;
 
       &:focus ~ label {
-        color: blue !important;
+        color: #ba7f45 !important;
       }
 
       &:focus ~ label {
-        color: blue;
+        color: #ba7f45;
         top: 0px;
         left: 10px;
         font-size: 12px;
@@ -321,7 +358,7 @@ body {
       &:valid ~ label,
       &:not([value=""]) ~ label {
         outline: none;
-        border-color: blue;
+        border-color: #ba7f45;
         box-shadow: none;
       }
 

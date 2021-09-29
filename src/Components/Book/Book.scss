@@ -1,0 +1,277 @@
+.book {
+  padding-top: 192px;
+  .container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 30px 0 74px;
+    h1 {
+      margin: 0;
+      padding: 30px 0 10px;
+    }
+    .package {
+      padding: 20px;
+      max-width: 980px;
+      border: 1px solid #e6e3e3;
+      box-sizing: border-box;
+      box-shadow: 4px 5px 14px rgba(0, 0, 0, 0.09);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 21px 0;
+      .left {
+        width: 35%;
+        img {
+          width: 92%;
+        }
+      }
+      .right {
+        width: 65%;
+        min-height: 274px;
+        .border {
+          width: 100%;
+          border: 1px solid #dadada;
+          margin-top: 8px;
+        }
+        .buttons {
+          display: flex;
+          justify-content: flex-end;
+          .btn {
+            margin-left: 20px;
+          }
+        }
+        .top {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          h1 {
+            font-size: 24px;
+            line-height: 170.6%;
+            margin: 0;
+          }
+          .topRight {
+            p {
+              margin: 0;
+              //   margin-top: 5px;
+              font-size: 12px;
+              line-height: 170.6%;
+              color: #919eab;
+            }
+          }
+        }
+        .body {
+          ul {
+            padding-left: 25px;
+            color: #667c8a;
+            font-family: Raleway;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 170.6%;
+            font-feature-settings: "pnum" on, "lnum" on;
+            margin-bottom: 26px;
+            a {
+              color: #ba7f45;
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.bookHeader {
+  width: 100%;
+  position: fixed;
+  background: #eaedf1;
+  box-shadow: 0px 10px 14px -4px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+  top: 110px;
+  form.avail {
+    width: 90%;
+    margin: auto;
+    // position: absolute;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // padding: 40px 30px;
+    // padding-right: 15px;
+    .first {
+      display: flex;
+      align-items: center;
+      // justify-content: center;
+      margin-right: 10px;
+      p {
+        img {
+          width: 19px;
+          height: 15px;
+          margin-right: 3px;
+        }
+      }
+      h1 {
+        font-size: 24px;
+        line-height: 28px;
+        margin: 0;
+        font-weight: bold;
+        margin-right: 20px;
+        color: #ba7f45;
+      }
+      .textInput {
+        width: 210px;
+        max-width: 270px;
+        height: 45px;
+        margin: 0 10px;
+        margin-left: 5px !important;
+        border: 1px solid #ba7f45;
+        border-radius: 10px;
+        background-color: white;
+        position: relative;
+        p {
+          margin: 0;
+          font-size: 12px;
+          line-height: 14px;
+          margin-top: 3px;
+          padding: 2px 5px;
+          font-weight: bold;
+          position: absolute;
+          top: -13px;
+          background-color: white;
+          color: #ba7f45;
+          left: 10px;
+        }
+        .text-input {
+          // width: 100%;
+          display: flex;
+          align-items: flex-end;
+          justify-content: flex-end;
+          padding: 13px 8px;
+          padding-bottom: 11px;
+          padding-left: 20px;
+          font-feature-settings: "lnum";
+          font-variant-numeric: lining-nums;
+          span {
+            height: 20px;
+            width: 20px;
+            // border: 1.8px solid #ba7f45;
+            // color: #ba7f45;
+            // border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            // font-size: 19px;
+            // font-weight: bolder;
+            cursor: pointer;
+            img {
+              height: 20px;
+              width: 20px;
+            }
+          }
+          .input {
+            border: none;
+            font-family: "Raleway", sans-serif;
+            font-size: 30px;
+            font-weight: bold;
+            line-height: 40px;
+            // text-align: center;
+            margin: 0;
+            color: #ba7f45;
+          }
+          h1 {
+            font-family: "Raleway", sans-serif;
+            width: 100%;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 21px;
+            // text-align: center;
+            margin: 0;
+            padding-bottom: 0;
+            color: #667c8a;
+          }
+        }
+      }
+      .date {
+        display: flex;
+        // width: 410px;
+        // max-width: 500px;
+        margin-left: 4px;
+        // margin-bottom: 3px;
+        // padding-right: 25px;
+        .MuiInput-underline:before {
+          border-bottom: none;
+        }
+        .MuiOutlinedInput-notchedOutline {
+          border-color: #ba7f45;
+          border-width: 1px;
+        }
+        .MuiInput-underline:after {
+          border-bottom: none;
+        }
+        .MuiFormControl-root {
+          width: 210px;
+          max-width: 304px;
+          height: 45px;
+          margin: 0 14px;
+          // margin-right: 0;
+        }
+        .MuiInputLabel-shrink {
+          transform: translate(0, -8px) scale(1);
+          transform-origin: top left;
+        }
+        .MuiFormLabel-root {
+          font-family: "Raleway", sans-serif;
+          font-style: normal;
+          font-weight: bold !important;
+          font-size: 12px !important;
+          line-height: 14px;
+          padding: 2px 5px;
+          color: #8892a0;
+        }
+        .MuiInputLabel-formControl {
+          left: 10px;
+          background-color: white;
+          color: #ba7f45;
+        }
+        .MuiInputBase-input {
+          font-family: "Raleway", sans-serif;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 18px;
+          line-height: 21px;
+          background-color: white;
+          border-radius: 10px;
+          padding: 13px 8px;
+          padding-bottom: 11px;
+          padding-left: 20px;
+          font-feature-settings: "pnum" on, "lnum" on;
+          color: #667c8a;
+          text-align: start;
+        }
+        .MuiOutlinedInput-root {
+          position: relative;
+          border-radius: 10px;
+        }
+        // .MuiFormLabel-root.Mui-focused {
+        //   color: rgba(0, 0, 0, 0.54);
+        // }
+      }
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      span {
+        margin-left: 10px;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        img {
+          border-radius: 10px;
+          width: 27px;
+          height: 27px;
+        }
+      }
+    }
+  }
+}
