@@ -10,6 +10,12 @@ import Sign from "./Components/Sign";
 import Book from "./Components/Book/Book";
 import Pay from "./Components/Payment/Pay";
 import Part2 from "./Components/Payment/Part2";
+import Part3 from "./Components/Payment/Part3";
+import PackagesBack from "./Backend/PackagesBack";
+import RoomBack from "./Backend/RoomBack";
+import BookBack from "./Backend/BookBack";
+import Upcoming from "./Backend/Upcoming";
+import MyBooking from "./Components/MyBooking";
 
 const Routing = () => {
   return (
@@ -27,6 +33,12 @@ const Routing = () => {
           <Route path="/Book" exact component={Book} />
           <Route path="/Pay" exact component={Pay} />
           <Route path="/Part2" exact component={Part2} />
+          <Route path="/Part3" exact component={Part3} />
+          <Route path="/PackagesBack" exact component={PackagesBack} />
+          <Route path="/RoomBack" exact component={RoomBack} />
+          <Route path="/BookBack" exact component={BookBack} />
+          <Route path="/BookBack/Upcoming" exact component={Upcoming} />
+          <Route path="/MyBookings" exact component={MyBooking} />
         </Switch>
       </>
     </Router>

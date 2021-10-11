@@ -1,0 +1,145 @@
+.myBook {
+  width: 100%;
+  .contain {
+    width: 60%;
+    padding: 60px 0 70px;
+    margin: 0 auto;
+    .loginBtn {
+      width: fit-content;
+      span {
+        margin-right: 5px;
+        width: 14px;
+        height: 14px;
+        img {
+          width: 14px;
+          height: 14px;
+        }
+      }
+    }
+    h1 {
+      margin: 0;
+      padding: 25px 0;
+      font-size: 30px;
+      line-height: 35px;
+    }
+    .boxShade {
+      width: 95%;
+      border: 1px solid #919eab;
+      box-sizing: border-box;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px;
+      img {
+        width: 10%;
+        //   height: 70px;
+      }
+      .inform {
+        width: 87%;
+        display: flex;
+        //   align-items: center;
+        flex-flow: column;
+        justify-content: center;
+        .top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          h5 {
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 31px;
+            font-feature-settings: "pnum" on, "lnum" on;
+            margin: 0;
+          }
+          p {
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 31px;
+            font-feature-settings: "pnum" on, "lnum" on;
+            margin: 0;
+            color: #ba7f45;
+          }
+        }
+        .bottom {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 7px;
+          h5 {
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 31px;
+            font-feature-settings: "pnum" on, "lnum" on;
+            margin: 0;
+            padding: 0 14px;
+            background: rgba(245, 122, 0, 0.2);
+            border-radius: 10px;
+            color: #f57a00;
+          }
+          p {
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 31px;
+            font-feature-settings: "pnum" on, "lnum" on;
+            margin: 0;
+          }
+        }
+      }
+    }
+    .first {
+      p {
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 31px;
+      }
+      .last {
+        width: 94.5%;
+        margin-top: 12px;
+        display: flex;
+        justify-content: flex-end;
+        a {
+          font-family: "Raleway", sans-serif;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 19px;
+          text-decoration-line: underline;
+          color: #d83621;
+        }
+      }
+    }
+    .second {
+      padding-top: 20px;
+      p {
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 31px;
+      }
+      .inform {
+        .bottom {
+          h5 {
+            color: #3cbb00;
+            background: rgba(60, 187, 0, 0.2);
+          }
+        }
+      }
+    }
+    .third {
+      padding-top: 20px;
+      p {
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 31px;
+      }
+      .inform {
+        .bottom {
+          h5 {
+            color: #d83621;
+            background: rgba(216, 54, 33, 0.2);
+          }
+        }
+      }
+    }
+  }
+}
