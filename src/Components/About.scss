@@ -7,6 +7,12 @@
     padding: 120px 0 90px;
     display: flex;
     justify-content: space-between;
+    @media (max-width: 1140px) {
+      padding-top: 270px;
+    }
+    @media (max-width: 1020px) {
+      padding-top: 100px;
+    }
     .aboutImg {
       width: 45%;
       display: flex;
