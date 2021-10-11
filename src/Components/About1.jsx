@@ -1,5 +1,6 @@
 import React from "react";
-import banner from "../image/about2.png";
+import { NavHashLink } from "react-router-hash-link";
+import banner from "../image/about2.webp";
 import arrow from "../image/Frame2.png";
 import "./About.scss";
 
@@ -8,10 +9,13 @@ const About1 = () => {
     <div className="About2">
       <div className="container">
         <div className="aboutImg">
-          <img src={banner} alt="about" />
+          <img src={banner} alt="about" loading='lazy' />
         </div>
         <div className="aboutDetail">
           <h1>The Restaurant</h1>
+          <div className="noImg">
+            <img src={banner} alt="about" loading='lazy' />
+          </div>
           <p>
             If you catch yourself craving something authentic or something avant
             garde our highly experienced chefs have you covered. Mirana’s heart
@@ -21,12 +25,14 @@ const About1 = () => {
             Indian meals. Host of flavours that make you want to gobble first
             and ‘gram later!
           </p>
-          <button className="btn">
-            View More
-            <span>
-              <img src={arrow} alt="arrow" />
-            </span>
-          </button>
+          <div className="bottom">
+            <NavHashLink to="/#top" className="btn">
+              View More
+              <span>
+                <img src={arrow} alt="arrow" />
+              </span>
+            </NavHashLink>
+          </div>
         </div>
       </div>
     </div>

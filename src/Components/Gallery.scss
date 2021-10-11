@@ -1,18 +1,35 @@
 .gallery {
   width: 100%;
-  background-color: rgba(186, 127, 69, 0.8);
+  // background-color: rgba(186, 127, 69, 0.8);
+  background-color: #eaedf1;
   padding: 65px 0 55px;
   h1 {
-    color: white;
+    // color: white;
     margin-top: 0;
     margin-bottom: 40px;
   }
   .container {
     .Slider {
-      width: 95%;
+      width: 92%;
       margin: auto;
       margin-bottom: 50px;
       .slick-slider {
+        .slick-dots {
+          bottom: -30px;
+          li button:before{
+            font-size: 10px;
+            color: #ba7f45;
+          }
+          li.slick-active button:before {
+            color: #ba7f45;
+          }
+        }
+        .slick-prev.slick-disabled:before,
+        .slick-next.slick-disabled:before {
+          opacity: 0;
+          // display: none !important;
+          cursor: none;
+        }
         .slick-list {
           .slick-track {
             .slick-slide {
@@ -21,27 +38,34 @@
                 &:first-child {
                   padding-left: 0 !important;
                 }
+                img {
+                  width: 100%;
+                }
+              }
+            }
+            @media (max-width: 450px) {
+              .slick-slide {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                div {
+                  &:first-child {
+                    padding: 0 5px;
+                  }
+                }
               }
             }
           }
         }
       }
-      // .Slide {
-      //   img {
-      //     margin: 0 10px;
-      //   }
-      //   img:first-child {
-      //     margin-left: 0 !important;
-      //   }
-      // }
     }
     .bottom {
       // text-align: center;
       display: flex;
       justify-content: center;
       .btn {
-        color: #ba7f45;
-        background-color: white;
+        // color: #ba7f45;
+        // background-color: white;
         display: flex;
         align-items: center;
         span {
@@ -55,6 +79,30 @@
             height: 25px;
           }
         }
+      }
+    }
+  }
+  @media (max-width: 450px) {
+    .container {
+      .Slider {
+        width: 100%;
+        .slick-slider {
+          .slick-list {
+            .slick-track {
+              .slick-slide {
+                div {
+                  padding: 0 5px;
+                }
+              }
+            }
+          }
+        }
+      }
+      // h1 {
+      //   text-align: center;  
+      // }
+      .bottom{
+        justify-content: flex-start;
       }
     }
   }

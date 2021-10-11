@@ -1,10 +1,31 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500;700&display=swap");
 
 body {
   margin: 0;
-  font-family: "Playfair Display", serif;
+  font-family: "Raleway", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-variant-numeric: lining-nums;
+
+  .App {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .text {
+    width: 100%;
+    padding-bottom: 55px;
+    h1 {
+      margin-top: 0;
+    }
+  }
+  @media (max-width: 520px) {
+    .text {
+      text-align: left;
+      padding-bottom: 55px;
+    }
+  }
 
   h1,
   h2,
@@ -12,19 +33,19 @@ body {
   h4,
   h5 {
     font-style: normal;
-    font-weight: 900;
+    font-weight: bold;
     font-size: 40px;
-    line-height: 53px;
-    font-family: "Playfair Display", serif;
+    line-height: 47px;
+    font-family: "Raleway", sans-serif;
     color: #ba7f45;
   }
 
   p {
-    font-family: "Playfair Display", serif;
+    font-family: "Raleway", sans-serif;
     font-style: normal;
-    font-weight: normal;
+    font-weight: 500;
     font-size: 18px;
-    line-height: 24px;
+    line-height: 31px;
     color: #667c8a;
   }
 
@@ -33,17 +54,255 @@ body {
     margin: auto;
   }
 
+  .modal {
+    position: relative;
+    outline: none !important;
+    .box {
+      position: absolute;
+      z-index: 800;
+      top: 50%;
+      left: 45%;
+      transform: translate(-45%, -50%);
+      background-color: white;
+      outline: none !important;
+      width: 510px;
+      height: 270px;
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      h1 {
+        margin: 0;
+        margin-bottom: 28px;
+      }
+      p {
+        width: 80%;
+        margin: 0;
+        padding-bottom: 40px;
+        text-align: center;
+      }
+    }
+  }
+
+  .afterLogin {
+    position: relative;
+    .loginBtn {
+      padding-left: 20px;
+      padding-right: 20px;
+      span {
+        margin-right: 15px !important;
+        .acc {
+          border-radius: 50px;
+          background-color: #ba7f45;
+          color: white;
+          font-weight: bold;
+          font-size: 16px;
+          line-height: 19px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-transform: uppercase;
+          padding: 6px 11px;
+          margin-right: 8px;
+        }
+      }
+    }
+    .d {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 44px;
+      background-color: transparent;
+      .icon {
+        display: none;
+      }
+      .menu {
+        top: 102%;
+      }
+      .item {
+        padding: 0 16px;
+        a {
+          font-family: "Raleway", sans-serif;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 19px;
+          color: #667c8a;
+        }
+        button {
+          border: none;
+          outline: none;
+          font-family: "Raleway", sans-serif;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 19px;
+          color: #667c8a;
+          background-color: transparent;
+        }
+      }
+    }
+  }
+
+  .modalPop {
+    position: relative;
+    outline: none !important;
+    .box {
+      position: absolute;
+      z-index: 800;
+      top: 50%;
+      left: 45%;
+      transform: translate(-45%, -50%);
+      background-color: white;
+      outline: none !important;
+      max-width: 545px;
+      // height: 270px;
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      padding: 35px;
+      .head {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 18px;
+        h1 {
+          font-weight: bold;
+          font-size: 18px;
+          line-height: 21px;
+          margin: 0;
+        }
+        img {
+          cursor: pointer;
+        }
+      }
+      .body {
+        width: 470px;
+        .otp {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .textInput {
+            width: 60%;
+          }
+          .resend {
+            border: none;
+            outline: none;
+            background-color: transparent;
+            color: #ba7f45;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 16px;
+            text-decoration-line: underline;
+          }
+        }
+        .in {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 15px;
+          p {
+            font-style: normal;
+            font-size: 14px;
+            line-height: 19px;
+            font-feature-settings: "pnum" on, "lnum" on;
+            color: #667c8a;
+            margin: 0;
+          }
+        }
+        p {
+          margin: 0;
+          margin-top: 10px;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 19px;
+          color: #667c8a;
+          font-style: italic;
+          &.normal{
+            font-style: normal;
+          }
+        }
+      }
+    }
+  }
+
   .btn {
     padding: 10px 23px;
     outline: none;
     border: none;
     background-color: #ba7f45;
+    font-family: "Raleway", sans-serif;
     border-radius: 20px;
     font-style: normal;
     font-weight: bold;
-    font-size: 20px;
-    line-height: 27px;
+    font-size: 18px;
+    line-height: 21px;
+    cursor: pointer;
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    &:hover {
+      color: white;
+    }
+    span {
+      margin-left: 10px;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      img {
+        width: 27px;
+        height: 27px;
+      }
+    }
+  }
+
+  .loginBtn {
+    padding: 10px 23px;
+    // padding: 7px 20px;
+    outline: none;
+    border: none;
+    background-color: #eaedf1;
+    font-family: "Raleway", sans-serif;
+    border-radius: 20px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    cursor: pointer;
+    color: #ba7f45;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    &:hover {
+      color: #ba7f45;
+    }
+    span {
+      margin-right: 10px !important;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      img {
+        width: 27px;
+        height: 27px;
+      }
+    }
   }
 
   .Slider {
@@ -63,9 +322,61 @@ body {
   }
 
   a {
-    font-family: "Playfair Display", serif;
+    font-family: "Raleway", sans-serif;
     font-style: normal;
     text-decoration: none;
+  }
+
+  .slickNext {
+    position: absolute;
+    display: block !important;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    top: 45%;
+    transform: translate(0, -45%);
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: transparent;
+    right: -56px;
+  }
+
+  .slickNext img {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .slickNext::before {
+    opacity: 0;
+  }
+
+  .slickPrev::before {
+    opacity: 0;
+  }
+
+  .slick-disabled {
+    opacity: 0;
+  }
+
+  .slickPrev {
+    position: absolute;
+    display: block !important;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    top: 45%;
+    transform: translate(0, -45%);
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: transparent;
+    left: -56px;
+  }
+
+  .slickPrev img {
+    width: 40px !important;
+    height: 40px !important;
   }
 
   input[type="number"]::-webkit-inner-spin-button,
@@ -108,13 +419,13 @@ body {
       transition: 0.5s;
       z-index: 10;
       margin-bottom: 0;
-      font-family: "Playfair Display", serif;
+      font-family: "Raleway", sans-serif;
       font-style: normal;
-      font-weight: normal;
+      font-weight: 500;
       font-size: 16px;
-      line-height: 18px;
+      line-height: 19px;
       span {
-        color: #e40055;
+        color: #ba7f45;
       }
     }
     .input {
@@ -123,12 +434,13 @@ body {
       border: 1px solid #919eab;
       outline: none;
       box-sizing: border-box;
-      border-radius: 4px;
+      border-radius: 10px;
       margin: 8px 0;
       padding: 0 10px;
       font-size: 16px;
-      line-height: 18px;
-      font-family: "Playfair Display", serif;
+      line-height: 19px;
+      font-weight: 500;
+      font-family: "Raleway", sans-serif;
       color: #919eab;
 
       &::-webkit-input-placeholder,
@@ -151,14 +463,14 @@ body {
       }
 
       &:focus ~ label {
-        color: blue;
+        color: #ba7f45;
       }
 
       &:focus,
       &:valid ~ label,
       &:not([value=""]) ~ label {
         outline: none;
-        border-color: blue;
+        border-color: #ba7f45;
         box-shadow: none;
       }
     }
@@ -169,21 +481,22 @@ body {
       outline: none;
       border: 1px solid #919eab;
       box-sizing: border-box;
-      border-radius: 4px;
+      border-radius: 10px;
       margin: 8px 0;
       resize: none;
       padding: 10px 8px;
       font-size: 16px;
-      line-height: 18px;
-      font-family: "Playfair Display", serif;
+      line-height: 19px;
+      font-weight: 500;
+      font-family: "Raleway", sans-serif;
       color: #919eab;
 
       &:focus ~ label {
-        color: blue !important;
+        color: #ba7f45 !important;
       }
 
       &:focus ~ label {
-        color: blue;
+        color: #ba7f45;
         top: 0px;
         left: 10px;
         font-size: 12px;
@@ -198,7 +511,7 @@ body {
       &:valid ~ label,
       &:not([value=""]) ~ label {
         outline: none;
-        border-color: blue;
+        border-color: #ba7f45;
         box-shadow: none;
       }
 
@@ -222,5 +535,5 @@ body {
 }
 
 code {
-  font-family: "Playfair Display", serif;
+  font-family: "Raleway", sans-serif;
 }

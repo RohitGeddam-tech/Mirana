@@ -1,0 +1,107 @@
+.nav-links {
+  height: 50px;
+}
+
+.menu-btn {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  width: 50px;
+  height: 80%;
+  margin-top: 5%;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.menu-btnx {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  width: 50px;
+  height: 70%;
+  margin-top: 20%;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.line1 {
+  position: absolute;
+  width: 32px;
+  height: 2px;
+  margin-top: 14px;
+  margin-left: 8px;
+  background-color: #667C8A;
+  animation: lines1;
+  animation-duration: 0.5s;
+}
+
+.line2 {
+  position: absolute;
+  width: 32px;
+  height: 2px;
+  margin-top: 22px;
+  margin-left: 8px;
+  background-color: #667C8A;
+  animation: lines2;
+  animation-duration: 0.5s;
+}
+
+.line3 {
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  margin-top: 30px;
+  margin-left: 8px;
+  background-color: #667C8A;
+  animation: lines3;
+  animation-duration: 0.5s;
+}
+
+@keyframes lines1{
+  from{margin-top: 22px;}
+  to {margin-bottom: 0;}
+}
+
+@keyframes lines2{
+  from{margin-top: 22px;}
+  to {margin-top: 22px;}
+}
+
+@keyframes lines3{
+  from{margin-top: 22px;}
+  to {margin-top: 30px;}
+}
+
+.xline1 {
+  position: absolute;
+  width: 32px;
+  height: 2px;
+  margin-top: 14px;
+  margin-left: 8px;
+  transform: rotate(45deg);
+  background-color: #667C8A; 
+  animation-name: example3;
+  animation-duration: 0.5s;
+}
+
+.xline2 {
+  position: absolute;
+  width: 32px;
+  height: 2px;
+  margin-top: 14px;
+  margin-left: 8px;
+  transform: rotate(-45deg);
+  background-color: #667C8A;
+  animation-name: example2;
+  animation-duration: 0.5s;
+}
+
+@keyframes example3{
+  from {transform: rotate(-45deg);}
+  to {transform: rotate(45deg);}
+}
+
+@keyframes example2{
+  from {transform: rotate(45deg);}
+  to {transform: rotate(-45deg);}
+}

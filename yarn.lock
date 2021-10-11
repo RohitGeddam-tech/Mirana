@@ -1105,6 +1105,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.10.4", "@babel/runtime@^7.10.5":
+  version "7.15.4"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.15.4.tgz#fd17d16bfdf878e6dd02d19753a39fa8a8d9c84a"
+  integrity sha512-99catp6bHCaxr4sJ/DbTGgHS4+Rs2RVd2g7iOap6SLGPDknRK9ztKNsE/Fg6QhSeh1FGE5f6gHGQmvvn3I3xhw==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/template@^7.10.4", "@babel/template@^7.12.13", "@babel/template@^7.3.3":
   version "7.12.13"
   resolved "https://registry.npmjs.org/@babel/template/-/template-7.12.13.tgz"
@@ -1193,6 +1200,21 @@
     lodash "^4.17.20"
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
+
+"@fluentui/react-component-event-listener@~0.51.6":
+  version "0.51.7"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-component-event-listener/-/react-component-event-listener-0.51.7.tgz#158adb970d8bc982c91c57fd1322a0036042d86e"
+  integrity sha512-NjVm+crN0T9A7vITL8alZeHnuV8zi2gos0nezU/2YOxaUAB9E4zKiPxt/6k5U50rJs/gj8Nu45iXxnjO41HbZg==
+  dependencies:
+    "@babel/runtime" "^7.10.4"
+
+"@fluentui/react-component-ref@~0.51.6":
+  version "0.51.7"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-component-ref/-/react-component-ref-0.51.7.tgz#bfb0312e926c213bed35e53ee5105a68732eea99"
+  integrity sha512-CX27jVJYaFoBCWpuWAizQZ2se137ku1dmDyn8sw+ySNJa+kkQf7LnMydiPW5K7cRdUSqUJW3eS4EjKRvVAx8xA==
+  dependencies:
+    "@babel/runtime" "^7.10.4"
+    react-is "^16.6.3"
 
 "@hapi/address@2.x.x":
   version "2.1.4"
@@ -1530,6 +1552,151 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
+"@popperjs/core@^2.6.0":
+  version "2.10.2"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.10.2.tgz#0798c03351f0dea1a5a4cabddf26a55a7cbee590"
+  integrity sha512-IXf3XA7+XyN7CP9gGh/XB0UxVMlvARGEgGXLubFICsUMGz6Q+DU+i4gGlpOxTjKvXjkJDJC8YdqdKkDj9qZHEQ==
+
+"@react-pdf-viewer/attachment@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@react-pdf-viewer/attachment/-/attachment-2.7.1.tgz#d1c8b00bf40f65b3330137fee1c9ffb13430abae"
+  integrity sha512-mIqqzLZdFmo30nKzIctEsjpUTPWXhsR7VsdM1hGff5U8YLblbhi0PJpG5DHjRjLmd6dhNdFNht9X7MEvcgmBGg==
+  dependencies:
+    "@react-pdf-viewer/core" "2.7.1"
+
+"@react-pdf-viewer/bookmark@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@react-pdf-viewer/bookmark/-/bookmark-2.7.1.tgz#ecc302c07be19144c94427ae4b06bf22e52f1ba2"
+  integrity sha512-RF8Jru40w+xgS3lLqflyoU6y0B1e2aqdUKhCBu2Wo1CPBE3daBRWPjZDBmy26iLYcsC6w/i9ZE/cdJsqrVyJEQ==
+  dependencies:
+    "@react-pdf-viewer/core" "2.7.1"
+
+"@react-pdf-viewer/core@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@react-pdf-viewer/core/-/core-2.7.1.tgz#7a111c62ae8c69c3c704bd844644d2b5a1ef4496"
+  integrity sha512-WHxiGTekrKHWMUCguX/xsNz8Hl2l2xdWNq4eVdQgA8UNsKk1s9YbpEC/jK8bKpDZw4a4G4nP2pbIUbd7tUmSjQ==
+
+"@react-pdf-viewer/default-layout@^2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@react-pdf-viewer/default-layout/-/default-layout-2.7.1.tgz#7a757b63c46b61d4bb10e8fc4298b7fb914b40bb"
+  integrity sha512-xgJK/OCIpwBW6jXbLuDKgrNjLhx9UwcG9BQHnNYtPor1knqDbw9j0cvROFaNAp9/ObOqkPUjuFRid9waFru3Bg==
+  dependencies:
+    "@react-pdf-viewer/attachment" "2.7.1"
+    "@react-pdf-viewer/bookmark" "2.7.1"
+    "@react-pdf-viewer/core" "2.7.1"
+    "@react-pdf-viewer/thumbnail" "2.7.1"
+    "@react-pdf-viewer/toolbar" "2.7.1"
+
+"@react-pdf-viewer/full-screen@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@react-pdf-viewer/full-screen/-/full-screen-2.7.1.tgz#9b5247e3060c986ef9584abd2d9999d4632e3c36"
+  integrity sha512-wRAXQsvwTNn4VB0cbbC6TPP/rOkBzNDhOKQqxpsxs8+Y9m2NlnpcsB9nWzrnol6mII41Io5h2K+w2IBz28kapg==
+  dependencies:
+    "@react-pdf-viewer/core" "2.7.1"
+
+"@react-pdf-viewer/get-file@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@react-pdf-viewer/get-file/-/get-file-2.7.1.tgz#a61faa89f66176b987acea4c1dd4555481dbfaee"
+  integrity sha512-OdUjS23js7hCvGaqmToo44drWKHyaBGPYFpTHyYNymUj6kaI4FsxnS0LuFuCAUlx21KwtSfcpAgQzeEX2Mi5HQ==
+  dependencies:
+    "@react-pdf-viewer/core" "2.7.1"
+
+"@react-pdf-viewer/open@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@react-pdf-viewer/open/-/open-2.7.1.tgz#ed7359433e88207c47373e1419360a03ea0a7f2c"
+  integrity sha512-gnKB47A12auXqOMe0UHK9ZSPaaKbbe8sReWj9hewfhXNdIU/zaX6b33h2AA6aPDZAS8YOA6UY2j7p+cxmgYnMw==
+  dependencies:
+    "@react-pdf-viewer/core" "2.7.1"
+
+"@react-pdf-viewer/page-navigation@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@react-pdf-viewer/page-navigation/-/page-navigation-2.7.1.tgz#881671c587c0cf15f6b32466d9dd0712f31a1abb"
+  integrity sha512-yH/jVFLDgEhMHQ6rdzp4o01LG8ezKpLaz212e5n3mSI5fDQmJoGrXFpyJ+SP+/YbqIXUf1X5DI8fqp4MZ8hbNA==
+  dependencies:
+    "@react-pdf-viewer/core" "2.7.1"
+
+"@react-pdf-viewer/print@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@react-pdf-viewer/print/-/print-2.7.1.tgz#90ffacc6b6b6f8a9235be4c0b10836584f929a51"
+  integrity sha512-MDPfJeeAaAol8avhDx8CMP22IbkGbNXpSb80gJyUG14rnLn8O+4aUo4/AZOnfVZ1UvWL96LiKWH1r6g6SnLimA==
+  dependencies:
+    "@react-pdf-viewer/core" "2.7.1"
+
+"@react-pdf-viewer/properties@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@react-pdf-viewer/properties/-/properties-2.7.1.tgz#a0fbecc11f02d36680f8e6471b2ade674df94b61"
+  integrity sha512-mXhFcSwLpeXw1s2vPZWlZWeJ4z6ZFRSoe7YFy6aR39m4eBQIK0KPQj2FSB+reZmzolr+CmxFvfEFd0BgS2izJw==
+  dependencies:
+    "@react-pdf-viewer/core" "2.7.1"
+
+"@react-pdf-viewer/rotate@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@react-pdf-viewer/rotate/-/rotate-2.7.1.tgz#9e6298f15eb3f81e50eda4c8cd3b86438e98967a"
+  integrity sha512-NTGHHsZR1dHjdDjva1gqVt6zZ636uf1zik8p6g9bBNRQsR/JcUEeCpK4AQHqNM+JA6sCwBuBYU3k0UdE9zJJuA==
+  dependencies:
+    "@react-pdf-viewer/core" "2.7.1"
+
+"@react-pdf-viewer/scroll-mode@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@react-pdf-viewer/scroll-mode/-/scroll-mode-2.7.1.tgz#f547ccc2ba687a45780905ecd6b2cbd857810a19"
+  integrity sha512-kwukPl/Z1n/Trr5o0Uxez+2tEJmcIEUNtWCIJOa6byn8GPmUxT6N2v0kkLc+hFSyXGkT8fGcsVkQyp3RVX4w3w==
+  dependencies:
+    "@react-pdf-viewer/core" "2.7.1"
+
+"@react-pdf-viewer/search@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@react-pdf-viewer/search/-/search-2.7.1.tgz#4e01dd769af426833c7e0555aedae50dd7469050"
+  integrity sha512-rJ/JM55Nf8qBHPHcnFf1YlIBqoOk0PqPHG+OhPLVwU2HAmQgggJ0TbLasD3s25qkpSP5gFHwv0E+Ur0RkAiFPw==
+  dependencies:
+    "@react-pdf-viewer/core" "2.7.1"
+
+"@react-pdf-viewer/selection-mode@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@react-pdf-viewer/selection-mode/-/selection-mode-2.7.1.tgz#5ac529d46ce6ff61cdbfd80a332689eee2979342"
+  integrity sha512-N0r4oYPMNbaEE8eCmpb2otFheX/94LVFG0GTCfgbmxPD98f3UM2lPs5uoLxrjuBXoQnERW+dCU2WQjJHlLkvgw==
+  dependencies:
+    "@react-pdf-viewer/core" "2.7.1"
+
+"@react-pdf-viewer/theme@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@react-pdf-viewer/theme/-/theme-2.7.1.tgz#30de52d5b1da26093ebc26693729aede698b5e1f"
+  integrity sha512-ve2UnM7lUt4wjcTCMRXLb0feDZ3EKaU4k3V8ZpcGTjIsRni/qJRCoiTchytuuuZFIuiBDbHr9WsQmHf4CbmBlA==
+  dependencies:
+    "@react-pdf-viewer/core" "2.7.1"
+
+"@react-pdf-viewer/thumbnail@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@react-pdf-viewer/thumbnail/-/thumbnail-2.7.1.tgz#122d2eda82782d7c7e1834c3e2661d41972b55ff"
+  integrity sha512-B/dXgc0N76i7YUH5JOsPAlKMdajg4NVOVm8K2uSTafbC1XQh4uHJpetGMLqQrB6o6r4rEUSbOiRDYlDHNJUAcA==
+  dependencies:
+    "@react-pdf-viewer/core" "2.7.1"
+
+"@react-pdf-viewer/toolbar@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@react-pdf-viewer/toolbar/-/toolbar-2.7.1.tgz#5b8c3da2e8fe3437bdd184c982e61cc67790137e"
+  integrity sha512-hAQRn5zl42akJ4R2NUFQY/ZUcLvsKybRJPcmIj9kn5mubSUgED00pSTsGnYQguFNjxE8E4qoIRaJKfgaNfK03w==
+  dependencies:
+    "@react-pdf-viewer/core" "2.7.1"
+    "@react-pdf-viewer/full-screen" "2.7.1"
+    "@react-pdf-viewer/get-file" "2.7.1"
+    "@react-pdf-viewer/open" "2.7.1"
+    "@react-pdf-viewer/page-navigation" "2.7.1"
+    "@react-pdf-viewer/print" "2.7.1"
+    "@react-pdf-viewer/properties" "2.7.1"
+    "@react-pdf-viewer/rotate" "2.7.1"
+    "@react-pdf-viewer/scroll-mode" "2.7.1"
+    "@react-pdf-viewer/search" "2.7.1"
+    "@react-pdf-viewer/selection-mode" "2.7.1"
+    "@react-pdf-viewer/theme" "2.7.1"
+    "@react-pdf-viewer/zoom" "2.7.1"
+
+"@react-pdf-viewer/zoom@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@react-pdf-viewer/zoom/-/zoom-2.7.1.tgz#7d5e7be7cf56e49c7eda66842621959b5b308ee9"
+  integrity sha512-H4EzwYNDEwO6ISW/+SEs4IQOhvK/ckp0F9B45MtAK7zKBiiAxW626nGWneNvcXdGvsl8eXf7GSFhwzuEveUGPA==
+  dependencies:
+    "@react-pdf-viewer/core" "2.7.1"
+
 "@rollup/plugin-node-resolve@^7.1.1":
   version "7.1.3"
   resolved "https://registry.npmjs.org/@rollup/plugin-node-resolve/-/plugin-node-resolve-7.1.3.tgz"
@@ -1557,6 +1724,14 @@
     "@types/estree" "0.0.39"
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
+
+"@semantic-ui-react/event-stack@^3.1.2":
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/@semantic-ui-react/event-stack/-/event-stack-3.1.2.tgz#14fac9796695aa3967962d94ea9733a85325f9c4"
+  integrity sha512-Yd0Qf7lPCIjzJ9bZYfurlNu2RDXT6KKSyubHfYK3WjRauhxCsq6Fk2LMRI9DEvShoEU+AsLSv3NGkqXAcVp0zg==
+  dependencies:
+    exenv "^1.2.2"
+    prop-types "^15.6.2"
 
 "@sinonjs/commons@^1.7.0":
   version "1.8.2"
@@ -2628,6 +2803,13 @@ axe-core@^4.0.2:
   resolved "https://registry.npmjs.org/axe-core/-/axe-core-4.1.2.tgz"
   integrity sha512-V+Nq70NxKhYt89ArVcaNL9FDryB3vQOd+BFXZIfO3RP6rwtj+2yqqqdHEkacutglPaZLkJeuXKCjCJDMGPtPqg==
 
+axios@^0.21.4:
+  version "0.21.4"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.4.tgz#c67b90dc0568e5c1cf2b0b858c43ba28e2eda575"
+  integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
+  dependencies:
+    follow-redirects "^1.14.0"
+
 axobject-query@^2.2.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/axobject-query/-/axobject-query-2.2.0.tgz"
@@ -3399,7 +3581,7 @@ cliui@^6.0.0:
     strip-ansi "^6.0.0"
     wrap-ansi "^6.2.0"
 
-clsx@^1.0.2, clsx@^1.0.4:
+clsx@^1.0.2, clsx@^1.0.4, clsx@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.1.1.tgz#98b3134f9abbdf23b2663491ace13c5c03a73188"
   integrity sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==
@@ -4903,6 +5085,11 @@ execa@^4.0.0:
     signal-exit "^3.0.2"
     strip-final-newline "^2.0.0"
 
+exenv@^1.2.0, exenv@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.2.tgz#2ae78e85d9894158670b03d47bec1f03bd91bb9d"
+  integrity sha1-KueOhdmJQVhnCwPUe+wfA72Ru50=
+
 exit@^0.1.2:
   version "0.1.2"
   resolved "https://registry.npmjs.org/exit/-/exit-0.1.2.tgz"
@@ -5212,6 +5399,11 @@ follow-redirects@^1.0.0:
   version "1.13.2"
   resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.13.2.tgz"
   integrity sha512-6mPTgLxYm3r6Bkkg0vNM0HTjfGrOEtsfbhagQvbxDEsEkpNhw582upBaoRZylzen6krEmxXJgt9Ju6HiI4O7BA==
+
+follow-redirects@^1.14.0:
+  version "1.14.4"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.4.tgz#838fdf48a8bbdd79e52ee51fb1c94e3ed98b9379"
+  integrity sha512-zwGkiSXC1MUJG/qmeIFH2HBJx9u0V46QGUe3YR1fXG8bXQxq7fLj0RjLZQ5nubr9qNJUZrH+xUcwXEoXNpfS+g==
 
 for-in@^1.0.2:
   version "1.0.2"
@@ -6845,6 +7037,11 @@ jest@26.6.0:
     import-local "^3.0.2"
     jest-cli "^26.6.0"
 
+jquery@x.*:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
+  integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
+
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz"
@@ -7070,6 +7267,11 @@ jss@10.7.1, jss@^10.5.1:
     array-includes "^3.1.2"
     object.assign "^4.1.2"
 
+keyboard-key@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/keyboard-key/-/keyboard-key-1.1.0.tgz#6f2e8e37fa11475bb1f1d65d5174f1b35653f5b7"
+  integrity sha512-qkBzPTi3rlAKvX7k0/ub44sqOfXeLc/jcnGGmj5c7BJpU8eDrEVPyhCvNYAaoubbsLm9uGWwQJO1ytQK1a9/dQ==
+
 killable@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/killable/-/killable-1.0.1.tgz"
@@ -7220,6 +7422,11 @@ locate-path@^5.0.0:
   dependencies:
     p-locate "^4.1.0"
 
+lodash-es@^4.17.21:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
+  integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
+
 lodash._reinterpolate@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/lodash._reinterpolate/-/lodash._reinterpolate-3.0.0.tgz"
@@ -7260,7 +7467,7 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.npmjs.org/lodash.uniq/-/lodash.uniq-4.5.0.tgz"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-"lodash@>=3.5 <5", lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.5:
+"lodash@>=3.5 <5", lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.5:
   version "4.17.21"
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -7270,7 +7477,7 @@ loglevel@^1.6.8:
   resolved "https://registry.npmjs.org/loglevel/-/loglevel-1.7.1.tgz"
   integrity sha512-Hesni4s5UkWkwCGJMQGAh71PaLUmKFM60dHvq0zi/vDhhrzuk+4GgNbTXJ12YYQJn6ZKBDNIjYcuQGKudvqrIw==
 
-loose-envify@^1.1.0, loose-envify@^1.2.0, loose-envify@^1.3.1, loose-envify@^1.4.0:
+loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.2.0, loose-envify@^1.3.1, loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.npmjs.org/loose-envify/-/loose-envify-1.4.0.tgz"
   integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
@@ -7343,6 +7550,11 @@ map-visit@^1.0.0:
   integrity sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
   dependencies:
     object-visit "^1.0.0"
+
+material-design-icons@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/material-design-icons/-/material-design-icons-3.0.1.tgz#9a71c48747218ebca51e51a66da682038cdcb7bf"
+  integrity sha1-mnHEh0chjrylHlGmbaaCA4zct78=
 
 md5.js@^1.3.4:
   version "1.3.5"
@@ -7587,6 +7799,11 @@ mkdirp@^1.0.3, mkdirp@^1.0.4:
   version "1.0.4"
   resolved "https://registry.npmjs.org/mkdirp/-/mkdirp-1.0.4.tgz"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
+
+moment@^2.29.1:
+  version "2.29.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
+  integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -8272,6 +8489,11 @@ pbkdf2@^3.0.3:
     ripemd160 "^2.0.1"
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
+
+pdfjs-dist@2.6.347:
+  version "2.6.347"
+  resolved "https://registry.yarnpkg.com/pdfjs-dist/-/pdfjs-dist-2.6.347.tgz#f257ed66e83be900cd0fd28524a2187fb9e25cd5"
+  integrity sha512-QC+h7hG2su9v/nU1wEI3SnpPIrqJODL7GTDFvR74ANKGq1AFJW16PH8VWnhpiTi9YcLSFV9xLeWSgq+ckHLdVQ==
 
 performance-now@^2.1.0:
   version "2.1.0"
@@ -9330,12 +9552,17 @@ react-error-overlay@^6.0.9:
   resolved "https://registry.npmjs.org/react-error-overlay/-/react-error-overlay-6.0.9.tgz"
   integrity sha512-nQTTcUu+ATDbrSD1BZHr5kgSD4oF8OFjxun8uAaL8RwPBacGBNPf/yAuVVdx17N8XNzRDMrZ9XcKZHCjPW+9ew==
 
-react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1:
+react-fast-compare@^3.0.1:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.0.tgz#641a9da81b6a6320f270e89724fb45a0b39e43bb"
+  integrity sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==
+
+react-is@^16.6.0, react-is@^16.6.3, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-"react-is@^16.8.0 || ^17.0.0":
+"react-is@^16.8.0 || ^17.0.0", "react-is@^16.8.6 || ^17.0.0":
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
@@ -9344,6 +9571,29 @@ react-is@^17.0.1:
   version "17.0.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.1.tgz"
   integrity sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==
+
+react-lifecycles-compat@^3.0.0:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
+  integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
+
+react-modal@^3.14.3:
+  version "3.14.3"
+  resolved "https://registry.yarnpkg.com/react-modal/-/react-modal-3.14.3.tgz#7eb7c5ec85523e5843e2d4737cc17fc3f6aeb1c0"
+  integrity sha512-+C2KODVKyu20zHXPJxfOOcf571L1u/EpFlH+oS/3YDn8rgVE51QZuxuuIwabJ8ZFnOEHaD+r6XNjqwtxZnXO0g==
+  dependencies:
+    exenv "^1.2.0"
+    prop-types "^15.7.2"
+    react-lifecycles-compat "^3.0.0"
+    warning "^4.0.3"
+
+react-popper@^2.2.4:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-2.2.5.tgz#1214ef3cec86330a171671a4fbcbeeb65ee58e96"
+  integrity sha512-kxGkS80eQGtLl18+uig1UIf9MKixFSyPxglsgLBxlYnyDf65BiY9B3nZSc6C9XUNDgStROB0fMQlTEz1KxGddw==
+  dependencies:
+    react-fast-compare "^3.0.1"
+    warning "^4.0.2"
 
 react-refresh@^0.8.3:
   version "0.8.3"
@@ -10065,6 +10315,32 @@ selfsigned@^1.10.8:
   dependencies:
     node-forge "^0.10.0"
 
+semantic-ui-css@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/semantic-ui-css/-/semantic-ui-css-2.4.1.tgz#f5aea39fafb787cbd905ec724272a3f9cba9004a"
+  integrity sha512-Pkp0p9oWOxlH0kODx7qFpIRYpK1T4WJOO4lNnpNPOoWKCrYsfHqYSKgk5fHfQtnWnsAKy7nLJMW02bgDWWFZFg==
+  dependencies:
+    jquery x.*
+
+semantic-ui-react@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/semantic-ui-react/-/semantic-ui-react-2.0.4.tgz#a66862964e0482d9b862a5f9cf5c8f3417cfb101"
+  integrity sha512-nTlIN/K1iEA7ybut2ICBlPfAushs2afkyUuwQ6vMlYpvLjnnUgN+JKhhoq47MlRuQ2ekdMDZ9OgctViTbDyBaQ==
+  dependencies:
+    "@babel/runtime" "^7.10.5"
+    "@fluentui/react-component-event-listener" "~0.51.6"
+    "@fluentui/react-component-ref" "~0.51.6"
+    "@popperjs/core" "^2.6.0"
+    "@semantic-ui-react/event-stack" "^3.1.2"
+    clsx "^1.1.1"
+    keyboard-key "^1.1.0"
+    lodash "^4.17.21"
+    lodash-es "^4.17.21"
+    prop-types "^15.7.2"
+    react-is "^16.8.6 || ^17.0.0"
+    react-popper "^2.2.4"
+    shallowequal "^1.1.0"
+
 "semver@2 || 3 || 4 || 5", semver@^5.4.1, semver@^5.5.0, semver@^5.5.1, semver@^5.6.0:
   version "5.7.1"
   resolved "https://registry.npmjs.org/semver/-/semver-5.7.1.tgz"
@@ -10185,6 +10461,11 @@ sha.js@^2.4.0, sha.js@^2.4.8:
   dependencies:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
+
+shallowequal@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/shallowequal/-/shallowequal-1.1.0.tgz#188d521de95b9087404fd4dcb68b13df0ae4e7f8"
+  integrity sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==
 
 shebang-command@^1.2.0:
   version "1.2.0"
@@ -11397,6 +11678,13 @@ walker@^1.0.7, walker@~1.0.5:
   integrity sha1-L3+bj9ENZ3JisYqITijRlhjgKPs=
   dependencies:
     makeerror "1.0.x"
+
+warning@^4.0.2, warning@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/warning/-/warning-4.0.3.tgz#16e9e077eb8a86d6af7d64aa1e05fd85b4678ca3"
+  integrity sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==
+  dependencies:
+    loose-envify "^1.0.0"
 
 watchpack-chokidar2@^2.0.1:
   version "2.0.1"

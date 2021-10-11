@@ -1,70 +1,111 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import arrow from "../image/Frame2.png";
-
-const defaultFormState = {
-  fname: "",
-  lname: "",
-  mobile: "",
-  email: "",
-  text: "",
-  city: "",
-};
+import axios from "axios";
+import { Modal } from "@material-ui/core";
 
 const Form = ({ className = "" }) => {
-  const [details, setDetails] = useState({ ...defaultFormState });
-  const [error, setError] = useState({});
+  // const [details, setDetails] = useState({ ...defaultFormState });
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [email, setEmail] = useState("");
+  const [text, setText] = useState("");
+  const [city, setCity] = useState("");
+  const [fnameInvalid, setFnameInvalid] = useState(false);
+  const [lnameInvalid, setLnameInvalid] = useState(false);
+  const [mobileInvalid, setMobileInvalid] = useState(false);
+  const [emailInvalid, setEmailInvalid] = useState(false);
+  const [textInvalid, setTextInvalid] = useState(false);
+  const [cityInvalid, setCityInvalid] = useState(false);
+  const [form, setForm] = useState({});
+  const [validity, setValidity] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [btnLoading, setBtnLoading] = useState(false);
+  // const [error, setError] = useState({});
+
 
   const handleChange = (e) => {
-    const tempDetails = { ...details },
-      tempError = { ...error };
-    tempDetails[e.target.name] = e.target.value;
-    tempError[e.target.name] = "";
-    setDetails(tempDetails);
-    setError(tempError);
-  };
-
-  const validateForm = () => {
-    const tempError = { ...error };
-    var fnameRegExp = /^[A-Za-z\s]+$/,
-      lnameRegExp = /^[A-Za-z\s]+$/,
-      emailRegExp = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/,
-      phoneRegExp = /^[0-9]{10}$/;
-
-    tempError.fname =
-      (!details.fname && "The Firstname field is required.") ||
-      (!fnameRegExp.test(details.fname) && "The Firstname field is invalid.");
-
-    tempError.lname =
-      (!details.lname && "The Lastname field is required.") ||
-      (!lnameRegExp.test(details.lname) && "The Lastname field is invalid.");
-
-    tempError.mobile =
-      (!details.mobile && "The phone number field is required.") ||
-      (!phoneRegExp.test(details.mobile) &&
-        "The phone number field is invalid.");
-
-    tempError.email =
-      (!details.email && "The email field is required.") ||
-      (!emailRegExp.test(details.email) && "The email field is invalid.");
-
-    setError(tempError);
-    return Object.values(tempError).some((val) => val);
+    // console.log("e value", e);
+    switch (e.target.name) {
+      case "fname":
+        setFname(e.target.value);
+        setFnameInvalid(!e.target.validity.valid);
+        break;
+      case "lname":
+        setLname(e.target.value);
+        setLnameInvalid(!e.target.validity.valid);
+        break;
+      case "mobile":
+        setMobile(e.target.value);
+        setMobileInvalid(!e.target.validity.valid);
+        break;
+      case "email":
+        setEmail(e.target.value);
+        setEmailInvalid(!e.target.validity.valid);
+        break;
+      case "text":
+        setText(e.target.value);
+        // setTextInvalid(textchange());
+        setTextInvalid(!e.target.validity.valid);
+        break;
+      case "city":
+        setCity(e.target.value);
+        setCityInvalid(!e.target.validity.valid);
+        break;
+      default:
+        break;
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError({});
-    const errorExist = validateForm();
-    if (!errorExist) {
-      console.log(details);
+    if (
+      !(
+        fnameInvalid ||
+        lnameInvalid ||
+        textInvalid ||
+        cityInvalid ||
+        mobileInvalid ||
+        emailInvalid
+      )
+    ) {
+      setValidity(true);
+      setForm({
+        first_name: fname,
+        last_name: lname,
+        mobile: mobile,
+        email: email,
+        message: text,
+        city: city,
+      });
+      setBtnLoading(true);
+      console.log(form);
     } else {
-      console.log(error);
+      setValidity(false);
     }
   };
 
+  useEffect(() => {
+    if (validity) {
+      axios
+        .post(`${process.env.REACT_APP_PUBLIC_URL}/contact-us`, form)
+        .then((res) => {
+          if (res) {
+            console.log("response msg", res);
+            setBtnLoading(false);
+            setSuccess(true);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          setBtnLoading(false);
+        });
+    }
+  }, [form, validity]);
+
   const [clicked, setClicked] = useState(false);
 
-  className += ` textfield ${details.text ? "has-value" : ""}`;
+  className += ` textfield ${text ? "has-value" : ""}`;
 
   return (
     <>
@@ -80,95 +121,144 @@ const Form = ({ className = "" }) => {
         <div className="inputFlex">
           <div className="text-input">
             <input
-              value={details.fname}
+              value={fname}
               className="input"
               name="fname"
+              pattern="^([A-Za-z ,.'`-]{2,30})$"
               onChange={handleChange}
+              type="text"
+              required
             />
             <label htmlFor="fname" className="input-placeholder">
               First name<span>*</span>
             </label>
-            {error && error.fname ? (
-              <p className="error-text">{error.fname}</p>
+            {fnameInvalid ? (
+              <p className="error-text">Please provide a valid first-name</p>
             ) : null}
           </div>
           <div className="text-input">
             <input
-              value={details.lname}
+              value={lname}
               className="input"
               name="lname"
               onChange={handleChange}
+              pattern="^([A-Za-z ,.'`-]{2,30})$"
+              type="text"
+              required
             />
             <label htmlFor="lname" className="input-placeholder">
               Last name<span>*</span>
             </label>
-            {error && error.lname ? (
-              <p className="error-text">{error.lname}</p>
+            {lnameInvalid ? (
+              <p className="error-text">Please provide a valid last-name</p>
             ) : null}
           </div>
         </div>
         <div className="text-input">
           <input
             className="input"
-            value={details.email}
+            value={email}
             name="email"
             onChange={handleChange}
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$"
+            type="email"
+            required
           />
           <label htmlFor="email" className="input-placeholder">
             Email<span>*</span>
           </label>
         </div>
-        {error && error.email ? (
-          <p className="error-text">{error.email}</p>
+        {emailInvalid ? (
+          <p className="error-text">Please provide a valid email Id</p>
         ) : null}
         <div className="text-input">
           <input
-            value={details.mobile}
+            value={mobile}
             type="number"
             className="input"
             name="mobile"
             onChange={handleChange}
-            pattern="[0-9]{9}"
+            pattern="[0-9]{10}"
+            required
           />
           <label htmlFor="mobile" className="input-placeholder">
             Mobile No.<span>*</span>
           </label>
         </div>
-        {error && error.mobile ? (
-          <p className="error-text">{error.mobile}</p>
+        {mobileInvalid ? (
+          <p className="error-text">Please provide a valid mobile no.</p>
         ) : null}
         <div className="text-input">
           <input
-            value={details.city}
+            value={city}
             className="input"
             name="city"
             onChange={handleChange}
+            type="text"
+            pattern="^([A-Za-z ,.'`-]{2,30})$"
+            required
           />
           <label htmlFor="city" className="input-placeholder">
             City
           </label>
+          {cityInvalid ? (
+            <p className="error-text">Please provide a valid City Name</p>
+          ) : null}
         </div>
         <div className="text-input">
           <textarea
             className={className}
-            value={details.text}
+            value={text}
             name="text"
             onChange={handleChange}
             onClick={() => setClicked(!clicked)}
+            type="text"
+            // pattern="^([A-Za-z0-9 ,.'`-]{10,200})$"
+            minLength="10"
+            required
           />
           <label htmlFor="message" className="input-placeholder">
             Write your message here*
           </label>
+          {textInvalid ? (
+            <p className="error-text">
+              Please provide a minimum of 10 characters
+            </p>
+          ) : null}
         </div>
         <div className="bottom">
-          <button type="submit" className="btn">
-            Send
-            <span>
-              <img src={arrow} alt="arrow" />
-            </span>
+          <button type="submit" className="btn" disabled={btnLoading}>
+            {btnLoading ? (
+              "Sending..."
+            ) : (
+              <>
+                Send
+                <span>
+                  <img src={arrow} alt="arrow" />
+                </span>
+              </>
+            )}
           </button>
         </div>
       </form>
+      <Modal
+        className="modal"
+        open={success}
+        onClose={() => {
+          setSuccess(false);
+        }}
+      >
+        <div className="box">
+          <h1>Thank you</h1>
+          <p>
+            Thank you for your interest. Our team will get in touch with you
+            soon.
+          </p>
+          <button className="btn" onClick={() => setSuccess(false)}>
+            Close
+          </button>
+        </div>
+      </Modal>
     </>
   );
 };
