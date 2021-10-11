@@ -224,6 +224,9 @@ body {
           line-height: 19px;
           color: #667c8a;
           font-style: italic;
+          &.normal{
+            font-style: normal;
+          }
         }
       }
     }
