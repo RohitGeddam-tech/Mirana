@@ -38,6 +38,7 @@ const Pay = () => {
   const [form, setForm] = useState({});
   const [validity, setValidity] = useState(false);
   const [valid, setValid] = useState(false);
+  const [logged, setLogged] = useState(false);
   //   const [btnLoading, setBtnLoading] = useState(false);
 
   const backPage = () => {
@@ -56,7 +57,16 @@ const Pay = () => {
 
   React.useEffect(() => {
     setInvalid(true);
+    if (sessionStorage.getItem("logged") !== null) {
+      setLogged(true);
+    }
   }, []);
+
+  React.useEffect(() => {
+    if (sessionStorage.getItem("logged") !== null) {
+      setLogged(true);
+    }
+  });
 
   const handleChange = (e) => {
     // console.log("e value", e);
@@ -178,16 +188,18 @@ const Pay = () => {
           </div>
           <div className="body">
             <div className="left">
-              <div className="log">
-                <div className="det">
-                  <p>Already have an account?</p>
-                  <h5>You can login to pre-fill your personal details</h5>
+              {logged ? null : (
+                <div className="log">
+                  <div className="det">
+                    <p>Already have an account?</p>
+                    <h5>You can login to pre-fill your personal details</h5>
+                  </div>
+                  <NavHashLink to="/Pay#top" className="btn">
+                    Login
+                  </NavHashLink>
+                  {/* <LoginBtn close="btn" /> */}
                 </div>
-                <NavHashLink to="/Pay#top" className="btn">
-                  Login
-                </NavHashLink>
-                {/* <LoginBtn close="btn" /> */}
-              </div>
+              )}
               <form onSubmit={handleSubmit}>
                 <div className="box">
                   <h1>Please enter guest details & sign up</h1>
@@ -231,8 +243,8 @@ const Pay = () => {
                       </p>
                     ) : null}
                     <div className="otp">
-                      <div className="textInput">
-                        <div className="text-input">
+                      <div className={`textInput ${logged ? "full" : ""}`}>
+                        <div className={`text-input`}>
                           <input
                             className="input"
                             value={email}
@@ -252,39 +264,43 @@ const Pay = () => {
                           </p>
                         ) : null}
                       </div>
-                      <button
-                        className={`${!invalid ? "btn resend" : "btn"}`}
-                        type="button"
-                        // onClick={() => setInvalid(emailInvalid)}
-                        onClick={otpClick}
-                        // disabled={!invalid}
-                      >
-                        {/* Send OTP */}
-                        {invalid ? "Send OTP" : "Re-send OTP"}
-                      </button>
+                      {logged ? null : (
+                        <button
+                          className={`${!invalid ? "btn resend" : "btn"}`}
+                          type="button"
+                          // onClick={() => setInvalid(emailInvalid)}
+                          onClick={otpClick}
+                          // disabled={!invalid}
+                        >
+                          {/* Send OTP */}
+                          {invalid ? "Send OTP" : "Re-send OTP"}
+                        </button>
+                      )}
                     </div>
-                    <div className="code">
-                      <div className="text-input">
-                        <input
-                          value={code}
-                          type="number"
-                          className="input"
-                          name="code"
-                          onChange={handleChange}
-                          pattern="[0-9]{6}"
-                          disabled={invalid}
-                          required
-                        />
-                        <label htmlFor="code" className="input-placeholder">
-                          Enter OTP<span>*</span>
-                        </label>
+                    {logged ? null : (
+                      <div className="code">
+                        <div className="text-input">
+                          <input
+                            value={code}
+                            type="number"
+                            className="input"
+                            name="code"
+                            onChange={handleChange}
+                            pattern="[0-9]{6}"
+                            disabled={invalid}
+                            required
+                          />
+                          <label htmlFor="code" className="input-placeholder">
+                            Enter OTP<span>*</span>
+                          </label>
+                        </div>
+                        {codeInvalid ? (
+                          <p className="error-text">
+                            The code provided is not valid.
+                          </p>
+                        ) : null}
                       </div>
-                      {codeInvalid ? (
-                        <p className="error-text">
-                          The code provided is not valid.
-                        </p>
-                      ) : null}
-                    </div>
+                    )}
                   </div>
                 </div>
                 <div className="bottom">

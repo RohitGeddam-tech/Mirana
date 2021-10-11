@@ -34,6 +34,7 @@ const LoginBtn = ({ close }) => {
       setLogin(true);
       sessionStorage.setItem("logged", true);
       sessionStorage.setItem("mailed", JSON.stringify(email));
+      window.location.reload();
     }
   };
 
