@@ -18,7 +18,7 @@ const Cancel = ({ draw, setDraw }) => {
             <img src={clear} alt="close" onClick={() => setDraw(false)} />
           </div>
           <div className="body">
-            <p>
+            <p className='normal'>
               Cancellation allowed 7 days prior to Check In date. The hotel
               reserves the right to charge penalty of complete reservation
               charges if cancelled after the cancellation period.
