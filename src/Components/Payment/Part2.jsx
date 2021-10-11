@@ -4,6 +4,7 @@ import NewHeader from "../NewHeader";
 import "./Pay.scss";
 // import { NavHashLink } from "react-router-hash-link";
 import arrow2 from "../../image/Frame2.png";
+import { NavHashLink } from "react-router-hash-link";
 const Part2 = () => {
   const dataMoney = sessionStorage.getItem("bookMoney");
   const money = JSON.parse(dataMoney);
@@ -111,12 +112,12 @@ const Part2 = () => {
               </div>
             </div>
             <div className="bottom">
-              <button className="btn" type="submit">
+              <NavHashLink to="/Part3#top" className="btn">
                 Pay now
                 <span>
                   <img src={arrow2} alt="arrow" />
                 </span>
-              </button>
+              </NavHashLink>
             </div>
           </div>
         </div>

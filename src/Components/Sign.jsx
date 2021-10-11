@@ -1,123 +1,118 @@
 import React, { useState } from "react";
-import arrow from "../image/Frame2.png";
-import NewHeader from "./NewHeader";
-import { NavHashLink } from "react-router-hash-link";
-import Footer from "./Footer";
-import "./Sign.scss";
+import { Modal } from "@material-ui/core";
+import clear from "../image/clear.png";
 
-const defaultFormState = {
-  email: "",
-  password: "",
-};
+const Cancel = ({ draw, setDraw, setLogin }) => {
+  const [email, setEmail] = useState("");
+  const [emailInvalid, setEmailInvalid] = useState(false);
+  const [code, setCode] = useState("");
+  const [codeInvalid, setCodeInvalid] = useState(false);
+  const [invalid, setInvalid] = useState(false);
 
-const Sign = () => {
-  const [details, setDetails] = useState({ ...defaultFormState });
-  const [error, setError] = useState({});
-
-  const handleChange = (e) => {
-    const tempDetails = { ...details },
-      tempError = { ...error };
-    tempDetails[e.target.name] = e.target.value;
-    tempError[e.target.name] = "";
-    setDetails(tempDetails);
-    setError(tempError);
-  };
-
-  const validateForm = () => {
-    const tempError = { ...error };
-    var emailRegExp =
-      /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
-
-    var passwordRegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$/;
-
-    tempError.email =
-      (!details.email && "The email field is required.") ||
-      (!emailRegExp.test(details.email) && "The email field is invalid.");
-
-    tempError.password =
-      (!details.password && "The password field is required.") ||
-      (!passwordRegExp.test(details.password) &&
-        "The password field is invalid.");
-
-    setError(tempError);
-    return Object.values(tempError).some((val) => val);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError({});
-    const errorExist = validateForm();
-    if (!errorExist) {
-      console.log(details);
+  const otpClick = () => {
+    if (!emailInvalid && email !== "") {
+      console.log("email empty", email !== "");
+      console.log("email invalid", !emailInvalid);
+      setInvalid(true);
     } else {
-      console.log(error);
+      setInvalid(false);
+    }
+    console.log(emailInvalid, invalid);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!(codeInvalid && emailInvalid)) {
+      sessionStorage.setItem("emailSign", email);
+      setLogin(true);
     }
   };
+
   return (
     <>
-      <NewHeader />
-      <div style={{ paddingTop: "110px" }}>
-        <div className="sign">
-          <div className="container">
-            <form className="form" onSubmit={handleSubmit}>
-              <h1>Sign in to your account</h1>
-              <div className="inside">
+      <Modal
+        className="modalPop"
+        open={draw}
+        onClose={() => {
+          setDraw(false);
+        }}
+      >
+        <div className="box">
+          <div className="head">
+            <h1>Login</h1>
+            <img src={clear} alt="close" onClick={() => setDraw(false)} />
+          </div>
+          <form className="body" onSubmit={handleSubmit}>
+            <div className="otp">
+              <div className="textInput">
                 <div className="text-input">
                   <input
                     className="input"
-                    value={details.email}
+                    value={email}
                     name="email"
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setEmailInvalid(!e.target.validity.valid);
+                    }}
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$"
+                    type="email"
+                    required
                   />
                   <label htmlFor="email" className="input-placeholder">
                     Email<span>*</span>
                   </label>
                 </div>
-                {error && error.email ? (
-                  <p className="error-text">{error.email}</p>
+                {emailInvalid ? (
+                  <p className="error-text">Please provide a valid email Id</p>
                 ) : null}
               </div>
-              <div className="inside">
-                <div className="text-input">
-                  <input
-                    className="input"
-                    value={details.password}
-                    type="password"
-                    name="password"
-                    onChange={handleChange}
-                  />
-                  <label htmlFor="password" className="input-placeholder">
-                    password<span>*</span>
-                  </label>
+              <button
+                className={`${invalid ? "btn resend" : "btn"}`}
+                type="button"
+                // onClick={() => setInvalid(emailInvalid)}
+                onClick={otpClick}
+                // disabled={!invalid}
+              >
+                {/* Send OTP */}
+                {invalid ? "Re-send OTP" : "Send OTP"}
+              </button>
+            </div>
+            {invalid ? (
+              <div className="otp">
+                <div className="textInput">
+                  <div className="text-input">
+                    <input
+                      value={code}
+                      type="number"
+                      className="input"
+                      name="code"
+                      onChange={(e) => {
+                        setCode(e.target.value);
+                        setCodeInvalid(!e.target.validity.valid);
+                      }}
+                      pattern="[0-9]{6}"
+                      required
+                    />
+                    <label htmlFor="code" className="input-placeholder">
+                      Enter OTP<span>*</span>
+                    </label>
+                  </div>
+                  {codeInvalid ? (
+                    <p className="error-text">
+                      The code provided is not valid.
+                    </p>
+                  ) : null}
                 </div>
-                {error && error.password ? (
-                  <p className="error-text">{error.password}</p>
-                ) : null}
-              </div>
-              <div className="log">
-                <p>forget password?</p>
                 <button type="submit" className="btn">
                   Login
-                  <span>
-                    <img src={arrow} alt="arrow" />
-                  </span>
                 </button>
               </div>
-              {/* <div className="acc"> */}
-                <p className="para">
-                  Don’t have an account?{" "}
-                  <NavHashLink to="/#top" className="btn">
-                    Sign Up
-                  </NavHashLink>
-                </p>
-              {/* </div> */}
-            </form>
-          </div>
+            ) : null}
+          </form>
         </div>
-        <Footer />
-      </div>
+      </Modal>
     </>
   );
 };
 
-export default Sign;
+export default Cancel;

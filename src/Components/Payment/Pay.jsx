@@ -82,6 +82,16 @@ const Pay = () => {
     }
   };
 
+  const otpClick = () => {
+    if (
+      (city !== "" && email !== "" && mobile !== "") ||
+      emailInvalid ||
+      cityInvalid
+    ) {
+      setInvalid(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!(cityInvalid || mobileInvalid || emailInvalid || codeInvalid)) {
@@ -101,6 +111,24 @@ const Pay = () => {
 
   React.useEffect(() => {
     if (validity) {
+      console.log(form);
+      sessionStorage.clear();
+      sessionStorage.setItem("bookData", JSON.stringify(pack));
+      sessionStorage.setItem("bookMoney", JSON.stringify(money));
+      sessionStorage.setItem("guestData", JSON.stringify(guest));
+      sessionStorage.setItem("roomData", JSON.stringify(room));
+      sessionStorage.setItem("date1Data", JSON.stringify(date1back));
+      sessionStorage.setItem("date2Data", JSON.stringify(date2back));
+      sessionStorage.setItem("nameData", JSON.stringify(form.city));
+      sessionStorage.setItem("mailData", JSON.stringify(form.email));
+      sessionStorage.setItem("phoneData", JSON.stringify(form.mobile));
+      if (sessionStorage.getItem("logged") === null) {
+        sessionStorage.setItem("logged", true);
+        sessionStorage.setItem("mailed", JSON.stringify(form.city));
+      }
+      if (sessionStorage.getItem("mailed") === null) {
+        sessionStorage.setItem("mailed", JSON.stringify(form.city));
+      }
       window.location.href = "/Part2#top";
     }
   }, [form, validity]);
@@ -155,9 +183,10 @@ const Pay = () => {
                   <p>Already have an account?</p>
                   <h5>You can login to pre-fill your personal details</h5>
                 </div>
-                <NavHashLink to="/Sign#top" className="btn">
+                <NavHashLink to="/Pay#top" className="btn">
                   Login
                 </NavHashLink>
+                {/* <LoginBtn close="btn" /> */}
               </div>
               <form onSubmit={handleSubmit}>
                 <div className="box">
@@ -224,10 +253,14 @@ const Pay = () => {
                         ) : null}
                       </div>
                       <button
-                        className="btn"
-                        onClick={() => setInvalid(emailInvalid)}
+                        className={`${!invalid ? "btn resend" : "btn"}`}
+                        type="button"
+                        // onClick={() => setInvalid(emailInvalid)}
+                        onClick={otpClick}
+                        // disabled={!invalid}
                       >
-                        Send OTP
+                        {/* Send OTP */}
+                        {invalid ? "Send OTP" : "Re-send OTP"}
                       </button>
                     </div>
                     <div className="code">

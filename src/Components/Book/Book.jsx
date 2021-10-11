@@ -1,6 +1,8 @@
 import React from "react";
 import Footer from "../Footer";
 import NewHeader from "../NewHeader";
+import Cancel from "../Cancel";
+import Charge from "../Charge";
 import "./Book.scss";
 import book from "../../image/book.png";
 import { NavHashLink } from "react-router-hash-link";
@@ -23,6 +25,7 @@ const Book = () => {
   const roomnumbers = JSON.parse(roomBook);
   const date1numbers = JSON.parse(date1Book);
   const date2numbers = JSON.parse(date2Book);
+  console.log(date1numbers, date1Book);
 
   // const [date1, setDate1] = useState(new Date(`${date1numbers}`));
   const [date1, setDate1] = useState(new Date());
@@ -42,6 +45,9 @@ const Book = () => {
   const [execMoney, setExecMoney] = useState("");
   const [luxMoney, setLuxMoney] = useState("");
   const [paraMoney, setParaMoney] = useState("");
+  const [draw, setDraw] = useState(false);
+  const [charge, setCharge] = useState(false);
+  const [view, setView] = useState([]);
 
   // console.log("guestBook: ", guest);
   // console.log("guestBook: ", room);
@@ -200,14 +206,22 @@ const Book = () => {
   React.useEffect(() => {
     if (valid) {
       console.log("data link-/: ", data);
-      sessionStorage.clear();
+      // sessionStorage.clear();
+      sessionStorage.removeItem("guestData");
+      sessionStorage.removeItem("roomData");
+      sessionStorage.removeItem("date1Data");
+      sessionStorage.removeItem("date2Data");
     }
   }, [data, valid]);
 
   React.useEffect(() => {
     if (execValid) {
       console.log("data link-/: ", data);
-      sessionStorage.clear();
+      // sessionStorage.clear();
+      sessionStorage.removeItem("guestData");
+      sessionStorage.removeItem("roomData");
+      sessionStorage.removeItem("date1Data");
+      sessionStorage.removeItem("date2Data");
       sessionStorage.setItem("date1Data", JSON.stringify(date1));
       sessionStorage.setItem("date2Data", JSON.stringify(date2));
       if (exec !== "") {
@@ -225,7 +239,11 @@ const Book = () => {
   React.useEffect(() => {
     if (luxValid) {
       console.log("data link-/: ", data);
-      sessionStorage.clear();
+      // sessionStorage.clear();
+      sessionStorage.removeItem("guestData");
+      sessionStorage.removeItem("roomData");
+      sessionStorage.removeItem("date1Data");
+      sessionStorage.removeItem("date2Data");
       sessionStorage.setItem("date1Data", JSON.stringify(date1));
       sessionStorage.setItem("date2Data", JSON.stringify(date2));
       if (luxury !== "") {
@@ -243,7 +261,11 @@ const Book = () => {
   React.useEffect(() => {
     if (paraValid) {
       console.log("data link-/: ", data);
-      sessionStorage.clear();
+      // sessionStorage.clear();
+      sessionStorage.removeItem("guestData");
+      sessionStorage.removeItem("roomData");
+      sessionStorage.removeItem("date1Data");
+      sessionStorage.removeItem("date2Data");
       sessionStorage.setItem("date1Data", JSON.stringify(date1));
       sessionStorage.setItem("date2Data", JSON.stringify(date2));
       if (paradise !== "") {
@@ -257,6 +279,14 @@ const Book = () => {
       window.location.href = "/Pay#top";
     }
   }, [data, paraValid]);
+
+  const handleCharge = (adult, teen) => {
+    setCharge(true);
+    setView({
+      adult: adult,
+      teen: teen,
+    });
+  };
 
   return (
     <>
@@ -391,12 +421,14 @@ const Book = () => {
                   <li>Price for 2 adults + 1 adult (at additional cost) </li>
                   <li>
                     Extra mattress available at extra charges.{" "}
-                    <a href="/">View charges</a>
+                    <a onClick={() => handleCharge(1500, 1100)}>View charges</a>
                   </li>
                   <li>Check-in: 12noon ; Check-out: 11 a.m.</li>
                   <li>
                     Free cancellation before 7 days of check-in.{" "}
-                    <a href="/">View cancellation policy</a>
+                    <a onClick={() => setDraw(true)}>
+                      View cancellation policy
+                    </a>
                   </li>
                 </ul>
                 <div className="buttons">
@@ -430,12 +462,14 @@ const Book = () => {
                   <li>Price for 2 adults + 1 adult (at additional cost) </li>
                   <li>
                     Extra mattress available at extra charges.{" "}
-                    <a href="/">View charges</a>
+                    <a onClick={() => handleCharge(2000, 1500)}>View charges</a>
                   </li>
                   <li>Check-in: 12noon ; Check-out: 11 a.m.</li>
                   <li>
                     Free cancellation before 7 days of check-in.{" "}
-                    <a href="/">View cancellation policy</a>
+                    <a onClick={() => setDraw(true)}>
+                      View cancellation policy
+                    </a>
                   </li>
                 </ul>
                 <div className="buttons">
@@ -470,12 +504,14 @@ const Book = () => {
                   <li>Price for 2 adults + 1 adult (at additional cost) </li>
                   <li>
                     Extra mattress available at extra charges.{" "}
-                    <a href="/">View charges</a>
+                    <a onClick={() => handleCharge(2500, 1800)}>View charges</a>
                   </li>
                   <li>Check-in: 12noon ; Check-out: 11 a.m.</li>
                   <li>
                     Free cancellation before 7 days of check-in.{" "}
-                    <a href="/">View cancellation policy</a>
+                    <a onClick={() => setDraw(true)}>
+                      View cancellation policy
+                    </a>
                   </li>
                 </ul>
                 <div className="buttons">
@@ -491,6 +527,8 @@ const Book = () => {
           </div>
         </div>
       </div>
+      <Cancel draw={draw} setDraw={setDraw} />
+      <Charge draw={charge} setDraw={setCharge} view={view} />
       <Footer />
     </>
   );

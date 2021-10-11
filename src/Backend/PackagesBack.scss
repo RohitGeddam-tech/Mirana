@@ -1,0 +1,190 @@
+.packMain {
+  width: 79%;
+  position: absolute;
+  left: 20%;
+  .drop {
+    position: relative;
+    float: right;
+    width: 225px;
+    background: #eaedf1;
+    border-radius: 3px;
+    margin-top: 15px;
+    .down {
+      display: none;
+      text-align: center;
+      &.active {
+        display: block;
+        padding-bottom: 10px;
+      }
+      p {
+        width: 90%;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        border-radius: 3px;
+        color: #637381;
+        margin: 0 auto;
+        padding: 10px 0;
+        // &:nth-child(2) {
+        // }
+        &:hover {
+          background-color: white;
+        }
+      }
+    }
+    .shown {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      height: 50px;
+      justify-content: center;
+      cursor: pointer;
+      h1 {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        color: #637381;
+        margin: 0 10px;
+      }
+    }
+  }
+  .contain {
+    width: 90%;
+    margin: auto;
+    h1 {
+      padding-top: 75px;
+      margin: 0;
+      font-size: 40px;
+      line-height: 47px;
+      padding-bottom: 35px;
+    }
+    table.mainData {
+      border: 1px solid #dadada;
+      box-sizing: border-box;
+      box-shadow: 5px 9px 50px rgba(130, 130, 130, 0.15);
+      border-radius: 3px;
+      width: 80%;
+      padding: 23px 36px;
+      border-collapse: inherit;
+      border-spacing: 0;
+      //   text-indent: ;
+      .border {
+        width: 100%;
+        border: 1px solid #dadada;
+      }
+      tr {
+        width: 100%;
+        // padding: 23px 36px;
+        // border-bottom-color: red !important;
+        th {
+          width: 31%;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 16px;
+          color: #919eab;
+          padding-bottom: 20px;
+          text-align: start;
+        }
+        td {
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 19px;
+          color: #667c8a;
+          height: 50px;
+          border-bottom: 1px solid #dadada;
+          padding-left: 5px;
+          button {
+            padding: 10px 23px;
+            outline: none;
+            border: none;
+            background-color: transparent;
+            font-family: "Raleway", sans-serif;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 16px;
+            cursor: pointer;
+            color: #667c8a;
+            display: flex;
+            align-items: center;
+            // justify-content: center;
+            span {
+              margin-right: 10px;
+              width: 18px;
+              height: 18px;
+              display: flex;
+              align-items: center;
+              img {
+                width: 18px;
+                height: 18px;
+              }
+            }
+          }
+        }
+        &:nth-child(4) {
+          td {
+            border-bottom-color: transparent;
+          }
+        }
+      }
+    }
+  }
+}
+
+.modalBack {
+  position: relative;
+  outline: none !important;
+  .box {
+    position: absolute;
+    z-index: 800;
+    top: 50%;
+    left: 45%;
+    transform: translate(-45%, -50%);
+    background-color: white;
+    outline: none !important;
+    // max-width: 550px;
+    width: 410px;
+    // height: 220px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding: 24px;
+    .head {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      p {
+        margin: 0;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 19px;
+        color: #55575c;
+      }
+      img {
+        cursor: pointer;
+      }
+    }
+    .enterData {
+      padding-top: 25px;
+      width: 95%;
+      margin: 0 auto;
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      justify-content: center;
+      .text-input {
+        width: 100%;
+        .input {
+          border-radius: 3px;
+          padding: 0 15px;
+        }
+      }
+      .btn {
+        margin-top: 17px;
+      }
+    }
+  }
+}

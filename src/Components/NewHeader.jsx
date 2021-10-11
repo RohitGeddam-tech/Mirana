@@ -7,6 +7,7 @@ import Ham from "./Hamburger";
 import XHam from "./Xham";
 import logo from "../image/logo.png";
 import account from "../image/account.png";
+import LoginBtn from "./LoginBtn";
 
 const NewHeader = () => {
   const [width] = useWindowSize();
@@ -92,12 +93,7 @@ const NewHeader = () => {
                 </NavHashLink>
               </li>
               <li>
-                <NavHashLink to="/Sign#top" className="loginBtn">
-                  <span>
-                    <img src={account} alt="account" />
-                  </span>
-                  Login
-                </NavHashLink>
+                <LoginBtn close="loginBtn" />
               </li>
             </div>
           </div>{" "}
@@ -135,16 +131,9 @@ const NewHeader = () => {
                 >
                   Book Now
                 </NavHashLink>
-                <NavHashLink
-                  to="/Sign#top"
-                  className="loginBtn"
-                  style={{ marginLeft: "20px" }}
-                >
-                  <span>
-                    <img src={account} alt="account" />
-                  </span>
-                  Login
-                </NavHashLink>
+                <a style={{ marginLeft: "20px" }}>
+                  <LoginBtn close="loginBtn" />
+                </a>
               </div>
             </div>
           </div>
