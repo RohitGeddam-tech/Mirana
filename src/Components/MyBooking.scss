@@ -4,6 +4,47 @@
     width: 60%;
     padding: 60px 0 70px;
     margin: 0 auto;
+    @media (max-width: 900px) {
+      width: 70%;
+      .boxShade {
+        width: 100% !important;
+      }
+      .last {
+        width: 99.5% !important;
+      }
+    }
+    @media (max-width: 780px) {
+      width: 80%;
+    }
+    @media (max-width: 700px) {
+      width: 90%;
+      .boxShade {
+        .inform {
+          .top {
+            h5 {
+              width: 70%;
+            }
+          }
+          .bottom {
+            p {
+              width: 70%;
+            }
+          }
+        }
+      }
+    }
+    @media (max-width: 550px) {
+      .boxShade {
+        flex-flow: column;
+        img {
+          width: auto !important;
+          margin-bottom: 10px;
+        }
+        .inform {
+          width: 100% !important;
+        }
+      }
+    }
     .loginBtn {
       width: fit-content;
       span {
@@ -33,7 +74,9 @@
       padding: 11px;
       img {
         width: 10%;
-        //   height: 70px;
+        @media (max-width: 660px) {
+          height: 70px;
+        }
       }
       .inform {
         width: 87%;

@@ -14,8 +14,11 @@ import minus from "../../image/minus.png";
 import DateFnsUtils from "@date-io/date-fns";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { Modal } from "@material-ui/core";
+import useWindowSize from "../useWindowSize";
+import moment from "moment";
 
 const Book = () => {
+  const [width] = useWindowSize();
   // const dataBook = sessionStorage.getItem("bannerData");
   const guestBook = sessionStorage.getItem("guestData");
   const roomBook = sessionStorage.getItem("roomData");
@@ -25,7 +28,7 @@ const Book = () => {
   const roomnumbers = JSON.parse(roomBook);
   const date1numbers = JSON.parse(date1Book);
   const date2numbers = JSON.parse(date2Book);
-  console.log(date1numbers, date1Book);
+  // console.log(date1numbers, date1Book);
 
   // const [date1, setDate1] = useState(new Date(`${date1numbers}`));
   const [date1, setDate1] = useState(new Date());
@@ -65,7 +68,11 @@ const Book = () => {
   };
 
   React.useEffect(() => {
-    if (guest === null || room === null || date1 === date2) {
+    if (
+      guest === null ||
+      room === null ||
+      date1.getDate() === date2.getDate()
+    ) {
       // console.log("react usestae is running");
       setGuest(1);
       setRoom(1);
@@ -106,12 +113,24 @@ const Book = () => {
     // Guests: ${guest};
     // rooms: ${room}
     // `);
-    if (!date1 && !date2 && guest !== 0 && room !== 0) {
+    if (
+      date1.getDate() !== date2.getDate() &&
+      date1 !== null &&
+      date2 !== null &&
+      guest !== 0 &&
+      room !== 0
+    ) {
       setValid(true);
     } else {
       console.log("error");
     }
   };
+
+  // React.useEffect(() => {
+  //   if (valid) {
+  //     console.log(data);
+  //   }
+  // }, [valid, handleSubmit]);
 
   const execSubmit = () => {
     setExec("Execute");
@@ -287,117 +306,248 @@ const Book = () => {
       teen: teen,
     });
   };
+  const handleMod = (e) => {
+    e.preventDefault();
+    setData({
+      guest: guest,
+      room: room,
+      date1: date1,
+      date2: date2,
+    });
+    if (
+      date1.getDate() !== date2.getDate() &&
+      date1 !== null &&
+      date2 !== null &&
+      guest !== 0 &&
+      room !== 0
+    ) {
+      setValid(true);
+      setOn(false);
+    } else {
+      console.log("error", date1, date2, guest, room);
+    }
+  };
+
+  // React.useEffect(() => {
+  //   if (valid) {
+  //     console.log(data);
+  //   }
+  // }, [valid, handleMod]);
 
   return (
     <>
       <NewHeader />
       <div className="bookHeader">
-        <form className="avail" onSubmit={handleSubmit}>
-          <div className="first">
-            <h1>You are booking for:</h1>
-            <div className="textInput">
-              <p>No. of guests</p>
-              <div className="text-input" onClick={() => setOn(true)}>
-                <h1>
-                  {guest} {guest === 1 ? "Adult" : "Adults"}, {room}{" "}
-                  {room === 1 ? "Room" : "Rooms"}
-                </h1>
+        {width < 1025 ? (
+          <>
+            <div className="avail">
+              <div className="textInput" onClick={() => setOn(true)}>
+                <p>You are booking for:</p>
+                <div className="text-input">
+                  <h1>
+                    {guest} {guest === 1 ? "Adult" : "Adults"}, {room}{" "}
+                    {room === 1 ? "Room" : "Rooms"} |{" "}
+                    {moment(date1).format("DD MMM")} to{" "}
+                    {moment(date2).format("DD MMM")}
+                  </h1>
+                </div>
               </div>
             </div>
-            <div className="date">
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <DatePicker
-                  disablePast={true}
-                  label={`Check-in date`}
-                  value={date1}
-                  onChange={handleChange}
-                  inputVariant="outlined"
-                  format="E, dd MMM"
-                  animateYearScrolling
+            <Modal
+              className="modalBooks"
+              open={on}
+              onClose={() => {
+                setOn(false);
+              }}
+            >
+              <form className="box" onSubmit={handleMod}>
+                <img
+                  className="img"
+                  src={clear}
+                  alt="cancel"
+                  onClick={() => setOn(false)}
                 />
-                <DatePicker
-                  disablePast={true}
-                  label={`Check-out date`}
-                  inputVariant="outlined"
-                  minDate={date2}
-                  format="E, dd MMM"
-                  value={date2}
-                  onChange={setDate2}
-                  animateYearScrolling
-                />
-              </MuiPickersUtilsProvider>
-            </div>
-          </div>
-          <div className="second">
-            <button className="btn" type="submit">
-              Search
-              {/* <span>
+                <div className="adult">
+                  <h1>Adults (12+)</h1>
+                  <div className="text-input">
+                    {guest === 1 ? (
+                      <span style={{ opacity: "0.5" }}>
+                        <img src={minus} alt="minus" />
+                      </span>
+                    ) : (
+                      <span onClick={() => setGuest(guest - 1)}>
+                        <img src={minus} alt="minus" />
+                      </span>
+                    )}
+                    <h1>{guest}</h1>
+                    <span onClick={() => setGuest(guest + 1)}>
+                      <img src={add} alt="add" />
+                    </span>
+                  </div>
+                </div>
+                <div className="adult">
+                  <h1>Rooms</h1>
+                  <div className="text-input">
+                    {room === 1 ? (
+                      <span style={{ opacity: "0.5" }}>
+                        <img src={minus} alt="minus" />
+                      </span>
+                    ) : (
+                      <span onClick={() => setRoom(room - 1)}>
+                        <img src={minus} alt="minus" />
+                      </span>
+                    )}
+                    <h1>{room}</h1>
+                    <span onClick={() => setRoom(room + 1)}>
+                      <img src={add} alt="add" />
+                    </span>
+                  </div>
+                </div>
+                <div className="date">
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <div className="dateInfo">
+                      <h1>Check in date</h1>
+                      <DatePicker
+                        disablePast={true}
+                        value={date1}
+                        onChange={handleChange}
+                        format="E, dd MMM"
+                        animateYearScrolling
+                      />
+                    </div>
+                    <div className="dateInfo">
+                      <h1>Check out date</h1>
+                      <DatePicker
+                        disablePast={true}
+                        minDate={date2}
+                        format="E, dd MMM"
+                        value={date2}
+                        onChange={setDate2}
+                        animateYearScrolling
+                      />
+                    </div>
+                  </MuiPickersUtilsProvider>
+                </div>
+                <p>
+                  Please note that the max. capacity in one room is 2 adults + 1
+                  adult (at additional cost)
+                </p>
+                <button type="submit" className="btn">
+                  Apply
+                </button>
+              </form>
+            </Modal>
+          </>
+        ) : (
+          <>
+            <form className="avail" onSubmit={handleSubmit}>
+              <div className="first">
+                <h1>You are booking for:</h1>
+                <div className="textInput">
+                  <p>No. of guests</p>
+                  <div className="text-input" onClick={() => setOn(true)}>
+                    <h1>
+                      {guest} {guest === 1 ? "Adult" : "Adults"}, {room}{" "}
+                      {room === 1 ? "Room" : "Rooms"}
+                    </h1>
+                  </div>
+                </div>
+                <div className="date">
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <DatePicker
+                      disablePast={true}
+                      label={`Check-in date`}
+                      value={date1}
+                      onChange={handleChange}
+                      inputVariant="outlined"
+                      format="E, dd MMM"
+                      animateYearScrolling
+                    />
+                    <DatePicker
+                      disablePast={true}
+                      label={`Check-out date`}
+                      inputVariant="outlined"
+                      minDate={date2}
+                      format="E, dd MMM"
+                      value={date2}
+                      onChange={setDate2}
+                      animateYearScrolling
+                    />
+                  </MuiPickersUtilsProvider>
+                </div>
+              </div>
+              <div className="second">
+                <button className="btn" type="submit">
+                  Search
+                  {/* <span>
                 <img src={arrow2} alt="arrow" />
               </span> */}
-            </button>
-          </div>
-        </form>
-        <Modal
-          className="modalBanner"
-          open={on}
-          onClose={() => {
-            setOn(false);
-          }}
-        >
-          <div className="box">
-            <img
-              className="img"
-              src={clear}
-              alt="cancel"
-              onClick={() => setOn(false)}
-            />
-            <div className="adult">
-              <h1>Adults (12+)</h1>
-              <div className="text-input">
-                {guest === 1 ? (
-                  <span style={{ opacity: "0.5" }}>
-                    <img src={minus} alt="minus" />
-                  </span>
-                ) : (
-                  <span onClick={() => setGuest(guest - 1)}>
-                    <img src={minus} alt="minus" />
-                  </span>
-                )}
-                <h1>{guest}</h1>
-                <span onClick={() => setGuest(guest + 1)}>
-                  <img src={add} alt="add" />
-                </span>
+                </button>
               </div>
-            </div>
-            <div className="adult">
-              <h1>Rooms</h1>
-              <div className="text-input">
-                {room === 1 ? (
-                  <span style={{ opacity: "0.5" }}>
-                    <img src={minus} alt="minus" />
-                  </span>
-                ) : (
-                  <span onClick={() => setRoom(room - 1)}>
-                    <img src={minus} alt="minus" />
-                  </span>
-                )}
-                <h1>{room}</h1>
-                <span onClick={() => setRoom(room + 1)}>
-                  <img src={add} alt="add" />
-                </span>
+            </form>
+            <Modal
+              className="modalBanner"
+              open={on}
+              onClose={() => {
+                setOn(false);
+              }}
+            >
+              <div className="box">
+                <img
+                  className="img"
+                  src={clear}
+                  alt="cancel"
+                  onClick={() => setOn(false)}
+                />
+                <div className="adult">
+                  <h1>Adults (12+)</h1>
+                  <div className="text-input">
+                    {guest === 1 ? (
+                      <span style={{ opacity: "0.5" }}>
+                        <img src={minus} alt="minus" />
+                      </span>
+                    ) : (
+                      <span onClick={() => setGuest(guest - 1)}>
+                        <img src={minus} alt="minus" />
+                      </span>
+                    )}
+                    <h1>{guest}</h1>
+                    <span onClick={() => setGuest(guest + 1)}>
+                      <img src={add} alt="add" />
+                    </span>
+                  </div>
+                </div>
+                <div className="adult">
+                  <h1>Rooms</h1>
+                  <div className="text-input">
+                    {room === 1 ? (
+                      <span style={{ opacity: "0.5" }}>
+                        <img src={minus} alt="minus" />
+                      </span>
+                    ) : (
+                      <span onClick={() => setRoom(room - 1)}>
+                        <img src={minus} alt="minus" />
+                      </span>
+                    )}
+                    <h1>{room}</h1>
+                    <span onClick={() => setRoom(room + 1)}>
+                      <img src={add} alt="add" />
+                    </span>
+                  </div>
+                </div>
+                <p>
+                  Please note that the max capacity in one room is 2 adults + 1
+                  adult (at additional cost)
+                </p>
+                <div className="bottom">
+                  <button className="btn" onClick={() => setOn(false)}>
+                    Proceed
+                  </button>
+                </div>
               </div>
-            </div>
-            <p>
-              Please note that the max capacity in one room is 2 adults + 1
-              adult (at additional cost)
-            </p>
-            <div className="bottom">
-              <button className="btn" onClick={() => setOn(false)}>
-                Proceed
-              </button>
-            </div>
-          </div>
-        </Modal>
+            </Modal>
+          </>
+        )}
       </div>
       <div className="book">
         <div className="container">

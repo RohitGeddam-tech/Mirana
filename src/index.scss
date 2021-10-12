@@ -164,6 +164,9 @@ body {
       align-items: center;
       border-radius: 10px;
       padding: 35px;
+      @media(max-width:445px){
+        padding: 15px;
+      }
       .head {
         width: 100%;
         display: flex;
@@ -182,13 +185,25 @@ body {
       }
       .body {
         width: 470px;
+        @media(max-width:565px){
+          width: 350px;
+        }
+        @media(max-width:445px){
+          width: 280px;
+        }
         .otp {
           width: 100%;
           display: flex;
           align-items: center;
           justify-content: space-between;
+          @media(max-width:445px){
+           flex-flow: column; 
+          }
           .textInput {
             width: 60%;
+            @media(max-width:445px){
+              width: 90%;
+            }
           }
           .resend {
             border: none;

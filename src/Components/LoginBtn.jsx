@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 // import Sign from "./Sign";
 import account from "../image/account.png";
+import profile from "../image/profile.png";
 import "./LoginBtn.scss";
 import { Modal } from "@material-ui/core";
 import clear from "../image/clear.png";
 import { Dropdown, DropdownItem, DropdownMenu } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { NavHashLink } from "react-router-hash-link";
+import useWindowSize from "./useWindowSize";
 
-const LoginBtn = ({ close }) => {
+const LoginBtn = ({ close, cancel }) => {
   const [login, setLogin] = useState(false);
   const [draw, setDraw] = useState(false);
   const [email, setEmail] = useState("");
@@ -16,6 +18,7 @@ const LoginBtn = ({ close }) => {
   const [code, setCode] = useState("");
   const [codeInvalid, setCodeInvalid] = useState(false);
   const [invalid, setInvalid] = useState(false);
+  const [width] = useWindowSize();
 
   const otpClick = () => {
     if (!emailInvalid && email !== "") {
@@ -76,6 +79,7 @@ const LoginBtn = ({ close }) => {
                     setEmail("");
                     setCode("");
                     setInvalid(false);
+                    window.location.reload();
                   }}
                 >
                   Logout
@@ -87,9 +91,11 @@ const LoginBtn = ({ close }) => {
       ) : (
         <div className="beforeLogin">
           <button onClick={() => setDraw(true)} className={`${close}`}>
-            <span>
-              <img src={account} alt="account" />
-            </span>
+            {cancel ? (
+              <span>
+                {width < 481 ? <img src={profile} alt="account" /> : <img src={account} alt="account" />}
+              </span>
+            ) : null}
             Login
           </button>
           <Modal
@@ -104,7 +110,7 @@ const LoginBtn = ({ close }) => {
                 <h1>Login</h1>
                 <img src={clear} alt="close" onClick={() => setDraw(false)} />
               </div>
-              <form className="body" onSubmit={handleSubmit}>
+              <form className="body dp" onSubmit={handleSubmit}>
                 <div className="otp">
                   <div className="textInput">
                     <div className="text-input">

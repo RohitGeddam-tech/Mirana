@@ -29,13 +29,6 @@ const NewHeader = () => {
       {width < 1170 ? (
         <>
           <div className="header">
-            <nav className="container">
-              <div className="nav-image">
-                <NavHashLink to="/#top" onClick={() => setActive(false)}>
-                  <img src={logo} alt="logo" />
-                </NavHashLink>
-              </div>
-            </nav>
             <div className="nav-links">
               {isActive ? (
                 <>
@@ -52,6 +45,16 @@ const NewHeader = () => {
                   }}
                 />
               )}
+            </div>
+            <nav className="container">
+              <div className="nav-image">
+                <NavHashLink to="/#top" onClick={() => setActive(false)}>
+                  <img src={logo} alt="logo" />
+                </NavHashLink>
+              </div>
+            </nav>
+            <div className="profile">
+              <LoginBtn close="loginBtn" cancel={true} />
             </div>
           </div>
           <div className={side}>
@@ -92,9 +95,9 @@ const NewHeader = () => {
                   Book Now
                 </NavHashLink>
               </li>
-              <li>
-                <LoginBtn close="loginBtn" />
-              </li>
+              {/* <li>
+                <LoginBtn close="loginBtn" cancel={true} />
+              </li> */}
             </div>
           </div>{" "}
         </>
@@ -132,7 +135,7 @@ const NewHeader = () => {
                   Book Now
                 </NavHashLink>
                 <a style={{ marginLeft: "20px" }}>
-                  <LoginBtn close="loginBtn" />
+                  <LoginBtn close="loginBtn" cancel={true} />
                 </a>
               </div>
             </div>

@@ -84,8 +84,15 @@ const Part2 = () => {
                   <p>₹ {(money + 540) / 2}</p>
                 </div>
                 <div className="border"></div>
-                <div className="detail">
+                <div
+                  className="detail"
+                  style={{
+                    paddingTop: "15px",
+                    paddingBottom: "0",
+                  }}
+                >
                   <p
+                    className="small"
                     style={{
                       fontWeight: "bold",
                       color: "#BA7F45",
@@ -102,7 +109,7 @@ const Part2 = () => {
                       color: "#BA7F45",
                       fontSize: "20px",
                       lineHeight: "23px",
-                      paddingTop: "15px",
+                      paddingTop: "0",
                       paddingBottom: "0",
                     }}
                   >

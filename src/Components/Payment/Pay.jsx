@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Footer from "../Footer";
+import LoginBtn from "../LoginBtn";
 import NewHeader from "../NewHeader";
 import arrow from "../../image/backarrow.png";
 import pay from "../../image/pay.png";
@@ -7,6 +8,7 @@ import moment from "moment";
 import "./Pay.scss";
 import { NavHashLink } from "react-router-hash-link";
 import arrow2 from "../../image/Frame2.png";
+import useWindowSize from "../useWindowSize";
 
 const Pay = () => {
   const dataBook = sessionStorage.getItem("bookData");
@@ -40,6 +42,7 @@ const Pay = () => {
   const [valid, setValid] = useState(false);
   const [logged, setLogged] = useState(false);
   //   const [btnLoading, setBtnLoading] = useState(false);
+  const [width] = useWindowSize();
 
   const backPage = () => {
     setValid(true);
@@ -149,15 +152,27 @@ const Pay = () => {
       <div className="pay1">
         <div className="container">
           <div className="top">
-            <button className="loginBtn" onClick={backPage}>
-              <span>
-                <img src={arrow} alt="arrow" />
-              </span>
-              Back to booking page
-            </button>
+            {width < 1100 ? (
+              <div className="topLeft">
+                <button className="loginBtn" onClick={backPage}>
+                  <span>
+                    <img src={arrow} alt="arrow" />
+                  </span>
+                  Back to booking page
+                </button>
+              </div>
+            ) : (
+              <button className="loginBtn" onClick={backPage}>
+                <span>
+                  <img src={arrow} alt="arrow" />
+                </span>
+                Back to booking page
+              </button>
+            )}
             <div className="bar">
               <div className="progress">
-                <div className="border"></div>
+                <div className="border1"></div>
+                <div className="border2"></div>
                 <div className="details">
                   <div className="first">
                     <div className="circle">1</div>
@@ -167,7 +182,7 @@ const Pay = () => {
                     <div className="circle">2</div>
                     {/* <p>Payment Details</p> */}
                   </div>
-                  <div className="second">
+                  <div className="third">
                     <div className="circle">3</div>
                     {/* <p>Booking Confirmed!</p> */}
                   </div>
@@ -180,7 +195,7 @@ const Pay = () => {
                 <div className="second">
                   <p>Payment Details</p>
                 </div>
-                <div className="second">
+                <div className="third">
                   <p>Booking Confirmed!</p>
                 </div>
               </div>
@@ -194,10 +209,7 @@ const Pay = () => {
                     <p>Already have an account?</p>
                     <h5>You can login to pre-fill your personal details</h5>
                   </div>
-                  <NavHashLink to="/Pay#top" className="btn">
-                    Login
-                  </NavHashLink>
-                  {/* <LoginBtn close="btn" /> */}
+                  <LoginBtn close="btn" cancel={false} />
                 </div>
               )}
               <form onSubmit={handleSubmit}>

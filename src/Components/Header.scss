@@ -44,12 +44,41 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .profile {
+      @media (max-width: 480px) {
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+        .loginBtn {
+          padding: 0 !important;
+          background-color: transparent;
+          flex-flow: column;
+          font-size: 14px;
+          line-height: 16px;
+          font-weight: 500;
+          color: #667c8a;
+          span {
+            margin: 0 !important;
+            width: 35px;
+            height: 35px;
+            img {
+              width: 35px;
+              height: 35px;
+            }
+          }
+        }
+      }
+    }
     .container {
       display: flex;
       height: 70px;
       width: 100%;
       align-items: center;
       justify-content: space-between;
+      @media (max-width: 1170px) {
+        justify-content: center;
+      }
       img {
         width: auto;
         height: auto;
@@ -157,8 +186,8 @@
         justify-content: center;
       }
     }
-    a{
-      &.btn{
+    a {
+      &.btn {
         padding: 10px 0;
         width: 100%;
         display: flex;
