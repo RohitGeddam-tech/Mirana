@@ -206,6 +206,9 @@
       .textInput {
         width: fit-content;
         max-width: 400px;
+        .text-input{
+          padding-right: 20px;
+        }
       }
     }
     @media (max-width: 460px) {

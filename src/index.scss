@@ -119,6 +119,10 @@ body {
       }
       .menu {
         top: 102%;
+        @media(max-width:480px){
+          right: -5%;
+          top: 115%;
+        }
       }
       .item {
         padding: 0 16px;
