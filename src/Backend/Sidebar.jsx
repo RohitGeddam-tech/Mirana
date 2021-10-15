@@ -24,8 +24,10 @@ const Sidebar = () => {
         </NavHashLink>
         <NavHashLink
           to="/BookBack#top"
-          className="backLinks"
-          activeClassName="active"
+          // className="backLinks"
+          className={`${
+            window.location.href.includes("BookBack") ? "backLinks active" : "backLinks"
+          }`}
         >
           Bookings
         </NavHashLink>

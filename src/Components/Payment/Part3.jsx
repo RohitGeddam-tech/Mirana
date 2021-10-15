@@ -29,6 +29,12 @@ const Part3 = () => {
   const date1 = moment(date1numbers).format("DD MMM YYYY");
   const date2 = moment(date2numbers).format("DD MMM YYYY");
   // sessionStorage.clear();
+  React.useEffect(() => {
+    if (sessionStorage.getItem("bookMoney") === null) {
+      // alert("Please select the Package");
+      window.location.href = "/Book#top";
+    }
+  }, []);
 
   const data = [
     {
@@ -45,7 +51,9 @@ const Part3 = () => {
     },
     {
       label: "Package",
-      value: `${pack.slice(1, -1)} Package`,
+      value: `${
+        sessionStorage.getItem("bookData") === null ? null : pack.slice(1, -1)
+      } Package`,
     },
     {
       label: "Check in",

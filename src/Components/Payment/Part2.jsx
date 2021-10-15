@@ -8,6 +8,12 @@ import { NavHashLink } from "react-router-hash-link";
 const Part2 = () => {
   const dataMoney = sessionStorage.getItem("bookMoney");
   const money = JSON.parse(dataMoney);
+  React.useEffect(() => {
+    if (sessionStorage.getItem("bookMoney") === null) {
+      // alert("Please select the Package");
+      window.location.href = "/Book#top";
+    }
+  }, []);
   return (
     <>
       <NewHeader />

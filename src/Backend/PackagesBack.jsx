@@ -6,6 +6,7 @@ import clear from "../image/clear.png";
 import create from "../image/create.png";
 import below from "../image/down.png";
 import black from "../image/black.png";
+import Settings from "./Settings";
 
 const pack = [
   {
@@ -133,17 +134,7 @@ const PackagesBack = () => {
     <>
       <Sidebar />
       <div className="packMain">
-        <div className="drop">
-          <div className="shown" onClick={() => setDown(!down)}>
-            <img src={black} alt="account" />
-            <h1>Rajeev Chakrabarti</h1>
-            <img src={below} alt="down-arrow" />
-          </div>
-          <div className={`down ${down ? "active" : null}`}>
-            <p>Settings</p>
-            <p>Log Out</p>
-          </div>
-        </div>
+        <Settings />
         <div className="contain">
           <h1>Packages</h1>
           <table className="mainData">

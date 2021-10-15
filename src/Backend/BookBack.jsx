@@ -13,9 +13,11 @@ import orange from "../image/orange.png";
 import DateFnsUtils from "@date-io/date-fns";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import moment from "moment";
-import { Dropdown } from "semantic-ui-react";
+import { Dropdown, DropdownItem, DropdownMenu } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { NavHashLink } from "react-router-hash-link";
+import Settings from "./Settings";
+import NewMember from "./NewMember";
 
 const data = [
   {
@@ -93,7 +95,7 @@ const Status = ({
       <Dropdown
         selection
         defaultValue={status}
-        onChange={(e) => handleSelect(e, room)}
+        onChange={(event) => handleSelect(event, room)}
         button
         fluid
         className="p"
@@ -138,6 +140,7 @@ const BookBack = () => {
   const [phoneInvalid, setPhoneInvalid] = useState(false);
   const [mailInvalid, setMailInvalid] = useState(false);
   const [right, setRight] = useState(false);
+  const [draw, setDraw] = useState(false);
 
   const handleSearch = (e) => {
     // console.log("e value", e);
@@ -145,10 +148,14 @@ const BookBack = () => {
   };
 
   const handleSelect = (e, room) => {
-    // console.log(e.target.value);
-    setSel(e.target.value);
+    // console.log(e);
+    setSel(e.target.innerText);
     setDoor(room);
   };
+
+  // React.useEffect(() => {
+  //   console.log(sel);
+  // }, [handleSelect]);
 
   React.useEffect(() => {
     array.forEach((members) => {
@@ -224,17 +231,17 @@ const BookBack = () => {
   }, []);
 
   React.useEffect(() => {
-    if (popup === []) {
-      setDate1(new Date(`${form.check_in}`));
-      // console.log(date1);
-      setDate2(new Date(`${form.check_out}`));
-      // console.log(date2);
-      setSelected(form.pack);
-      setName(form.name);
-      setNumber(form.room);
-      setPhone(form.phone);
-      setMail(form.mail);
-    }
+    // if (popup === []) {
+    setDate1(new Date(`${form.check_in}`));
+    // console.log(date1);
+    setDate2(new Date(`${form.check_out}`));
+    // console.log(date2);
+    setSelected(form.pack);
+    setName(form.name);
+    setNumber(form.room);
+    setPhone(form.phone);
+    setMail(form.mail);
+    // }
   }, [form]);
 
   React.useEffect(() => {
@@ -267,10 +274,11 @@ const BookBack = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(phone.length);
-    console.log(phone);
-    console.log("phoneInvalid", phoneInvalid);
-    if (!(nameInvalid && mailInvalid) && phone.length === 10) {
+    // console.log(phone);
+    // console.log('phone number : ', form.phone);
+    // console.log(phone === form.phone);
+    // console.log("phoneInvalid", phone.length === 10 || phone === form.phone);
+    if (!(nameInvalid && mailInvalid) && phone.length === 10 || phone === form.phone) {
       setRight(true);
       setPopup({
         name: name,
@@ -306,53 +314,29 @@ const BookBack = () => {
   };
 
   const roomArray = [
-    {
-      room: 101,
-    },
-    {
-      room: 102,
-    },
-    {
-      room: 103,
-    },
-    {
-      room: 104,
-    },
-    {
-      room: 105,
-    },
-    {
-      room: 201,
-    },
-    {
-      room: 202,
-    },
-    {
-      room: 203,
-    },
-    {
-      room: 204,
-    },
-    {
-      room: 205,
-    },
+    { key: "1", text: 101, value: 101 },
+    { key: "2", text: 102, value: 102 },
+    { key: "3", text: 103, value: 103 },
+    { key: "4", text: 104, value: 104 },
+    { key: "5", text: 105, value: 105 },
+    { key: "6", text: 201, value: 201 },
+    { key: "7", text: 202, value: 202 },
+    { key: "8", text: 203, value: 203 },
+    { key: "9", text: 204, value: 204 },
+    { key: "10", text: 205, value: 205 },
+  ];
+
+  const selectedArray = [
+    { key: "1", text: "Executive", value: "Executive" },
+    { key: "2", text: "Luxury", value: "Luxury" },
+    { key: "3", text: "Paradise", value: "Paradise" },
   ];
 
   return (
     <>
       <Sidebar />
       <div className="bookMain">
-        <div className="drop">
-          <div className="shown" onClick={() => setDown(!down)}>
-            <img src={black} alt="account" />
-            <h1>Rajeev Chakrabarti</h1>
-            <img src={below} alt="down-arrow" />
-          </div>
-          <div className={`down ${down ? "active" : null}`}>
-            <p>Settings</p>
-            <p>Log Out</p>
-          </div>
-        </div>
+        <Settings />
         <div className="contain">
           <h1>Bookings</h1>
           <div className="Navigation">
@@ -379,7 +363,7 @@ const BookBack = () => {
                 Cancelled
               </NavHashLink>
             </div>
-            <button className="btn" onClick={() => setOpen(true)}>
+            <button className="btn" onClick={() => setDraw(true)}>
               Add a new booking
             </button>
           </div>
@@ -521,63 +505,27 @@ const BookBack = () => {
                 </div>
                 <div className="select">
                   <h5>Package Type</h5>
-                  <p onClick={() => setStat(!stat)}>
-                    {selected}{" "}
-                    <span className="spanRight">
-                      <img src={below} alt="down" />
-                    </span>
-                  </p>
-                  {stat ? (
-                    <div className="opt">
-                      <input
-                        type="button"
-                        value="Executive"
-                        onClick={(e) => {
-                          setSelected(e.target.value);
-                          setStat(false);
-                        }}
-                      />
-                      <input
-                        type="button"
-                        value="Luxury"
-                        onClick={(e) => {
-                          setSelected(e.target.value);
-                          setStat(false);
-                        }}
-                      />
-                      <input
-                        type="button"
-                        value="Paradise"
-                        onClick={(e) => {
-                          setSelected(e.target.value);
-                          setStat(false);
-                        }}
-                      />
-                    </div>
-                  ) : null}
+                  <Dropdown
+                    selection
+                    defaultValue={selected}
+                    onChange={(e) => setSelected(e.target.innerText)}
+                    button
+                    fluid
+                    className="d"
+                    options={selectedArray}
+                  ></Dropdown>
                 </div>
                 <div className="select">
                   <h5>Room No.</h5>
-                  <p onClick={() => setNum(!num)}>
-                    {number}{" "}
-                    <span className="spanRight">
-                      <img src={below} alt="down" />
-                    </span>
-                  </p>
-                  {num ? (
-                    <div className="opt">
-                      {roomArray.map((doc) => (
-                        <input
-                          type="button"
-                          value={doc.room}
-                          onClick={(e) => {
-                            setNumber(e.target.value);
-                            setNum(false);
-                          }}
-                        />
-                      ))}
-                    </div>
-                  ) : null}
+                  <Dropdown
+                    selection
+                    defaultValue={number}
+                    onChange={(e) => setNumber(e.target.innerText)}
+                    button
+                    fluid
+                    className="d"
+                    options={roomArray}
+                  ></Dropdown>
                 </div>
                 <button className="btn" type="submit">
                   Save Changes
@@ -643,6 +591,7 @@ const BookBack = () => {
             </div>
           </Modal>
         </div>
+        <NewMember draw={draw} setDraw={setDraw} />
       </div>
     </>
   );

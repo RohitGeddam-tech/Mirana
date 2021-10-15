@@ -66,6 +66,7 @@
       .links {
         background-color: #eaedf1;
         border-radius: 3px;
+        padding: 13px 0;
         width: fit-content;
         a {
           font-family: "Railway", sans-serif;
@@ -84,6 +85,7 @@
             border: 1px solid #ba7f45;
             box-sizing: border-box;
             border-radius: 3px;
+            padding: 14px 42px;
             color: #ba7f45;
           }
         }
@@ -643,13 +645,56 @@
       flex-flow: column;
       align-items: center;
       justify-content: center;
-      .btn{
-          border-radius: 3px;
+      .btn {
+        border-radius: 3px;
       }
       .select {
         width: 100%;
         position: relative;
         margin: 8px 0;
+        .d {
+          position: relative;
+          top: 0;
+          width: 100%;
+          height: 44px;
+          background-color: transparent;
+          border: 1px solid #667c8a;
+          display: flex;
+          align-items: center;
+          .dropdown.icon {
+            top: 1.2em;
+          }
+          .text {
+            padding-bottom: 0;
+            color: #667c8a;
+            font-weight: 500;
+            font-family: "Raleway", sans-serif;
+            font-size: 18px;
+            line-height: 21px;
+          }
+          .item {
+            padding: 0 16px;
+            a {
+              font-family: "Raleway", sans-serif;
+              font-style: normal;
+              font-weight: 500;
+              font-size: 16px;
+              line-height: 19px;
+              color: #667c8a;
+            }
+            button {
+              border: none;
+              outline: none;
+              font-family: "Raleway", sans-serif;
+              font-style: normal;
+              font-weight: 500;
+              font-size: 16px;
+              line-height: 19px;
+              color: #667c8a;
+              background-color: transparent;
+            }
+          }
+        }
         .opt {
           position: absolute;
           top: 0;
@@ -668,11 +713,12 @@
           height: 200px;
           // justify-content: center;
           input {
-            font-family: "Railway", sans-serif;
+            font-family: "Raleway", sans-serif;
             font-style: normal;
             font-weight: normal;
-            font-size: 15px;
-            line-height: 17px;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 21px;
             width: 100%;
             padding: 10px;
             color: #667c8a;
@@ -706,6 +752,7 @@
           border-radius: 3px;
           display: flex;
           align-items: center;
+          background-color: white;
         }
         h5 {
           position: absolute;
@@ -713,9 +760,10 @@
           background-color: white;
           margin: 0;
           padding: 2px;
-          font-weight: bold;
+          font-weight: normal;
           font-size: 12px;
           line-height: 14px;
+          z-index: 3;
           color: #667c8a;
           top: -9px;
           left: 9px;
@@ -723,8 +771,8 @@
         p {
           width: 100%;
           font-weight: normal;
-          font-size: 15px;
-          line-height: 17px;
+          font-size: 18px;
+          line-height: 21px;
           margin: 0;
           color: #667c8a;
           cursor: pointer;
@@ -757,16 +805,19 @@
           margin: 8px 0;
           .MuiInputLabel-outlined.MuiInputLabel-shrink {
             padding: 2px;
-            transform: translate(9px, -7px) scale(0.85);
+            transform: translate(9px, -7px) scale(0.65);
             background-color: white;
           }
           .MuiFormLabel-root {
             font-family: "Raleway", sans-serif;
             font-style: normal;
-            font-weight: bold;
-            font-size: 14px;
-            line-height: 16px;
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 21px;
             color: #667c8a;
+          }
+          .MuiInputLabel-outlined {
+            transform: translate(14px, 12px) scale(1);
           }
           .MuiOutlinedInput-notchedOutline {
             border-color: transparent;
@@ -776,8 +827,8 @@
             font-family: "Raleway", sans-serif;
             font-style: normal;
             font-weight: 500;
-            font-size: 14px;
-            line-height: 16px;
+            font-size: 18px;
+            line-height: 21px;
             background-color: white;
             font-feature-settings: "pnum" on, "lnum" on;
             color: #667c8a;
@@ -790,17 +841,54 @@
       }
       .text-input {
         width: 100%;
+
+        input:-webkit-autofill {
+          box-shadow: 0 0 0px 1000px #fff inset;
+          -webkit-text-fill-color: #667c8a;
+          transition: background-color 5000s ease-in-out 0s;
+        }
         label {
-          font-weight: bold;
-          font-size: 12px;
-          line-height: 14px;
+          font-weight: normal;
+          font-size: 18px;
+          line-height: 21px;
           color: #667c8a;
         }
         .input {
           border-radius: 3px;
-          padding: 0 15px;
+          min-height: 40px;
+          height: max-content;
+          padding: 11px 15px;
+          font-weight: 500;
+          font-family: "Raleway", sans-serif;
+          font-size: 18px;
+          line-height: 21px;
           border: 1px solid #667c8a;
-          color: #667c8a;
+          color: #667c8a !important;
+
+          &:focus ~ label,
+          &:not([value=""]) ~ label {
+            top: 0px;
+            left: 8px;
+            font-size: 12px;
+            line-height: 14px;
+            background-color: white;
+            padding-left: 5px;
+            padding-right: 5px;
+            height: none;
+            color: #667c8a;
+          }
+
+          // &:focus ~ label {
+          //   color: #ba7f45;
+          // }
+
+          // &:focus,
+          // &:valid ~ label,
+          // &:not([value=""]) ~ label {
+          //   outline: none;
+          //   border-color: #ba7f45;
+          //   box-shadow: none;
+          // }
         }
       }
       .btn {

@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
-import "./Upcoming.scss";
+import "./Cancelled.scss";
 import { Modal, Select } from "@material-ui/core";
 import clear from "../image/clear.png";
-import create from "../image/create.png";
-import check from "../image/check.png";
-import dots from "../image/dots.png";
+// import create from "../image/create.png";
+// import check from "../image/check.png";
+// import dots from "../image/dots.png";
 import below from "../image/down.png";
-import black from "../image/black.png";
-import green from "../image/green.png";
-import orange from "../image/orange.png";
+// import black from "../image/black.png";
+// import green from "../image/green.png";
+// import orange from "../image/orange.png";
+import Settings from "./Settings";
 import DateFnsUtils from "@date-io/date-fns";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import moment from "moment";
 import { Dropdown } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { NavHashLink } from "react-router-hash-link";
-import Settings from "./Settings";
 import NewMember from "./NewMember";
 
 const data = [
@@ -29,6 +29,7 @@ const data = [
     pack: "Luxury",
     room: 201,
     status: "Paid",
+    cancel: "20 Jul 2021",
   },
   {
     name: "Kiran Patil",
@@ -39,6 +40,7 @@ const data = [
     pack: "Paradise",
     room: 205,
     status: "Pending",
+    cancel: "13 Jul 2021",
   },
   {
     name: "Rohit Geddam",
@@ -49,10 +51,17 @@ const data = [
     pack: "Executive",
     room: 104,
     status: "Pending",
+    cancel: "10 Jul 2021",
   },
 ];
 
-const Status = ({ status, room, handleSettings, handleCheck }) => {
+const Status = ({
+  status,
+  handleSelect,
+  room,
+  handleSettings,
+  handleCheck,
+}) => {
   const dotData = [
     {
       key: "1",
@@ -95,8 +104,10 @@ const Status = ({ status, room, handleSettings, handleCheck }) => {
 
 const UpBack = () => {
   const [open, setOpen] = useState(false);
+  const [down, setDown] = useState(false);
   const [modal, setModal] = useState(false);
   const [search, setSearch] = useState("");
+  const [sel, setSel] = useState("");
   const [selected, setSelected] = useState("");
   const [door, setDoor] = useState();
   const [array, setArray] = useState([...data]);
@@ -122,17 +133,24 @@ const UpBack = () => {
     setSearch(e.target.value);
   };
 
-  // React.useEffect(() => {
-  //   array.forEach((members) => {
-  //     if (members.room === door) {
-  //       members.status = sel ? sel : members.status;
-  //       // console.log({ message: "member array updated", members });
-  //     }
-  //   });
-  //   setArray(array);
-  //   // console.log("after change: ", array);
-  //   return array;
-  // }, [handleSelect]);
+  const handleSelect = (e, room) => {
+    // console.log(e.target.value);
+    setSel(e.target.value);
+    setDoor(room);
+  };
+
+  React.useEffect(() => {
+    array.forEach((members) => {
+      if (members.room === door) {
+        members.status = sel ? sel : members.status;
+        // console.log({ message: "member array updated", members });
+      }
+    });
+    // console.log("handleSelect useEffect is running");
+    setArray(array);
+    // console.log("after change: ", array);
+    return array;
+  }, [handleSelect]);
 
   const handleSettings = (room) => {
     array.forEach((members) => {
@@ -238,15 +256,10 @@ const UpBack = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(phone.length);
-    // console.log(phone.toString());
-    // const mob = phone.toString();
-    // setPhone(mob);
-    // console.log("phoneInvalid", phoneInvalid);
-    if (
-      (!(nameInvalid && mailInvalid) && phone.length === 10) ||
-      phone === form.phone
-    ) {
+    console.log(phone.length);
+    console.log(phone);
+    console.log("phoneInvalid", phoneInvalid);
+    if (!(nameInvalid && mailInvalid) && phone.length === 10) {
       setRight(true);
       setPopup({
         name: name,
@@ -294,16 +307,10 @@ const UpBack = () => {
     { key: "10", text: 205, value: 205 },
   ];
 
-  const selectedArray = [
-    { key: "1", text: "Executive", value: "Executive" },
-    { key: "2", text: "Luxury", value: "Luxury" },
-    { key: "3", text: "Paradise", value: "Paradise" },
-  ];
-
   return (
     <>
       <Sidebar />
-      <div className="upMain">
+      <div className="canMain">
         <Settings />
         <div className="contain">
           <h1>Bookings</h1>
@@ -361,6 +368,7 @@ const UpBack = () => {
                 <p>Check-out</p>
               </th>
               <th>Package type</th>
+              <th>Cancelled on</th>
             </tr>
             {array.map((doc) => (
               <tr>
@@ -370,15 +378,7 @@ const UpBack = () => {
                 <td>{moment(doc.check_in).format("DD MMM YYYY")}</td>
                 <td>{moment(doc.check_out).format("DD MMM YYYY")}</td>
                 <td>{doc.pack}</td>
-                <td>
-                  <Status
-                    // setOpen={setOpen}
-                    // open={open}
-                    handleSettings={handleSettings}
-                    handleCheck={handleCheck}
-                    room={doc.room}
-                  />
-                </td>
+                <td>{moment(doc.cancel).format("DD MMM YYYY")}</td>
               </tr>
             ))}
           </table>
@@ -468,27 +468,63 @@ const UpBack = () => {
                 </div>
                 <div className="select">
                   <h5>Package Type</h5>
-                  <Dropdown
-                    selection
-                    defaultValue={selected}
-                    onChange={(e) => setSelected(e.target.value)}
-                    button
-                    fluid
-                    className="d"
-                    options={selectedArray}
-                  ></Dropdown>
+                  <p onClick={() => setStat(!stat)}>
+                    {selected}{" "}
+                    <span className="spanRight">
+                      <img src={below} alt="down" />
+                    </span>
+                  </p>
+                  {stat ? (
+                    <div className="opt">
+                      <input
+                        type="button"
+                        value="Executive"
+                        onClick={(e) => {
+                          setSelected(e.target.value);
+                          setStat(false);
+                        }}
+                      />
+                      <input
+                        type="button"
+                        value="Luxury"
+                        onClick={(e) => {
+                          setSelected(e.target.value);
+                          setStat(false);
+                        }}
+                      />
+                      <input
+                        type="button"
+                        value="Paradise"
+                        onClick={(e) => {
+                          setSelected(e.target.value);
+                          setStat(false);
+                        }}
+                      />
+                    </div>
+                  ) : null}
                 </div>
                 <div className="select">
                   <h5>Room No.</h5>
-                  <Dropdown
-                    selection
-                    defaultValue={number}
-                    onChange={(e) => setNumber(e.target.value)}
-                    button
-                    fluid
-                    className="d"
-                    options={roomArray}
-                  ></Dropdown>
+                  <p onClick={() => setNum(!num)}>
+                    {number}{" "}
+                    <span className="spanRight">
+                      <img src={below} alt="down" />
+                    </span>
+                  </p>
+                  {num ? (
+                    <div className="opt">
+                      {roomArray.map((doc) => (
+                        <input
+                          type="button"
+                          value={doc.room}
+                          onClick={(e) => {
+                            setNumber(e.target.value);
+                            setNum(false);
+                          }}
+                        />
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
                 <button className="btn" type="submit">
                   Save Changes

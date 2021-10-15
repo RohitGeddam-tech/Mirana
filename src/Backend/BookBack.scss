@@ -66,6 +66,7 @@
       .links {
         background-color: #eaedf1;
         border-radius: 3px;
+        padding: 13px 0;
         width: fit-content;
         a {
           font-family: "Railway", sans-serif;
@@ -84,6 +85,7 @@
             border: 1px solid #ba7f45;
             box-sizing: border-box;
             border-radius: 3px;
+            padding: 14px 42px;
             color: #ba7f45;
           }
         }
@@ -228,6 +230,9 @@
                 &.menu {
                   width: 160px;
                   left: -140px;
+                  .text {
+                    padding-bottom: 0;
+                  }
                   i.icon,
                   i.icons {
                     font-size: 13px;
@@ -349,6 +354,9 @@
               border-radius: 3px;
               display: flex;
               align-items: center;
+              .dropdown.icon {
+                top: 0.9em;
+              }
               .text {
                 display: flex;
                 align-items: center;
@@ -498,311 +506,6 @@
             border-bottom-color: transparent;
           }
         }
-      }
-    }
-  }
-}
-
-.modalBack {
-  position: relative;
-  outline: none !important;
-  .box {
-    position: absolute;
-    z-index: 800;
-    top: 50%;
-    left: 45%;
-    transform: translate(-45%, -50%);
-    background-color: white;
-    outline: none !important;
-    // max-width: 550px;
-    width: 450px;
-    // height: 220px;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    padding: 24px;
-    .head {
-      width: 92%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      p {
-        margin: 0;
-        font-weight: bold;
-        font-size: 16px;
-        line-height: 19px;
-        color: #55575c;
-      }
-      img {
-        cursor: pointer;
-      }
-    }
-    .checkInfo {
-      padding-top: 35px;
-      width: 94%;
-      margin: 0 auto;
-      display: flex;
-      flex-flow: column;
-      align-items: center;
-      justify-content: center;
-      .bottom {
-        width: 95%;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        .btn {
-          font-weight: bold;
-          font-size: 14px;
-          line-height: 16px;
-          margin-left: 10px;
-          border-radius: 3px;
-        }
-        .loginBtn {
-          font-weight: bold;
-          font-size: 14px;
-          line-height: 16px;
-          border-radius: 3px;
-          background-color: transparent;
-        }
-      }
-      .top {
-        width: 95%;
-        margin: auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .text {
-          padding-bottom: 0;
-        }
-        .internal {
-          padding-bottom: 37px;
-          width: 170px;
-          .p {
-            width: 100%;
-            font-weight: normal;
-            font-size: 15px;
-            line-height: 17px;
-            margin: 0;
-            color: #667c8a;
-            cursor: pointer;
-            padding: 10px;
-            border: 0.5px solid #637381;
-            box-sizing: border-box;
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            .text {
-              display: flex;
-              align-items: center;
-              padding-bottom: 0;
-              img {
-                width: 15px;
-                height: 15px;
-              }
-            }
-            .menu > .item {
-              font-weight: normal;
-              font-size: 15px;
-              line-height: 17px;
-              margin: 0;
-              color: #667c8a;
-              font-family: "Railway", sans-serif;
-              font-style: normal;
-              display: flex;
-              align-items: center;
-              img {
-                width: 15px;
-                height: 15px;
-              }
-            }
-          }
-          p {
-            font-weight: normal;
-            font-size: 14px;
-            line-height: 16px;
-            color: #919eab;
-            margin-bottom: 16px;
-          }
-          h5 {
-            font-style: normal;
-            font-weight: bold;
-            font-size: 18px;
-            line-height: 21px;
-            color: #667c8a;
-            margin: 0;
-          }
-        }
-      }
-    }
-    .enterData {
-      padding-top: 25px;
-      width: 95%;
-      margin: 0 auto;
-      display: flex;
-      flex-flow: column;
-      align-items: center;
-      justify-content: center;
-      .select {
-        width: 100%;
-        position: relative;
-        margin: 8px 0;
-        .opt {
-          position: absolute;
-          top: 0;
-          width: 100%;
-          color: #667c8a;
-          padding: 10px;
-          border: 0.5px solid #637381;
-          box-sizing: border-box;
-          border-radius: 3px;
-          display: flex;
-          flex-flow: column;
-          align-items: center;
-          background-color: white;
-          z-index: 80;
-          overflow-y: auto;
-          height: 200px;
-          // justify-content: center;
-          input {
-            font-family: "Railway", sans-serif;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 15px;
-            line-height: 17px;
-            width: 100%;
-            padding: 10px;
-            color: #667c8a;
-            border: none;
-            background-color: transparent;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-            border-radius: 3px;
-            outline: none;
-            cursor: pointer;
-            &:hover {
-              background-color: #667c8a;
-              color: white;
-            }
-            &:nth-child(4) {
-              margin-bottom: 0;
-            }
-          }
-        }
-        h1 {
-          width: 100%;
-          font-weight: normal;
-          font-size: 15px;
-          line-height: 17px;
-          margin: 0;
-          color: #667c8a;
-          cursor: pointer;
-          padding: 10px;
-          border: 1px solid transparent;
-          box-sizing: border-box;
-          border-radius: 3px;
-          display: flex;
-          align-items: center;
-        }
-        h5 {
-          position: absolute;
-          width: fit-content;
-          background-color: white;
-          margin: 0;
-          padding: 2px;
-          font-weight: bold;
-          font-size: 12px;
-          line-height: 14px;
-          color: #667c8a;
-          top: -9px;
-          left: 9px;
-        }
-        p {
-          width: 100%;
-          font-weight: normal;
-          font-size: 15px;
-          line-height: 17px;
-          margin: 0;
-          color: #667c8a;
-          cursor: pointer;
-          padding: 11px 14px;
-          border: 0.5px solid #637381;
-          box-sizing: border-box;
-          border-radius: 3px;
-          display: flex;
-          align-items: center;
-        }
-        .circle {
-          width: 15px;
-          height: 15px;
-          margin-right: 5px;
-          margin-bottom: 1.5px;
-        }
-        .spanRight {
-          position: absolute;
-          right: 7%;
-        }
-      }
-      .date {
-        width: 100%;
-        .MuiOutlinedInput-notchedOutline {
-          border-color: transparent;
-          border-width: 1px;
-        }
-        .MuiFormControl-root {
-          width: 100%;
-          margin: 8px 0;
-          .MuiInputLabel-outlined.MuiInputLabel-shrink {
-            padding: 2px;
-            transform: translate(9px, -7px) scale(0.85);
-            background-color: white;
-          }
-          .MuiFormLabel-root {
-            font-family: "Raleway", sans-serif;
-            font-style: normal;
-            font-weight: bold;
-            font-size: 14px;
-            line-height: 16px;
-            color: #667c8a;
-          }
-          .MuiOutlinedInput-notchedOutline {
-            border-color: transparent;
-            border-width: 1px;
-          }
-          .MuiOutlinedInput-input {
-            font-family: "Raleway", sans-serif;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 16px;
-            background-color: white;
-            font-feature-settings: "pnum" on, "lnum" on;
-            color: #667c8a;
-            text-align: start;
-            padding: 11px 15px;
-            border: 1px solid #667c8a;
-            border-radius: 3px;
-          }
-        }
-      }
-      .text-input {
-        width: 100%;
-        label {
-          font-weight: bold;
-          font-size: 12px;
-          line-height: 14px;
-          color: #667c8a;
-        }
-        .input {
-          border-radius: 3px;
-          padding: 0 15px;
-          border: 1px solid #667c8a;
-          color: #667c8a;
-        }
-      }
-      .btn {
-        margin-top: 17px;
       }
     }
   }

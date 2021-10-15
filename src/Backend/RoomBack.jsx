@@ -6,67 +6,67 @@ import black from "../image/black.png";
 import DateFnsUtils from "@date-io/date-fns";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import pack from "./Data";
+import green from "../image/green.png";
+import orange from "../image/orange.png";
+import circleBlack from "../image/circle_black.png";
+import circleGrey from "../image/circle_grey.png";
+import { Dropdown, DropdownItem, DropdownMenu } from "semantic-ui-react";
+import "semantic-ui-css/semantic.min.css";
+import Settings from "./Settings";
 
-const Status = ({ status, handleSelect, room }) => {
-  const [open, setOpen] = useState(false);
+const Status = ({ status, handleSelect, room, select, setSel, setDoor }) => {
+  console.log(select);
+  const statusData = [
+    {
+      key: "1",
+      text: "Available",
+      value: "Available",
+      image: { avatar: true, src: green },
+    },
+    {
+      key: "2",
+      text: "Unavailable",
+      value: "Unavailable",
+      image: { avatar: true, src: circleGrey },
+    },
+    {
+      key: "3",
+      text: "Booked",
+      value: "Booked",
+      image: { avatar: true, src: orange },
+    },
+    {
+      key: "4",
+      text: "Always Uvailable",
+      value: "Always Unavailable",
+      image: { avatar: true, src: circleBlack },
+    },
+  ];
   return (
     <div className="select">
-      {status !== "Booked" ? (
-        <>
-          <p onClick={() => setOpen(!open)}>
-            <span>
-              <div
-                className={`circle ${status === "Available" ? "a" : ""} ${
-                  status === "Unavailable" ? "c" : ""
-                } ${status === "Booked" ? "b" : ""} ${
-                  status === "Always Unavailable" ? "d" : ""
-                }`}
-              ></div>
-            </span>
-            {status}{" "}
-            <span className="spanRight">
-              <img src={below} alt="down" />
-            </span>
-          </p>
-          {open ? (
-            <div className="opt">
-              <input
-                type="button"
-                value="Available"
-                onClick={(e) => handleSelect(e, room, setOpen)}
-              />
-              <input
-                type="button"
-                value="Unavailable"
-                onClick={(e) => handleSelect(e, room, setOpen)}
-              />
-              <input
-                type="button"
-                value="Booked"
-                onClick={(e) => handleSelect(e, room, setOpen)}
-              />
-              <input
-                type="button"
-                value="Always Unavailable"
-                onClick={(e) => handleSelect(e, room, setOpen)}
-              />
-            </div>
-          ) : null}
-        </>
-      ) : (
+      {/* {status === "Booked" || select === "Booked" ? (
         <h1>
           <span>
             <div className="circle b"></div>
           </span>
           {status}
         </h1>
-      )}
+      ) : ( */}
+      <Dropdown
+        selection
+        defaultValue={status}
+        onChange={(e) => handleSelect(e, room)}
+        button
+        fluid
+        className="p"
+        options={statusData}
+      ></Dropdown>
+      {/* )} */}
     </div>
   );
 };
 
 const RoomBack = () => {
-  const [down, setDown] = useState(false);
   const [yes, setYes] = useState("");
   const [not, setNot] = useState("");
   const [book, setBook] = useState("");
@@ -78,12 +78,15 @@ const RoomBack = () => {
 
   // console.log("Array state: ", array);
 
-  const handleSelect = (e, room, setOpen) => {
-    console.log(e.target.value);
-    setSel(e.target.value);
-    setOpen(false);
+  const handleSelect = (e, room) => {
+    console.log(e.target.innerText);
+    setSel(e.target.innerText);
+    // console.log(sel);
     setDoor(room);
   };
+  React.useEffect(() => {
+    console.log(sel);
+  }, [handleSelect]);
 
   React.useEffect(() => {
     array.forEach((members) => {
@@ -102,17 +105,7 @@ const RoomBack = () => {
     <>
       <Sidebar />
       <div className="roomMain">
-        <div className="drop">
-          <div className="shown" onClick={() => setDown(!down)}>
-            <img src={black} alt="account" />
-            <h1>Rajeev Chakrabarti</h1>
-            <img src={below} alt="down-arrow" />
-          </div>
-          <div className={`down ${down ? "active" : null}`}>
-            <p>Settings</p>
-            <p>Log Out</p>
-          </div>
-        </div>
+        <Settings />
         <div className="contain">
           <h1>Rooms</h1>
           <div className="filters">
@@ -162,6 +155,9 @@ const RoomBack = () => {
                       // setOpen={setOpen}
                       status={doc.status}
                       // open={open}
+                      select={sel}
+                      setSel={setSel}
+                      setDoor={setDoor}
                       handleSelect={handleSelect}
                       room={doc.room}
                     />
@@ -173,6 +169,7 @@ const RoomBack = () => {
             ))}
           </table>
         </div>
+        {/* <Cancel draw={draw} setDraw={setDraw} /> */}
       </div>
     </>
   );

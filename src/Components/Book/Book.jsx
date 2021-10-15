@@ -71,7 +71,7 @@ const Book = () => {
     if (
       guest === null ||
       room === null ||
-      date1.getDate() === date2.getDate()
+      date1 === date2
     ) {
       // console.log("react usestae is running");
       setGuest(1);

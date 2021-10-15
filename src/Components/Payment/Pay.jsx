@@ -5,6 +5,7 @@ import NewHeader from "../NewHeader";
 import arrow from "../../image/backarrow.png";
 import pay from "../../image/pay.png";
 import moment from "moment";
+import Cancel from "../Cancel";
 import "./Pay.scss";
 import { NavHashLink } from "react-router-hash-link";
 import arrow2 from "../../image/Frame2.png";
@@ -41,6 +42,7 @@ const Pay = () => {
   const [validity, setValidity] = useState(false);
   const [valid, setValid] = useState(false);
   const [logged, setLogged] = useState(false);
+  const [draw, setDraw] = useState(false);
   //   const [btnLoading, setBtnLoading] = useState(false);
   const [width] = useWindowSize();
 
@@ -70,6 +72,13 @@ const Pay = () => {
       setLogged(true);
     }
   });
+
+  React.useEffect(() => {
+    if (sessionStorage.getItem("bookData") === null) {
+      // alert("Please select the Package");
+      window.location.href = "/Book#top";
+    }
+  }, []);
 
   const handleChange = (e) => {
     // console.log("e value", e);
@@ -347,7 +356,7 @@ const Pay = () => {
                         {guest > 1 ? "Adults" : "Adult"} {room}{" "}
                         {room > 1 ? "Rooms" : "Room"}
                       </p>
-                      <a href="/">Edit</a>
+                      <a href="/Book#top">Edit</a>
                     </div>
                   </div>
                 </div>
@@ -355,7 +364,9 @@ const Pay = () => {
                   <li>Check-in: 12 P.M. ; Check-out: 11 A.M.</li>
                   <li>
                     Free cancellation before 7 days of check-in.{" "}
-                    <a href="/">View cancellation policy</a>
+                    <a onClick={() => setDraw(true)}>
+                      View cancellation policy
+                    </a>
                   </li>
                   <li>
                     50% of the total room tariff to be paid as reservation
@@ -372,6 +383,7 @@ const Pay = () => {
         {/* <h1>
           {pack.slice(1, -1)}: {money}
         </h1> */}
+        <Cancel draw={draw} setDraw={setDraw} />
       </div>
       <Footer />
     </>

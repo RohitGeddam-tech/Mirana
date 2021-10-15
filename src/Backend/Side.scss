@@ -44,7 +44,11 @@
       text-align: start;
       background-color: white;
       margin-bottom: 15px;
+      &.book{
+        display: none;
+      }
       &.active {
+        display: block;
         background: rgba(186, 127, 69, 0.2);
         border-radius: 3px;
         color: #ba7f45;

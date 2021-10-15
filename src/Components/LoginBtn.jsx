@@ -2,7 +2,6 @@ import React, { useState } from "react";
 // import Sign from "./Sign";
 import account from "../image/account.png";
 import profile from "../image/profile.png";
-import "./LoginBtn.scss";
 import { Modal } from "@material-ui/core";
 import clear from "../image/clear.png";
 import { Dropdown, DropdownItem, DropdownMenu } from "semantic-ui-react";
@@ -80,6 +79,15 @@ const LoginBtn = ({ close, cancel }) => {
                     setCode("");
                     setInvalid(false);
                     window.location.reload();
+                    if (window.location.href.includes("MyBookings")) {
+                      window.location.href = "/#top";
+                    }
+                    if (
+                      window.location.href.includes("Part2") ||
+                      window.location.href.includes("Part3")
+                    ) {
+                      window.location.href = "/Pay#top";
+                    }
                   }}
                 >
                   Logout
@@ -93,7 +101,11 @@ const LoginBtn = ({ close, cancel }) => {
           <button onClick={() => setDraw(true)} className={`${close}`}>
             {cancel ? (
               <span>
-                {width < 481 ? <img src={profile} alt="account" /> : <img src={account} alt="account" />}
+                {width < 481 ? (
+                  <img src={profile} alt="account" />
+                ) : (
+                  <img src={account} alt="account" />
+                )}
               </span>
             ) : null}
             Login

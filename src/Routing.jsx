@@ -15,6 +15,8 @@ import PackagesBack from "./Backend/PackagesBack";
 import RoomBack from "./Backend/RoomBack";
 import BookBack from "./Backend/BookBack";
 import Upcoming from "./Backend/Upcoming";
+import Cancelled from "./Backend/Cancelled";
+import Complete from "./Backend/Complete";
 import MyBooking from "./Components/MyBooking";
 
 const Routing = () => {
@@ -38,6 +40,8 @@ const Routing = () => {
           <Route path="/RoomBack" exact component={RoomBack} />
           <Route path="/BookBack" exact component={BookBack} />
           <Route path="/BookBack/Upcoming" exact component={Upcoming} />
+          <Route path="/BookBack/Cancelled" exact component={Cancelled} />
+          <Route path="/BookBack/Completed" exact component={Complete} />
           <Route path="/MyBookings" exact component={MyBooking} />
         </Switch>
       </>

@@ -7,6 +7,12 @@ import "./MyBooking.scss";
 import arrow from "../image/backarrow.png";
 
 const MyBooking = () => {
+  React.useEffect(() => {
+    if (sessionStorage.getItem("logged") === null) {
+      // alert("Please select the Package");
+      window.location.href = "/#top";
+    }
+  }, []);
   return (
     <>
       <NewHeader />
