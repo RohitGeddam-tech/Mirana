@@ -348,7 +348,7 @@ const Pay = () => {
                   <div className="pack">
                     <div className="packdetail">
                       <p>{pack.slice(1, -1)} Package</p>
-                      <h5>₹ {money}</h5>
+                      <h5>₹ {money + 540}</h5>
                     </div>
                     <div className="packdetail2">
                       <p>
