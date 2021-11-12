@@ -242,7 +242,7 @@ const BookBack = () => {
     setPhone(form.phone);
     setMail(form.mail);
     // }
-  }, [form]);
+  }, [form, setForm]);
 
   React.useEffect(() => {
     if (
@@ -482,9 +482,9 @@ const BookBack = () => {
                 <div className="date">
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <DatePicker
-                      disablePast={true}
+                      // disablePast={true}
                       label={`Check-in date`}
-                      // minDate={date1}
+                      minDate={date1}
                       value={date1}
                       onChange={handleDate}
                       inputVariant="outlined"
@@ -492,10 +492,10 @@ const BookBack = () => {
                       animateYearScrolling
                     />
                     <DatePicker
-                      disablePast={true}
+                      // disablePast={true}
                       label={`Check-out date`}
                       inputVariant="outlined"
-                      minDate={date1}
+                      minDate={date2}
                       format="E, dd MMM"
                       value={date2}
                       onChange={setDate2}

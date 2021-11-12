@@ -1,5 +1,7 @@
 .book {
   padding-top: 192px;
+  width: 100%;
+  overflow-x: hidden;
   .container {
     max-width: 1000px;
     margin: auto;
@@ -206,7 +208,7 @@
       .textInput {
         width: fit-content;
         max-width: 400px;
-        .text-input{
+        .text-input {
           padding-right: 20px;
         }
       }
@@ -393,7 +395,7 @@
         align-items: center;
         justify-content: space-between;
         margin: 10px 0;
-        h1{
+        h1 {
           width: 50%;
         }
         .MuiInput-underline:before {
@@ -410,7 +412,7 @@
           width: 40%;
           display: flex;
           margin: 0;
-          @media(max-width:600px){
+          @media (max-width: 600px) {
             width: 45%;
           }
         }

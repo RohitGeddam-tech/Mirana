@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import "./PackagesBack.scss";
 import { Modal } from "@material-ui/core";
@@ -7,6 +7,7 @@ import create from "../image/create.png";
 import below from "../image/down.png";
 import black from "../image/black.png";
 import Settings from "./Settings";
+import axios from "axios";
 
 const pack = [
   {
@@ -32,23 +33,51 @@ const PackagesBack = () => {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
   const [food, setFood] = useState("");
+  const [num, setNum] = useState(0);
   const [form, setForm] = useState({});
   const [start, setStart] = useState(false);
   const [valid, setValid] = useState(false);
   const [down, setDown] = useState(false);
+  const [packed, setPackage] = useState([]);
+
+  useEffect(async () => {
+    const tokenData = localStorage.getItem("access-token");
+    const token = JSON.stringify(tokenData);
+    // console.log(token.slice(1, -1));
+    const headers = {
+      Authorization: `Bearer ${token.slice(1, -1)}`,
+    };
+    if (
+      localStorage.getItem("role") !== null &&
+      localStorage.getItem("role") === "admin"
+    ) {
+      axios
+        .get(`${process.env.REACT_APP_PUBLIC_URL}admin/packages`, {
+          headers: headers,
+        })
+        .then((res) => {
+          if (res) {
+            const info = res.data.data;
+            console.log("response user profile msg", info);
+            // console.log("file array state1: ", packed.length);
+            setPackage([...info]);
+            // console.log("file array state2: ", packed.length);
+            console.log("pack array state: ", packed);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
 
   const fill = (check) => {
-    const file = pack.filter((data) => data.name === check);
-    // return file;
+    const file = packed.filter((data) => data.name === check);
     setData(file);
     setName(file[0].name);
-    setRoom(file[0].room);
-    setFood(file[0].food);
-    // setForm({
-    //   name: name,
-    //   room: room,
-    //   food: food,
-    // });
+    setRoom(file[0].room_price);
+    setFood(file[0].food_price);
+    setNum(file[0].id);
     setOn(true);
   };
 
@@ -66,6 +95,7 @@ const PackagesBack = () => {
       console.log("name useState: ", name);
       console.log("room useState: ", room);
       console.log("food useState: ", food);
+      console.log("id useState: ", num);
       if (name !== "" && room !== "" && food !== "") {
         setStart(true);
       }
@@ -74,9 +104,10 @@ const PackagesBack = () => {
 
   const handleChange = (e) => {
     // console.log("e value", e);
+    const value = e.target.value;
     switch (e.target.name) {
       case "name":
-        setName(e.target.value);
+        setName(value.split(" ").join(""));
         // setLnameInvalid(!e.target.validity.valid);
         break;
       case "room":
@@ -95,34 +126,51 @@ const PackagesBack = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (name !== "" && room !== "" && food !== "") {
-      setValid(true);
+      // setValid(true);
       setForm({
         name: name,
-        room: room,
-        food: food,
+        room_price: room,
+        food_price: food,
       });
       setStart(false);
-      console.log(form);
-      pack.forEach((members) => {
-        if (members.name === form.name) {
-          members.name = form.name ? form.name : "nothing";
-          members.room = form.room ? form.room : members.room;
-          members.food = form.food ? form.food : members.food;
-
-          console.log({ message: "member array updated", members });
-        }
-      });
+      setValid(true);
+      // console.log(form);
     } else {
+      console.log(name);
       setValid(false);
     }
   };
 
-  React.useEffect(() => {
+  React.useEffect(async () => {
+    const tokenData = localStorage.getItem("access-token");
+    const token = JSON.stringify(tokenData);
+    // console.log(token.slice(1, -1));
+    const headers = {
+      Authorization: `Bearer ${token.slice(1, -1)}`,
+    };
     if (valid) {
-      console.log(form);
-      console.log(form.name);
+      // console.log(form);
+      try {
+        const res = await axios.put(
+          `${process.env.REACT_APP_PUBLIC_URL}admin/packages/${num}`,
+          form,
+          {
+            headers: headers,
+          }
+        );
+        if (res) {
+          console.log(res.data.data);
+          setStart(false);
+          console.log(form);
+          window.location.reload();
+          // setForm({});
+        }
+      } catch (err) {
+        console.log(name);
+        console.log(err);
+      }
     }
-  }, [form, valid, pack]);
+  }, [setForm, setValid, valid, form]);
 
   // React.useEffect(() => {
   //   if (on) {
@@ -143,13 +191,14 @@ const PackagesBack = () => {
               <th>Room Price</th>
               <th>Food Price</th>
             </tr>
-            {pack.map((doc) => (
-              // <div className="row">
+            {/* {packed >= 0 ? (
+              <> */}
+            {packed.map((doc) => (
               <>
-                <tr>
+                <tr key={doc.id}>
                   <td>{doc.name}</td>
-                  <td>{doc.room}</td>
-                  <td>{doc.food}</td>
+                  <td>{doc.room_price}</td>
+                  <td>{doc.food_price}</td>
                   <td>
                     <button onClick={() => fill(doc.name)}>
                       <span>
@@ -161,8 +210,9 @@ const PackagesBack = () => {
                 </tr>
                 {/* <div className="border"></div> */}
               </>
-              // </div>
             ))}
+            {/* </>
+            ) : null} */}
           </table>
           <Modal
             className="modalBack"
@@ -188,7 +238,7 @@ const PackagesBack = () => {
                     className="input"
                     name="name"
                     onChange={handleChange}
-                    pattern="^([A-Za-z ,.'`-]{2,30})$"
+                    pattern="^([A-Za-z ,_.'`-]{2,30})$"
                     type="text"
                     required
                   />

@@ -7,6 +7,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-variant-numeric: lining-nums;
+  width: 100%;
+  overflow-x: hidden !important;
 
   .App {
     width: 100%;
