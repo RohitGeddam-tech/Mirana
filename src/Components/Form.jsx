@@ -23,7 +23,6 @@ const Form = ({ className = "" }) => {
   const [btnLoading, setBtnLoading] = useState(false);
   // const [error, setError] = useState({});
 
-
   const handleChange = (e) => {
     // console.log("e value", e);
     switch (e.target.name) {
@@ -59,6 +58,9 @@ const Form = ({ className = "" }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (mobile.length !== 10) {
+      setMobileInvalid(true);
+    }
     if (
       !(
         fnameInvalid &&
@@ -66,7 +68,8 @@ const Form = ({ className = "" }) => {
         textInvalid &&
         mobileInvalid &&
         emailInvalid
-      )
+      ) &&
+      mobile.length === 10
     ) {
       setValidity(true);
       setForm({
@@ -74,7 +77,7 @@ const Form = ({ className = "" }) => {
         last_name: lname,
         mobile: mobile,
         email: email,
-        message: text
+        message: text,
       });
       setBtnLoading(true);
       console.log(form);

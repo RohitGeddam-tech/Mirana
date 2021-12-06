@@ -106,7 +106,7 @@ Package: ${pack}.`);
           console.log(err);
           setBtnLoading(false);
         });
-      setOpen(false);
+      // setOpen(false);
     }
   }, [form, validity]);
 
@@ -243,7 +243,13 @@ Package: ${pack}.`);
             Thank you for your interest. Our team will get in touch with you
             soon.
           </p>
-          <button className="btn" onClick={() => setSuccess(false)}>
+          <button
+            className="btn"
+            onClick={() => {
+              setSuccess(false);
+              setOpen(false);
+            }}
+          >
             Close
           </button>
         </div>
