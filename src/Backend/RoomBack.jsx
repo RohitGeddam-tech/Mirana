@@ -16,8 +16,8 @@ import Settings from "./Settings";
 import axios from "axios";
 import moment from "moment";
 
-const Status = ({ status, handleSelect, room, select, setSel, setDoor }) => {
-  console.log(select);
+const Status = ({ status, handleSelect, room }) => {
+  // console.log(select);
   const statusData = [
     {
       key: "1",
@@ -66,8 +66,12 @@ const RoomBack = () => {
   const [yes, setYes] = useState("");
   const [not, setNot] = useState("");
   const [book, setBook] = useState("");
-  const [sel, setSel] = useState("");
   const [none, setNone] = useState("");
+  const [yesactive, setYesactive] = useState(false);
+  const [notactive, setNotactive] = useState(false);
+  const [bookactive, setBookactive] = useState(false);
+  const [noneactive, setNoneactive] = useState(false);
+  const [sel, setSel] = useState("");
   const [door, setDoor] = useState("");
   const [date, setDate] = useState(new Date());
   // const [array, setArray] = useState([...pack]);
@@ -75,7 +79,7 @@ const RoomBack = () => {
   const [valid, setValid] = useState(false);
   // const [right, setRight] = useState(false);
 
-  useEffect(async () => {
+  const getData = async () => {
     const tokenData = localStorage.getItem("access-token");
     const token = JSON.stringify(tokenData);
     console.log(token.slice(1, -1));
@@ -88,8 +92,15 @@ const RoomBack = () => {
     ) {
       axios
         .get(
-          `${process.env.REACT_APP_PUBLIC_URL}admin/rooms/?date=${moment(date)
-            .format("YYYY-MM-DD")}${yes !== "" || not !== "" || book !== "" || none !== ""? "&status=": ""}${yes !== "" ? `available` : ""}${not !== "" ? `,unavailable` : ""}${book !== "" ? `,${book}` : ""}${none !== "" ? `,always_unavailable` : ""}`,
+          `${process.env.REACT_APP_PUBLIC_URL}admin/rooms?date=${moment(
+            date
+          ).format("YYYY-MM-DD")}${
+            yesactive || notactive || bookactive || noneactive ? "&status=" : ""
+          }${yesactive ? `available` : ""}${yesactive && notactive ? "," : ""}${
+            notactive ? `unavailable` : ""
+          }${bookactive && notactive ? "," : ""}${bookactive ? `booked` : ""}${
+            bookactive && noneactive ? "," : ""
+          }${noneactive ? `always_unavailable` : ""}`,
           {
             headers: headers,
           }
@@ -108,38 +119,15 @@ const RoomBack = () => {
           console.log(err);
         });
     }
-  }, [setDate, setYes, setNone, setNot, setBook, book, none, not, yes, date]);
+  };
 
-  useEffect(async () => {
-    const tokenData = localStorage.getItem("access-token");
-    const token = JSON.stringify(tokenData);
-    console.log(token.slice(1, -1));
-    const headers = {
-      Authorization: `Bearer ${token.slice(1, -1)}`,
-    };
-    if (
-      localStorage.getItem("role") !== null &&
-      localStorage.getItem("role") === "admin"
-    ) {
-      axios
-        .get(`${process.env.REACT_APP_PUBLIC_URL}admin/rooms`, {
-          headers: headers,
-        })
-        .then((res) => {
-          if (res) {
-            const info = res.data.data;
-            console.log("response user profile msg", info);
-            console.log("file array state1: ", file.length);
-            setFile([...info]);
-            console.log("file array state2: ", file.length);
-            console.log("file array state: ", file);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+  useEffect(() => {
+    getData();
   }, []);
+
+  useEffect(() => {
+    getData();
+  }, [yesactive, notactive, bookactive, noneactive, date]);
 
   const handleSelect = async (e, room) => {
     console.log(e.target.innerText);
@@ -189,6 +177,33 @@ const RoomBack = () => {
     }
   };
 
+  // useEffect(() => {
+  //   if (yesactive === true) {
+  //     setYes("available");
+  //   }
+  //   if (yesactive === false) {
+  //     setYes("");
+  //   }
+  //   if (notactive === true) {
+  //     setNot("unavailable");
+  //   }
+  //   if (notactive === false) {
+  //     setNot("");
+  //   }
+  //   if (noneactive === true) {
+  //     setNone("always unavailable");
+  //   }
+  //   if (noneactive === false) {
+  //     setNone("");
+  //   }
+  //   if (bookactive === true) {
+  //     setBook("booked");
+  //   }
+  //   if (bookactive === false) {
+  //     setBook("");
+  //   }
+  // }, [yesactive, notactive, bookactive, notactive]);
+
   React.useEffect(async () => {
     console.log(sel);
     if (sel === "Always Unavailable") {
@@ -196,7 +211,7 @@ const RoomBack = () => {
       console.log(sel);
     }
     const form = {
-      date: moment(date).format().slice(0, 10),
+      date: moment(new Date()).format().slice(0, 10),
       status: sel.toLowerCase(),
     };
     console.log(form);
@@ -226,19 +241,6 @@ const RoomBack = () => {
     }
   }, [handleSelect]);
 
-  // React.useEffect(() => {
-  //   array.forEach((members) => {
-  //     if (members.room === door) {
-  //       members.status = sel ? sel : members.status;
-  //       console.log({ message: "member array updated", members });
-  //     }
-  //   });
-  //   console.log("handleSelect useEffect is running");
-  //   setArray(array);
-  //   console.log("after change: ", array);
-  //   return array;
-  // }, [handleSelect]);
-
   return (
     <>
       <Sidebar />
@@ -261,26 +263,34 @@ const RoomBack = () => {
               </MuiPickersUtilsProvider>
             </div>
             <button
-              className={`logonBtn ${yes !== "" ? "active" : ""}`}
-              onClick={() => setYes("available")}
+              className={`logonBtn ${yesactive ? "active" : ""}`}
+              onClick={() => {
+                setYesactive(!yesactive);
+              }}
             >
               Available
             </button>
             <button
-              className={`logonBtn ${not !== "" ? "active" : ""}`}
-              onClick={() => setNot("unavailable")}
+              className={`logonBtn ${notactive ? "active" : ""}`}
+              onClick={() => {
+                setNotactive(!notactive);
+              }}
             >
               Unavailable
             </button>
             <button
-              className={`logonBtn ${book !== "" ? "active" : ""}`}
-              onClick={() => setBook("booked")}
+              className={`logonBtn ${bookactive ? "active" : ""}`}
+              onClick={() => {
+                setBookactive(!bookactive);
+              }}
             >
               Booked
             </button>
             <button
-              className={`logonBtn ${none !== "" ? "active" : ""}`}
-              onClick={() => setNone("always unavailable")}
+              className={`logonBtn ${noneactive ? "active" : ""}`}
+              onClick={() => {
+                setNoneactive(!noneactive);
+              }}
             >
               Always Unavailable
             </button>
@@ -292,7 +302,7 @@ const RoomBack = () => {
               <th>Status</th>
               <th>Guest Name</th>
             </tr>
-            {file.length >= 10 ? (
+            {file.length !== 0 ? (
               <>
                 {file.map((doc) => (
                   <>

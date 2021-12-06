@@ -6,6 +6,7 @@ import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 // import moment from "moment";
 import { Dropdown } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
+import axios from "axios";
 
 const NewMember = ({ draw, setDraw }) => {
   const [name, setName] = useState("");
@@ -86,10 +87,38 @@ const NewMember = ({ draw, setDraw }) => {
     }
   };
 
-  React.useEffect(() => {
+  const addData = async () => {
+    const tokenData = localStorage.getItem("accessToken");
+    const token = JSON.stringify(tokenData);
+    const headers = {
+      Authorization: `Bearer ${token.slice(1, -1)}`,
+    };
     if (right) {
-      console.log("onForm submit: ", popup);
+      // console.log(form);
+      try {
+        const res = await axios.post(
+          `${process.env.REACT_APP_PUBLIC_URL}admin/bookings`,
+          popup,
+          {
+            headers: headers,
+          }
+        );
+        if (res) {
+          console.log(res.data.data);
+          // setStart(false);
+          // console.log(popup);
+          // window.location.reload();
+          // setForm({});
+        }
+      } catch (err) {
+        // console.log(name);
+        console.log(err);
+      }
     }
+  };
+
+  React.useEffect(() => {
+    addData();
   }, [handleSubmit]);
 
   const roomArray = [

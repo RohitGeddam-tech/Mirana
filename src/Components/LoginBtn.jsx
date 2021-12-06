@@ -309,11 +309,11 @@ const LoginBtn = ({ close, cancel }) => {
 
   const [newName, setNewName] = useState("");
 
-  if (localStorage.getItem("name") === null) {
-    const nameData = localStorage.getItem("name");
-    const newName = JSON.stringify(nameData);
-    setNewName(newName);
-  }
+  // if (localStorage.getItem("name") !== null) {
+  //   const nameData = localStorage.getItem("name");
+  //   const newName = JSON.stringify(nameData);
+  //   setNewName(newName);
+  // }
 
   return (
     <>

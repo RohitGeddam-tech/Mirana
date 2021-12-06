@@ -282,8 +282,11 @@
         font-size: 14px;
         line-height: 16px;
         color: #919eab;
-        :focus {
+        &:focus {
           cursor: none !important;
+        }
+        &:disabled {
+          background-color: transparent;
         }
       }
       .bottom {

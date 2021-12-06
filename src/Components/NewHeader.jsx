@@ -54,7 +54,7 @@ const NewHeader = () => {
               </div>
             </nav>
             <div className="profile">
-              <LoginBtn close="loginBtn" cancel={true} />
+              <LoginBtn close={`loginBtn`} cancel={true} />
             </div>
           </div>
           <div className={side}>
@@ -135,7 +135,7 @@ const NewHeader = () => {
                   Book Now
                 </NavHashLink>
                 <a style={{ marginLeft: "20px" }}>
-                  <LoginBtn close="loginBtn" cancel={true} />
+                  <LoginBtn close={`loginBtn`} cancel={true} />
                 </a>
               </div>
             </div>

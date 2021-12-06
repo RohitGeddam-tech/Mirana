@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Modal } from "@material-ui/core";
 import clear from "../image/clear.png";
 

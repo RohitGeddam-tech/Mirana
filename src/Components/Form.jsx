@@ -61,11 +61,10 @@ const Form = ({ className = "" }) => {
     e.preventDefault();
     if (
       !(
-        fnameInvalid ||
-        lnameInvalid ||
-        textInvalid ||
-        cityInvalid ||
-        mobileInvalid ||
+        fnameInvalid &&
+        lnameInvalid &&
+        textInvalid &&
+        mobileInvalid &&
         emailInvalid
       )
     ) {
@@ -75,8 +74,7 @@ const Form = ({ className = "" }) => {
         last_name: lname,
         mobile: mobile,
         email: email,
-        message: text,
-        city: city,
+        message: text
       });
       setBtnLoading(true);
       console.log(form);
@@ -188,7 +186,7 @@ const Form = ({ className = "" }) => {
         {mobileInvalid ? (
           <p className="error-text">Please provide a valid mobile no.</p>
         ) : null}
-        <div className="text-input">
+        {/* <div className="text-input">
           <input
             value={city}
             className="input"
@@ -204,7 +202,7 @@ const Form = ({ className = "" }) => {
           {cityInvalid ? (
             <p className="error-text">Please provide a valid City Name</p>
           ) : null}
-        </div>
+        </div> */}
         <div className="text-input">
           <textarea
             className={className}

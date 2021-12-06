@@ -17,7 +17,6 @@ import { Modal } from "@material-ui/core";
 import useWindowSize from "../useWindowSize";
 import moment from "moment";
 import axios from "axios";
-import ContactModal from "./ContactModal";
 
 const Book = () => {
   const [width] = useWindowSize();
@@ -30,24 +29,29 @@ const Book = () => {
   const roomnumbers = JSON.parse(roomBook);
   const date1numbers = JSON.parse(date1Book);
   const date2numbers = JSON.parse(date2Book);
+  // console.log(date1numbers, date1Book);
 
   // const [date1, setDate1] = useState(new Date(`${date1numbers}`));
   const [date1, setDate1] = useState(new Date());
   const [guest, setGuest] = useState(guestnumbers);
   const [room, setRoom] = useState(roomnumbers);
-  console.log(room, guest);
   const [data, setData] = useState({});
   const [on, setOn] = useState(false);
   // const [date2, setDate2] = useState(new Date(`${date2numbers}`));
   const [date2, setDate2] = useState(new Date());
   const [valid, setValid] = useState(false);
+  const [execValid, setExecValid] = useState(false);
+  const [luxValid, setLuxValid] = useState(false);
+  const [paraValid, setParaValid] = useState(false);
   const [exec, setExec] = useState("");
   const [luxury, setLuxury] = useState("");
   const [paradise, setParadise] = useState("");
+  const [execMoney, setExecMoney] = useState("");
+  const [luxMoney, setLuxMoney] = useState("");
+  const [paraMoney, setParaMoney] = useState("");
   const [draw, setDraw] = useState(false);
   const [charge, setCharge] = useState(false);
   const [view, setView] = useState([]);
-  const [array, setArray] = useState([]);
   const [right, setRight] = useState(false);
 
   // console.log("guestBook: ", guest);
@@ -55,21 +59,6 @@ const Book = () => {
   // console.log("guestBook: ", date1);
   // console.log("guestBook: ", date2);
   // console.log("guestBook: ", JSON.stringify(date2numbers));
-
-  React.useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_PUBLIC_URL}room-packages`)
-      .then((res) => {
-        if (res) {
-          const info = res.data.data;
-          console.log("response user profile msg", info);
-          setArray([...info]);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   Date.prototype.addDays = function (days) {
     const date = new Date(this.valueOf());
@@ -109,8 +98,19 @@ const Book = () => {
       room: room,
       date1: date1,
       date2: date2,
-      text: exec,
+      luxury: luxury,
+      execute: exec,
+      paradise: paradise,
+      paraMoney: paraMoney,
+      luxMoney: luxMoney,
+      execMoney: execMoney,
     });
+    // console.log("data link-/books: ", data);
+    // console.log(`date1: ${date1.toString().slice(0, 10)};
+    // date2: ${date2.toString().slice(0, 10)};
+    // Guests: ${guest};
+    // rooms: ${room}
+    // `);
     if (
       date1.getDate() !== date2.getDate() &&
       date1 !== null &&
@@ -129,6 +129,173 @@ const Book = () => {
   //     console.log(data);
   //   }
   // }, [valid, handleSubmit]);
+
+  const execSubmit = () => {
+    setExec("Execute");
+    setExecMoney("5000");
+    setData({
+      guest: guest,
+      room: room,
+      date1: date1,
+      date2: date2,
+      luxury: luxury,
+      execute: exec,
+      paradise: paradise,
+      paraMoney: paraMoney,
+      luxMoney: luxMoney,
+      execMoney: execMoney,
+    });
+    if (
+      date1 === "" &&
+      date2 === "" &&
+      date1 === date2 &&
+      guest === 0 &&
+      room === 0 &&
+      exec === "" &&
+      execMoney === ""
+    ) {
+      console.log("error data: ", data);
+    } else {
+      setExecValid(true);
+    }
+  };
+
+  const luxSubmit = () => {
+    setLuxury("Luxury");
+    setLuxMoney("6500");
+    setData({
+      guest: guest,
+      room: room,
+      date1: date1,
+      date2: date2,
+      luxury: luxury,
+      execute: exec,
+      paradise: paradise,
+      paraMoney: paraMoney,
+      luxMoney: luxMoney,
+      execMoney: execMoney,
+    });
+    if (
+      date1 === "" &&
+      date2 === "" &&
+      date1 === date2 &&
+      guest === 0 &&
+      room === 0 &&
+      luxury === "" &&
+      luxMoney === ""
+    ) {
+      console.log("error data: ", data);
+    } else {
+      setLuxValid(true);
+    }
+  };
+
+  const paraSubmit = () => {
+    setParadise("Paradise");
+    setParaMoney("7500");
+    setData({
+      guest: guest,
+      room: room,
+      date1: date1,
+      date2: date2,
+      luxury: luxury,
+      execute: exec,
+      paradise: paradise,
+      paraMoney: paraMoney,
+      luxMoney: luxMoney,
+      execMoney: execMoney,
+    });
+    if (
+      date1 === "" &&
+      date2 === "" &&
+      date1 === date2 &&
+      guest === 0 &&
+      room === 0 &&
+      paradise === "" &&
+      paraMoney === ""
+    ) {
+      console.log("error data: ", data);
+    } else {
+      setParaValid(true);
+    }
+  };
+
+  React.useEffect(() => {
+    if (valid) {
+      console.log("data link-/: ", data);
+      // sessionStorage.clear();
+      sessionStorage.removeItem("guestData");
+      sessionStorage.removeItem("roomData");
+      sessionStorage.removeItem("date1Data");
+      sessionStorage.removeItem("date2Data");
+    }
+  }, [data, valid]);
+
+  React.useEffect(() => {
+    if (execValid) {
+      console.log("data link-/: ", data);
+      // sessionStorage.clear();
+      sessionStorage.removeItem("guestData");
+      sessionStorage.removeItem("roomData");
+      sessionStorage.removeItem("date1Data");
+      sessionStorage.removeItem("date2Data");
+      sessionStorage.setItem("date1Data", JSON.stringify(date1));
+      sessionStorage.setItem("date2Data", JSON.stringify(date2));
+      if (exec !== "") {
+        sessionStorage.setItem("bookData", exec);
+      }
+      if (execMoney !== "") {
+        sessionStorage.setItem("bookMoney", execMoney);
+      }
+      sessionStorage.setItem("guestData", JSON.stringify(guest));
+      sessionStorage.setItem("roomData", JSON.stringify(room));
+      // window.location.href = "/Pay#top";
+    }
+  }, [data, execValid]);
+
+  React.useEffect(() => {
+    if (luxValid) {
+      console.log("data link-/: ", data);
+      // sessionStorage.clear();
+      sessionStorage.removeItem("guestData");
+      sessionStorage.removeItem("roomData");
+      sessionStorage.removeItem("date1Data");
+      sessionStorage.removeItem("date2Data");
+      sessionStorage.setItem("date1Data", JSON.stringify(date1));
+      sessionStorage.setItem("date2Data", JSON.stringify(date2));
+      if (luxury !== "") {
+        sessionStorage.setItem("bookData", luxury);
+      }
+      if (luxMoney !== "") {
+        sessionStorage.setItem("bookMoney", luxMoney);
+      }
+      sessionStorage.setItem("guestData", JSON.stringify(guest));
+      sessionStorage.setItem("roomData", JSON.stringify(room));
+      // window.location.href = "/Pay#top";
+    }
+  }, [data, luxValid]);
+
+  React.useEffect(() => {
+    if (paraValid) {
+      console.log("data link-/: ", data);
+      // sessionStorage.clear();
+      sessionStorage.removeItem("guestData");
+      sessionStorage.removeItem("roomData");
+      sessionStorage.removeItem("date1Data");
+      sessionStorage.removeItem("date2Data");
+      sessionStorage.setItem("date1Data", JSON.stringify(date1));
+      sessionStorage.setItem("date2Data", JSON.stringify(date2));
+      if (paradise !== "") {
+        sessionStorage.setItem("bookData", paradise);
+      }
+      if (paraMoney !== "") {
+        sessionStorage.setItem("bookMoney", paraMoney);
+      }
+      sessionStorage.setItem("guestData", JSON.stringify(guest));
+      sessionStorage.setItem("roomData", JSON.stringify(room));
+      // window.location.href = "/Pay#top";
+    }
+  }, [data, paraValid]);
 
   const handleCharge = (adult, teen) => {
     setCharge(true);
@@ -383,67 +550,158 @@ const Book = () => {
       <div className="book">
         <div className="container">
           <h1>Choose a package</h1>
-          {array.map((doc) => (
-            <div className="package" key={doc.id}>
-              <div className="left">
-                <img src={book} alt="book" />
-              </div>
-              <div className="right">
-                <div className="top">
-                  <h1>{doc.name}</h1>
-                  <div className="topRight">
-                    <h1>₹ {doc.total_amount}</h1>
-                    <p>+540 taxes & fees</p>
-                  </div>
+          <div className="package">
+            <div className="left">
+              <img src={book} alt="book" />
+            </div>
+            <div className="right">
+              <div className="top">
+                <h1>Executive</h1>
+                <div className="topRight">
+                  <h1>₹ 5000</h1>
+                  <p>+540 taxes & fees</p>
                 </div>
-                <div className="border"></div>
-                <div className="body">
-                  <ul>
-                    <li>Complimentary {doc.services.join(" + ")} available.</li>
-                    <li>Price for 2 adults + 1 adult (at additional cost) </li>
-                    <li>
-                      Extra mattress available at extra charges.{" "}
-                      <a onClick={() => handleCharge(1500, 1100)}>
-                        View charges
-                      </a>
-                    </li>
-                    <li>Check-in: 12noon ; Check-out: 11 a.m.</li>
-                    <li>
-                      Free cancellation before 7 days of check-in.{" "}
-                      <a onClick={() => setDraw(true)}>
-                        View cancellation policy
-                      </a>
-                    </li>
-                  </ul>
-                  <div className="buttons">
-                    <NavHashLink to="/Rooms#top" className="loginBtn">
-                      View Room
-                    </NavHashLink>
-                    <button
-                      className="btn"
-                      onClick={() => {
-                        setExec(doc.name);
-                        setRight(true);
-                      }}
-                    >
-                      Reserve
-                    </button>
-                  </div>
+              </div>
+              <div className="border"></div>
+              <div className="body">
+                <ul>
+                  <li>Complimentary breakfast available.</li>
+                  <li>Price for 2 adults + 1 adult (at additional cost) </li>
+                  <li>
+                    Extra mattress available at extra charges.{" "}
+                    <a onClick={() => handleCharge(1500, 1100)}>View charges</a>
+                  </li>
+                  <li>Check-in: 12noon ; Check-out: 11 a.m.</li>
+                  <li>
+                    Free cancellation before 7 days of check-in.{" "}
+                    <a onClick={() => setDraw(true)}>
+                      View cancellation policy
+                    </a>
+                  </li>
+                </ul>
+                <div className="buttons">
+                  <NavHashLink to="/Rooms#top" className="loginBtn">
+                    View Room
+                  </NavHashLink>
+                  {/* <button className="btn" onClick={execSubmit}>
+                    Reserve
+                  </button> */}
+                  <button
+                    className="btn"
+                    onClick={() => {
+                      setExec("Execute");
+                      setRight(true);
+                    }}
+                  >
+                    Reserve
+                  </button>
+                  {/* <input type="button" value={exec} className='btn' onClick={execChange}/> */}
                 </div>
               </div>
             </div>
-          ))}
+          </div>
+          <div className="package">
+            <div className="left">
+              <img src={book} alt="book" />
+            </div>
+            <div className="right">
+              <div className="top">
+                <h1>Luxury</h1>
+                <div className="topRight">
+                  <h1>₹ 6500</h1>
+                  <p>+540 taxes & fees</p>
+                </div>
+              </div>
+              <div className="border"></div>
+              <div className="body">
+                <ul>
+                  <li>Complimentary breakfast + dinner available.</li>
+                  <li>Price for 2 adults + 1 adult (at additional cost) </li>
+                  <li>
+                    Extra mattress available at extra charges.{" "}
+                    <a onClick={() => handleCharge(2000, 1500)}>View charges</a>
+                  </li>
+                  <li>Check-in: 12noon ; Check-out: 11 a.m.</li>
+                  <li>
+                    Free cancellation before 7 days of check-in.{" "}
+                    <a onClick={() => setDraw(true)}>
+                      View cancellation policy
+                    </a>
+                  </li>
+                </ul>
+                <div className="buttons">
+                  <NavHashLink to="/Rooms#top" className="loginBtn">
+                    View Room
+                  </NavHashLink>
+                  {/* <button className="btn" onClick={luxSubmit}>
+                    Reserve
+                  </button> */}
+                  <button
+                    className="btn"
+                    onClick={() => {
+                      setLuxury("Luxury");
+                      setRight(true);
+                    }}
+                  >
+                    Reserve
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="package">
+            <div className="left">
+              <img src={book} alt="book" />
+            </div>
+            <div className="right">
+              <div className="top">
+                <h1>Paradise</h1>
+                <div className="topRight">
+                  <h1>₹ 7500</h1>
+                  <p>+540 taxes & fees</p>
+                </div>
+              </div>
+              <div className="border"></div>
+              <div className="body">
+                <ul>
+                  <li>
+                    Complimentary breakfast + lunch + tea + dinner available.
+                  </li>
+                  <li>Price for 2 adults + 1 adult (at additional cost) </li>
+                  <li>
+                    Extra mattress available at extra charges.{" "}
+                    <a onClick={() => handleCharge(2500, 1800)}>View charges</a>
+                  </li>
+                  <li>Check-in: 12noon ; Check-out: 11 a.m.</li>
+                  <li>
+                    Free cancellation before 7 days of check-in.{" "}
+                    <a onClick={() => setDraw(true)}>
+                      View cancellation policy
+                    </a>
+                  </li>
+                </ul>
+                <div className="buttons">
+                  <NavHashLink to="/Rooms#top" className="loginBtn">
+                    View Room
+                  </NavHashLink>
+                  {/* <button className="btn" onClick={paraSubmit}>
+                    Reserve
+                  </button> */}
+                  <button
+                    className="btn"
+                    onClick={() => {
+                      setParadise("Paradise");
+                      setRight(true);
+                    }}
+                  >
+                    Reserve
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <ContactModal
-        draw={right}
-        setDraw={setRight}
-        guest={guest}
-        room={room}
-        date1={date1}
-        date2={date2}
-        name={exec}
-      />
       <Cancel draw={draw} setDraw={setDraw} />
       <Charge draw={charge} setDraw={setCharge} view={view} />
       <Footer />

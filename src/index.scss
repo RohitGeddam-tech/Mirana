@@ -121,7 +121,7 @@ body {
       }
       .menu {
         top: 102%;
-        @media(max-width:480px){
+        @media (max-width: 480px) {
           right: -5%;
           top: 115%;
         }
@@ -170,7 +170,7 @@ body {
       align-items: center;
       border-radius: 10px;
       padding: 35px;
-      @media(max-width:445px){
+      @media (max-width: 445px) {
         padding: 15px;
       }
       .head {
@@ -191,23 +191,35 @@ body {
       }
       .body {
         width: 470px;
-        @media(max-width:565px){
+        @media (max-width: 565px) {
           width: 350px;
         }
-        @media(max-width:445px){
+        @media (max-width: 445px) {
           width: 280px;
+        }
+        .modalForm{
+          .error-text{
+            color: red;
+            margin-top: -5px;
+          }
+          .bottom{
+            width: 100%;
+            display: flex;
+            margin-top: 10px;
+            justify-content: center;
+          }
         }
         .otp {
           width: 100%;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          @media(max-width:445px){
-           flex-flow: column; 
+          @media (max-width: 445px) {
+            flex-flow: column;
           }
           .textInput {
             width: 60%;
-            @media(max-width:445px){
+            @media (max-width: 445px) {
               width: 90%;
             }
           }
@@ -245,7 +257,7 @@ body {
           line-height: 19px;
           color: #667c8a;
           font-style: italic;
-          &.normal{
+          &.normal {
             font-style: normal;
           }
         }
@@ -511,6 +523,19 @@ body {
       font-weight: 500;
       font-family: "Raleway", sans-serif;
       color: #919eab;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+
+      &:disabled {
+        background-color: transparent;
+        cursor: not-allowed;
+        border-color: #b7b7b7;
+        color: #b7b7b7;
+      }
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
 
       &:focus ~ label {
         color: #ba7f45 !important;

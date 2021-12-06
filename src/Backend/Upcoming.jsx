@@ -18,6 +18,7 @@ import "semantic-ui-css/semantic.min.css";
 import { NavHashLink } from "react-router-hash-link";
 import Settings from "./Settings";
 import NewMember from "./NewMember";
+import axios from "axios";
 
 const data = [
   {
@@ -97,6 +98,7 @@ const UpBack = () => {
   const [open, setOpen] = useState(false);
   const [modal, setModal] = useState(false);
   const [search, setSearch] = useState("");
+  const [searched, setSearched] = useState("");
   const [selected, setSelected] = useState("");
   const [door, setDoor] = useState();
   const [array, setArray] = useState([...data]);
@@ -122,17 +124,91 @@ const UpBack = () => {
     setSearch(e.target.value);
   };
 
-  // React.useEffect(() => {
-  //   array.forEach((members) => {
-  //     if (members.room === door) {
-  //       members.status = sel ? sel : members.status;
-  //       // console.log({ message: "member array updated", members });
-  //     }
-  //   });
-  //   setArray(array);
-  //   // console.log("after change: ", array);
-  //   return array;
-  // }, [handleSelect]);
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearched(search);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  const fetchData = async () => {
+    const tokenData = localStorage.getItem("access-token");
+    const token = JSON.stringify(tokenData);
+    console.log(token.slice(1, -1));
+    const headers = {
+      Authorization: `Bearer ${token.slice(1, -1)}`,
+    };
+    if (
+      localStorage.getItem("role") !== null &&
+      localStorage.getItem("role") === "admin"
+    ) {
+      axios
+        .get(`${process.env.REACT_APP_PUBLIC_URL}admin/upcoming-bookings`, {
+          headers: headers,
+        })
+        .then((res) => {
+          if (res) {
+            const info = res.data.data;
+            console.log("response user profile msg", info);
+            console.log("file array state1: ", array.length);
+            setArray([...info]);
+            console.log("file array state2: ", array.length);
+            console.log("file array state: ", array);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  const getData = async () => {
+    const tokenData = localStorage.getItem("access-token");
+    const token = JSON.stringify(tokenData);
+    console.log(token.slice(1, -1));
+    const headers = {
+      Authorization: `Bearer ${token.slice(1, -1)}`,
+    };
+    if (
+      localStorage.getItem("role") !== null &&
+      localStorage.getItem("role") === "admin"
+    ) {
+      axios
+        .get(
+          `${
+            process.env.REACT_APP_PUBLIC_URL
+          }admin/upcoming-bookings?checkin_date=${moment(date1).format(
+            "YYYY-MM-DD"
+          )}&checkout_date=${moment(date2).format("YYYY-MM-DD")}${
+            searched !== "" ? `&search=${searched}` : ""
+          }`,
+          {
+            headers: headers,
+          }
+        )
+        .then((res) => {
+          if (res) {
+            const info = res.data.data;
+            console.log("response user profile msg", info);
+            console.log("file array state1: ", array.length);
+            setArray([...info]);
+            console.log("file array state2: ", array.length);
+            console.log("file array state: ", array);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
+
+  React.useEffect(() => {
+    getData();
+  }, [searched]);
 
   const handleSettings = (room) => {
     array.forEach((members) => {

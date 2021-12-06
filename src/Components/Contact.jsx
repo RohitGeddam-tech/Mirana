@@ -21,7 +21,12 @@ const Contact = ({ src, setSrc }) => {
   return (
     <div className="contact">
       <div className="container">
-        <Form />
+        <Form
+          p="Your perfect stay is our responsibility. To ensure perfection, we’d
+            like to be involved in crafting your experience, plan along with
+            you. Give us a shout to discover your options at Mirana."
+          h2="Contact Us"
+        />
         <div className="right">
           {src === "" ? (
             <img

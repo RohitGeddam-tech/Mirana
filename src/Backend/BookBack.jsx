@@ -18,6 +18,7 @@ import "semantic-ui-css/semantic.min.css";
 import { NavHashLink } from "react-router-hash-link";
 import Settings from "./Settings";
 import NewMember from "./NewMember";
+import axios from "axios";
 
 const data = [
   {
@@ -121,6 +122,7 @@ const BookBack = () => {
   const [down, setDown] = useState(false);
   const [modal, setModal] = useState(false);
   const [search, setSearch] = useState("");
+  const [searched, setSearched] = useState("");
   const [sel, setSel] = useState("");
   const [selected, setSelected] = useState("");
   const [door, setDoor] = useState();
@@ -140,12 +142,99 @@ const BookBack = () => {
   const [phoneInvalid, setPhoneInvalid] = useState(false);
   const [mailInvalid, setMailInvalid] = useState(false);
   const [right, setRight] = useState(false);
+  const [correct, setCorrect] = useState(false);
   const [draw, setDraw] = useState(false);
 
   const handleSearch = (e) => {
     // console.log("e value", e);
     setSearch(e.target.value);
   };
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearched(search);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  const fetchData = async () => {
+    const tokenData = localStorage.getItem("access-token");
+    const token = JSON.stringify(tokenData);
+    console.log(token.slice(1, -1));
+    const headers = {
+      Authorization: `Bearer ${token.slice(1, -1)}`,
+    };
+    if (
+      localStorage.getItem("role") !== null &&
+      localStorage.getItem("role") === "admin"
+    ) {
+      axios
+        .get(`${process.env.REACT_APP_PUBLIC_URL}admin/ongoing-bookings`, {
+          headers: headers,
+        })
+        .then((res) => {
+          if (res) {
+            const info = res.data.data;
+            console.log("response user profile msg", info);
+            console.log("file array state1: ", array.length);
+            setArray([...info]);
+            console.log("file array state2: ", array.length);
+            console.log("file array state: ", array);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  const getData = async () => {
+    const tokenData = localStorage.getItem("access-token");
+    const token = JSON.stringify(tokenData);
+    console.log(token.slice(1, -1));
+    const headers = {
+      Authorization: `Bearer ${token.slice(1, -1)}`,
+    };
+    if (
+      localStorage.getItem("role") !== null &&
+      localStorage.getItem("role") === "admin"
+    ) {
+      axios
+        .get(
+          `${
+            process.env.REACT_APP_PUBLIC_URL
+          }admin/ongoing-bookings?checkin_date=${moment(date1).format(
+            "YYYY-MM-DD"
+          )}&checkout_date=${moment(date2).format("YYYY-MM-DD")}${
+            searched !== "" ? `&search=${searched}` : ""
+          }`,
+          {
+            headers: headers,
+          }
+        )
+        .then((res) => {
+          if (res) {
+            const info = res.data.data;
+            console.log("response user profile msg", info);
+            console.log("file array state1: ", array.length);
+            setArray([...info]);
+            console.log("file array state2: ", array.length);
+            console.log("file array state: ", array);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
+
+  React.useEffect(() => {
+    getData();
+  }, [searched]);
 
   const handleSelect = (e, room) => {
     // console.log(e);
@@ -157,18 +246,18 @@ const BookBack = () => {
   //   console.log(sel);
   // }, [handleSelect]);
 
-  React.useEffect(() => {
-    array.forEach((members) => {
-      if (members.room === door) {
-        members.status = sel ? sel : members.status;
-        // console.log({ message: "member array updated", members });
-      }
-    });
-    // console.log("handleSelect useEffect is running");
-    setArray(array);
-    // console.log("after change: ", array);
-    return array;
-  }, [handleSelect]);
+  // React.useEffect(() => {
+  //   array.forEach((members) => {
+  //     if (members.room === door) {
+  //       members.status = sel ? sel : members.status;
+  //       // console.log({ message: "member array updated", members });
+  //     }
+  //   });
+  //   // console.log("handleSelect useEffect is running");
+  //   setArray(array);
+  //   // console.log("after change: ", array);
+  //   return array;
+  // }, [handleSelect]);
 
   const handleSettings = (room) => {
     array.forEach((members) => {
@@ -186,6 +275,7 @@ const BookBack = () => {
         // console.log({ message: "form array deployed", form });
         // setModal(true);
         setOpen(true);
+        setNum(room);
       }
     });
   };
@@ -205,6 +295,7 @@ const BookBack = () => {
         });
         // console.log({ message: "form array deployed", form });
         setModal(true);
+        setNum(members.room);
         // setOpen(true);
       }
     });
@@ -278,7 +369,10 @@ const BookBack = () => {
     // console.log('phone number : ', form.phone);
     // console.log(phone === form.phone);
     // console.log("phoneInvalid", phone.length === 10 || phone === form.phone);
-    if (!(nameInvalid && mailInvalid) && phone.length === 10 || phone === form.phone) {
+    if (
+      (!(nameInvalid && mailInvalid) && phone.length === 10) ||
+      phone === form.phone
+    ) {
       setRight(true);
       setPopup({
         name: name,
@@ -296,21 +390,87 @@ const BookBack = () => {
     }
   };
 
-  React.useEffect(() => {
+  const putData = async () => {
     if (right) {
-      console.log("onForm submit: ", popup);
+      // console.log("onForm submit: ", popup);
+      const tokenData = localStorage.getItem("accessToken");
+      const token = JSON.stringify(tokenData);
+      // console.log(token.slice(1, -1));
+      const headers = {
+        Authorization: `Bearer ${token.slice(1, -1)}`,
+      };
+      if (right) {
+        // console.log(form);
+        try {
+          const res = await axios.put(
+            `${process.env.REACT_APP_PUBLIC_URL}admin/ongoing-bookings/${num}`,
+            popup,
+            {
+              headers: headers,
+            }
+          );
+          if (res) {
+            console.log(res.data.data);
+            // setStart(false);
+            // console.log(popup);
+            // window.location.reload();
+            // setForm({});
+          }
+        } catch (err) {
+          // console.log(name);
+          console.log(err);
+        }
+      }
     }
+  };
+
+  React.useEffect(() => {
+    putData();
   }, [handleSubmit]);
 
-  const checkout = () => {
-    setDate1(new Date(`${form.check_in}`));
-    setDate2(new Date(`${form.check_out}`));
-    // setSelected(form.pack);
-    setName(form.name);
-    setNumber(form.room);
-    setPhone(form.phone);
-    setMail(form.mail);
+  const addData = async () => {
+    const rooms = {
+      status: sel,
+    };
+    const tokenData = localStorage.getItem("accessToken");
+    const token = JSON.stringify(tokenData);
+    const headers = {
+      Authorization: `Bearer ${token.slice(1, -1)}`,
+    };
+    if (correct) {
+      // console.log(form);
+      try {
+        const res = await axios.post(
+          `${process.env.REACT_APP_PUBLIC_URL}admin/ongoing-bookings-checkout/${num}`,
+          rooms,
+          {
+            headers: headers,
+          }
+        );
+        if (res) {
+          console.log(res.data.data);
+          // setStart(false);
+          // console.log(popup);
+          // window.location.reload();
+          // setForm({});
+        }
+      } catch (err) {
+        // console.log(name);
+        console.log(err);
+      }
+    }
     setModal(false);
+  };
+
+  React.useEffect(() => {
+    addData();
+  }, [correct]);
+
+  const checkout = (stat) => {
+    console.log(sel);
+    if (sel !== stat && sel !== "") {
+      setCorrect(true);
+    }
   };
 
   const roomArray = [
@@ -520,7 +680,7 @@ const BookBack = () => {
                   <Dropdown
                     selection
                     defaultValue={number}
-                    onChange={(e) => setNumber(e.target.innerText)}
+                    onChange={(e) => setNumber(e.target.value)}
                     button
                     fluid
                     className="d"
@@ -571,7 +731,9 @@ const BookBack = () => {
                     <Dropdown
                       selection
                       defaultValue={form.status}
-                      onChange={(e) => setSel(e.target.value)}
+                      onChange={(e) => {
+                        setSel(e.target.innerText);
+                      }}
                       button
                       fluid
                       className="p"
@@ -583,7 +745,7 @@ const BookBack = () => {
                   <button className="loginBtn" onClick={() => setModal(false)}>
                     cancel
                   </button>
-                  <button className="btn" onClick={checkout}>
+                  <button className="btn" onClick={() => checkout(form.status)}>
                     Checkout
                   </button>
                 </div>
