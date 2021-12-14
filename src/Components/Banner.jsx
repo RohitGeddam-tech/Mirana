@@ -36,7 +36,8 @@ const Banner1 = ({ image, title, head, para }) => {
       {width > 540 ? (
         <img src={image} alt="banner" loading="lazy" />
       ) : (
-        <img src={bannerMob} alt="banner" loading="lazy" />
+        <img src={bannerMob} alt="banner" />
+        // <img src={bannerMob} alt="banner" loading="lazy" />
       )}
       <div className="container">
         <h2>{head}</h2>
