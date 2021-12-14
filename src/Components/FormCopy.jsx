@@ -193,7 +193,7 @@ Package: ${pack}.`);
         {mobileInvalid ? (
           <p className="error-text">Please provide a valid mobile no.</p>
         ) : null}
-        <div className="text-input">
+        <div className="text-input" style={{ display: "none" }}>
           <textarea
             className={className}
             value={text}
