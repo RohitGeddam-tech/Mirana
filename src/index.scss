@@ -154,6 +154,16 @@ body {
   .modalPop {
     position: relative;
     outline: none !important;
+    &.modalContact {
+      .box {
+        @media (max-width: 445px) {
+          width: 92%;
+          .body{
+            width: 100%;
+          }
+        }
+      }
+    }
     .box {
       position: absolute;
       z-index: 800;
@@ -197,12 +207,12 @@ body {
         @media (max-width: 445px) {
           width: 280px;
         }
-        .modalForm{
-          .error-text{
+        .modalForm {
+          .error-text {
             color: red;
             margin-top: -5px;
           }
-          .bottom{
+          .bottom {
             width: 100%;
             display: flex;
             margin-top: 10px;

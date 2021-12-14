@@ -53,9 +53,15 @@ const Footer = () => {
           <div className="connect">
             <p>Connect with us:</p>
             <div className="icons">
-              <img src={fb} alt="fb" />
-              <img src={tweet} alt="tweet" />
-              <img src={insta} alt="insta" />
+              <a href="/#top">
+                <img src={fb} alt="fb" />
+              </a>
+              <a href="/#top">
+                <img src={tweet} alt="tweet" />
+              </a>
+              <a href="/#top">
+                <img src={insta} alt="insta" />
+              </a>
             </div>
           </div>
           <form className="form" onSubmit={handleSubmit}>
@@ -86,9 +92,13 @@ const Footer = () => {
         </div>
         <div className="divider"></div>
         <div className="last">
-          <div>Read <a href="/#top">Terms & Conditions</a></div>
+          <div style={{ opacity: "0" }}>
+            Read <a href="/#top">Terms & Conditions</a>
+          </div>
           <p>© 2021 Mirana Resort. All Rights Reserved.</p>
-          <div>Website by <a href="/#top">Sugarlogger Technologies Pvt. Ltd.</a></div>
+          <div>
+            Website by <a href="/#top">Sugarlogger Technologies Pvt. Ltd.</a>
+          </div>
         </div>
       </div>
     </div>

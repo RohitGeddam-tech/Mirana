@@ -12,7 +12,7 @@ const ContactModal = ({ draw, setDraw, date1, date2, name, guest, room }) => {
   return (
     <>
       <Modal
-        className="modalPop"
+        className="modalPop modalContact"
         open={draw}
         onClose={() => {
           setDraw(false);

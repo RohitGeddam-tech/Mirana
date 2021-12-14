@@ -169,7 +169,7 @@ const Book = () => {
     <>
       <NewHeader />
       <div className="bookHeader">
-        {width < 1025 ? (
+        {width < 1075 ? (
           <>
             <div className="avail">
               <div className="textInput" onClick={() => setOn(true)}>
@@ -309,7 +309,7 @@ const Book = () => {
               </div>
               <div className="second">
                 <button className="btn" type="submit">
-                  Search
+                  {/* Save */}Search Rooms
                   {/* <span>
                 <img src={arrow2} alt="arrow" />
               </span> */}

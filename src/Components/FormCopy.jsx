@@ -239,10 +239,7 @@ Package: ${pack}.`);
       >
         <div className="box">
           <h1>Thank you</h1>
-          <p>
-            Thank you for your interest. Our team will get in touch with you
-            soon.
-          </p>
+          <p>Your booking request has been sent. We will call you shortly.</p>
           <button
             className="btn"
             onClick={() => {

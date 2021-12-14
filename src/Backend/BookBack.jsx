@@ -22,14 +22,16 @@ import axios from "axios";
 
 const data = [
   {
-    name: "Darshan Sawant",
+    name: "Darshan Solat",
     phone: 9869753456,
     mail: "darshansawant743@gmail.com",
     check_in: "2021-10-21",
     check_out: "2021-10-22",
     pack: "Luxury",
-    room: 201,
+    room: `201,204`,
     status: "Paid",
+    guest: 2,
+    roomNo: 1,
   },
   {
     name: "Kiran Patil",
@@ -40,6 +42,8 @@ const data = [
     pack: "Paradise",
     room: 205,
     status: "Pending",
+    guest: 3,
+    roomNo: 2,
   },
   {
     name: "Rohit Geddam",
@@ -50,6 +54,8 @@ const data = [
     pack: "Executive",
     room: 104,
     status: "Pending",
+    guest: 4,
+    roomNo: 2,
   },
 ];
 
@@ -138,6 +144,8 @@ const BookBack = () => {
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
   const [phone, setPhone] = useState("");
+  const [guest, setGuest] = useState("");
+  const [room, setRoom] = useState("");
   const [nameInvalid, setNameInvalid] = useState(false);
   const [phoneInvalid, setPhoneInvalid] = useState(false);
   const [mailInvalid, setMailInvalid] = useState(false);
@@ -160,7 +168,7 @@ const BookBack = () => {
   const fetchData = async () => {
     const tokenData = localStorage.getItem("access-token");
     const token = JSON.stringify(tokenData);
-    console.log(token.slice(1, -1));
+    // console.log(token.slice(1, -1));
     const headers = {
       Authorization: `Bearer ${token.slice(1, -1)}`,
     };
@@ -191,7 +199,7 @@ const BookBack = () => {
   const getData = async () => {
     const tokenData = localStorage.getItem("access-token");
     const token = JSON.stringify(tokenData);
-    console.log(token.slice(1, -1));
+    // console.log(token.slice(1, -1));
     const headers = {
       Authorization: `Bearer ${token.slice(1, -1)}`,
     };
@@ -271,6 +279,8 @@ const BookBack = () => {
           pack: members.pack,
           room: members.room,
           status: members.status,
+          roomNo: members.roomNo,
+          guest: members.guest,
         });
         // console.log({ message: "form array deployed", form });
         // setModal(true);
@@ -292,6 +302,8 @@ const BookBack = () => {
           pack: members.pack,
           room: members.room,
           status: members.status,
+          roomNo: members.roomNo,
+          guest: members.guest,
         });
         // console.log({ message: "form array deployed", form });
         setModal(true);
@@ -332,6 +344,8 @@ const BookBack = () => {
     setNumber(form.room);
     setPhone(form.phone);
     setMail(form.mail);
+    setGuest(form.guest);
+    setRoom(form.roomNo);
     // }
   }, [form, setForm]);
 
@@ -358,6 +372,12 @@ const BookBack = () => {
         setMail(e.target.value);
         setMailInvalid(!e.target.validity.valid);
         break;
+      case "guest":
+        setGuest(e.target.value);
+        break;
+      case "room":
+        setRoom(e.target.value);
+        break;
       default:
         break;
     }
@@ -381,7 +401,8 @@ const BookBack = () => {
         check_in: date1,
         check_out: date2,
         pack: selected,
-        room: number,
+        room: room,
+        guest: guest,
       });
       setOpen(false);
     } else {
@@ -425,6 +446,7 @@ const BookBack = () => {
   };
 
   React.useEffect(() => {
+    console.log(popup);
     putData();
   }, [handleSubmit]);
 
@@ -675,7 +697,7 @@ const BookBack = () => {
                     options={selectedArray}
                   ></Dropdown>
                 </div>
-                <div className="select">
+                {/* <div className="select">
                   <h5>Room No.</h5>
                   <Dropdown
                     selection
@@ -686,6 +708,34 @@ const BookBack = () => {
                     className="d"
                     options={roomArray}
                   ></Dropdown>
+                </div> */}
+                <div className="text-input">
+                  <input
+                    value={guest}
+                    type="number"
+                    className="input"
+                    name="guest"
+                    onChange={handleChange}
+                    pattern="^([0-9]{10})$"
+                    required
+                  />
+                  <label htmlFor="guest" className="input-placeholder">
+                    No. of guests.
+                  </label>
+                </div>
+                <div className="text-input">
+                  <input
+                    value={room}
+                    type="number"
+                    className="input"
+                    name="room"
+                    onChange={handleChange}
+                    pattern="^([0-9]{10})$"
+                    required
+                  />
+                  <label htmlFor="room" className="input-placeholder">
+                    No. of rooms.
+                  </label>
                 </div>
                 <button className="btn" type="submit">
                   Save Changes

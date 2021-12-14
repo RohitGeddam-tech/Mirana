@@ -14,6 +14,8 @@ const NewMember = ({ draw, setDraw }) => {
   const [number, setNumber] = useState("");
   const [selected, setSelected] = useState("");
   const [phone, setPhone] = useState("");
+  const [guest, setGuest] = useState("");
+  // const [room, setRoom] = useState("");
   //   const [date1, setDate1] = useState(new Date());
   //   const [date2, setDate2] = useState(new Date());
   const [date1, setDate1] = useState(null);
@@ -59,6 +61,12 @@ const NewMember = ({ draw, setDraw }) => {
         setMail(e.target.value);
         setMailInvalid(!e.target.validity.valid);
         break;
+      case "guest":
+        setGuest(e.target.value);
+        break;
+      case "room":
+        setNumber(e.target.value);
+        break;
       default:
         break;
     }
@@ -79,6 +87,7 @@ const NewMember = ({ draw, setDraw }) => {
         check_out: date2,
         pack: selected,
         room: number,
+        guest: guest,
       });
       setDraw(false);
     } else {
@@ -118,6 +127,7 @@ const NewMember = ({ draw, setDraw }) => {
   };
 
   React.useEffect(() => {
+    console.log("new member: ", popup)
     addData();
   }, [handleSubmit]);
 
@@ -241,7 +251,35 @@ const NewMember = ({ draw, setDraw }) => {
                 options={selectedArray}
               ></Dropdown>
             </div>
-            <div className="select">
+            <div className="text-input">
+              <input
+                value={guest}
+                type="number"
+                className="input"
+                name="guest"
+                onChange={handleChange}
+                pattern="^([0-9]{10})$"
+                required
+              />
+              <label htmlFor="guest" className="input-placeholder">
+                No. of guests.
+              </label>
+            </div>
+            <div className="text-input">
+              <input
+                value={number}
+                type="number"
+                className="input"
+                name="room"
+                onChange={handleChange}
+                pattern="^([0-9]{10})$"
+                required
+              />
+              <label htmlFor="nummber" className="input-placeholder">
+                No. of rooms.
+              </label>
+            </div>
+            {/* <div className="select">
               {number === "" ? null : <h5>Room No.</h5>}
               {number === "" ? (
                 <Dropdown
@@ -265,7 +303,7 @@ const NewMember = ({ draw, setDraw }) => {
                   options={roomArray}
                 ></Dropdown>
               )}
-            </div>
+            </div> */}
             <button className="btn" type="submit">
               Save Changes
             </button>
