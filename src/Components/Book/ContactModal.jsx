@@ -3,13 +3,24 @@ import { Modal } from "@material-ui/core";
 import clear from "../../image/clear.png";
 import Form from "../FormCopy";
 
-const ContactModal = ({ draw, setDraw, date1, date2, name, guest, room, amount }) => {
+const ContactModal = ({
+  draw,
+  setDraw,
+  date1,
+  date2,
+  name,
+  guest,
+  room,
+  amount,
+  num,
+}) => {
   const guests = guest;
   const rooms = room;
   const dateA = date1;
   const dateB = date2;
   const names = name;
   const total = amount;
+  const id = num;
   return (
     <>
       <Modal
@@ -33,6 +44,7 @@ const ContactModal = ({ draw, setDraw, date1, date2, name, guest, room, amount }
               room={rooms}
               amount={total}
               setOpen={setDraw}
+              id={id}
             />
           </div>
         </div>

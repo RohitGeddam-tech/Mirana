@@ -243,7 +243,7 @@ const Form = ({ className = "" }) => {
         </div>
       </form>
       <Modal
-        className="modal"
+        className="modal thanks"
         open={success}
         onClose={() => {
           setSuccess(false);

@@ -60,6 +60,13 @@ body {
   .modal {
     position: relative;
     outline: none !important;
+    &.thanks {
+      .box {
+        @media (max-width: 600px) {
+          width: 92%;
+        }
+      }
+    }
     .box {
       position: absolute;
       z-index: 800;
@@ -200,7 +207,7 @@ body {
           }
         }
         @media (max-width: 565px) {
-          .head{
+          .head {
             width: 95%;
             padding-top: 20px;
           }

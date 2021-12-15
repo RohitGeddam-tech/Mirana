@@ -13,6 +13,7 @@ const Form = ({
   room,
   setOpen,
   amount,
+  id,
 }) => {
   // const [details, setDetails] = useState({ ...defaultFormState });
   const [fname, setFname] = useState("");
@@ -27,6 +28,7 @@ const Form = ({
   // const [textInvalid, setTextInvalid] = useState(false);
   const [form, setForm] = useState({});
   const [validity, setValidity] = useState(false);
+  // const [valid, setValid] = useState(false);
   const [success, setSuccess] = useState(false);
   const [btnLoading, setBtnLoading] = useState(false);
   // const [error, setError] = useState({});
@@ -62,13 +64,6 @@ const Form = ({
     }
   };
 
-  //   useEffect(() => {
-  //     setText(`Guests and Rooms: ${guest} guests & ${room} rooms,
-  // Check-in: ${moment(date1).format("YYYY-MM-DD")},
-  // Check-out: ${moment(date2).format("YYYY-MM-DD")},
-  // Package: ${pack}.`);
-  //   }, []);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (mobile.length !== 10) {
@@ -80,6 +75,11 @@ const Form = ({
     ) {
       setValidity(true);
       setForm({
+        checkin_date: `${moment(date1).format("YYYY-MM-DD")}`,
+        checkout_date: `${moment(date2).format("YYYY-MM-DD")}`,
+        package: id,
+        number_of_guests: guest,
+        number_of_rooms: room,
         first_name: fname,
         last_name: lname,
         mobile: mobile,
@@ -237,8 +237,8 @@ const Form = ({
             onClick={() => setClicked(!clicked)}
             type="text"
             // pattern="^([A-Za-z0-9 ,.'`-]{10,200})$"
-            minLength="10"
-            required
+            // minLength="10"
+            // required
           />
           <label htmlFor="message" className="input-placeholder">
             Write your message here
@@ -265,7 +265,7 @@ const Form = ({
         </div>
       </form>
       <Modal
-        className="modal"
+        className="modal thanks"
         open={success}
         onClose={() => {
           setSuccess(false);

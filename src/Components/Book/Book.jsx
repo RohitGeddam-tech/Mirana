@@ -40,7 +40,7 @@ const Book = () => {
   const [on, setOn] = useState(false);
   // const [date2, setDate2] = useState(new Date(`${date2numbers}`));
   const [date2, setDate2] = useState(new Date());
-  const [valid, setValid] = useState(false);
+  const [num, setNum] = useState(0);
   const [exec, setExec] = useState("");
   const [amount, setAmount] = useState("");
   // const [paradise, setParadise] = useState("");
@@ -141,7 +141,7 @@ const Book = () => {
       guest !== 0 &&
       room !== 0
     ) {
-      setValid(true);
+      console.log("done");
     } else {
       console.log("error");
     }
@@ -189,7 +189,6 @@ const Book = () => {
       guest !== 0 &&
       room !== 0
     ) {
-      setValid(true);
       setOn(false);
     } else {
       console.log("error", date1, date2, guest, room);
@@ -459,6 +458,7 @@ const Book = () => {
                       onClick={() => {
                         setExec(doc.name);
                         setAmount(doc.total_amount);
+                        setNum(doc.id);
                         setRight(true);
                       }}
                     >
@@ -480,6 +480,7 @@ const Book = () => {
         date2={date2}
         name={exec}
         amount={amount}
+        num={num}
       />
       <Cancel draw={draw} setDraw={setDraw} />
       <Charge draw={charge} setDraw={setCharge} view={view} />
