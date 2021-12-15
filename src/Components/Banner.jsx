@@ -115,16 +115,17 @@ const Banner = () => {
       date2: date2,
     });
     // console.log("data link-/: ",data);
-    console.log(`date1: ${date1.toString().slice(0, 10)}; 
-    date2: ${date2.toString().slice(0, 10)};
-    Guests: ${guest};
-    rooms: ${room}
-    `);
+    // console.log(`date1: ${date1.toString().slice(0, 10)}; 
+    // date2: ${date2.toString().slice(0, 10)};
+    // Guests: ${guest};
+    // rooms: ${room}
+    // `);
     if (!date1 || !date2 || guest !== 0 || room !== 0) {
       setValid(true);
-    } else {
-      console.log("error");
     }
+    // else {
+    //   console.log("error");
+    // }
   };
 
   useEffect(() => {
@@ -134,7 +135,7 @@ const Banner = () => {
       //     ? console.log("empty data state")
       //     : sessionStorage.setItem("bannerData", JSON.stringify(data));
       // }
-      console.log("data link-/: ", data);
+      // console.log("data link-/: ", data);
       sessionStorage.setItem("guestData", JSON.stringify(guest));
       sessionStorage.setItem("roomData", JSON.stringify(room));
       sessionStorage.setItem("date1Data", JSON.stringify(date1));

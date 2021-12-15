@@ -35,15 +35,15 @@ const Book = () => {
   const [date1, setDate1] = useState(new Date());
   const [guest, setGuest] = useState(guestnumbers);
   const [room, setRoom] = useState(roomnumbers);
-  console.log(room, guest);
+  // console.log(room, guest);
   const [data, setData] = useState({});
   const [on, setOn] = useState(false);
   // const [date2, setDate2] = useState(new Date(`${date2numbers}`));
   const [date2, setDate2] = useState(new Date());
   const [valid, setValid] = useState(false);
   const [exec, setExec] = useState("");
-  const [luxury, setLuxury] = useState("");
-  const [paradise, setParadise] = useState("");
+  const [amount, setAmount] = useState("");
+  // const [paradise, setParadise] = useState("");
   const [draw, setDraw] = useState(false);
   const [charge, setCharge] = useState(false);
   const [view, setView] = useState([]);
@@ -56,20 +56,20 @@ const Book = () => {
   // console.log("guestBook: ", date2);
   // console.log("guestBook: ", JSON.stringify(date2numbers));
 
-  React.useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_PUBLIC_URL}room-packages`)
-      .then((res) => {
-        if (res) {
-          const info = res.data.data;
-          console.log("response user profile msg", info);
-          setArray([...info]);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // React.useEffect(() => {
+  //   axios
+  //     .get(`${process.env.REACT_APP_PUBLIC_URL}room-packages`)
+  //     .then((res) => {
+  //       if (res) {
+  //         const info = res.data.data;
+  //         console.log("response user profile msg", info);
+  //         setArray([...info]);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   Date.prototype.addDays = function (days) {
     const date = new Date(this.valueOf());
@@ -102,6 +102,29 @@ const Book = () => {
     }
   }, [handleChange, date1, date2, setDate2, setDate1]);
 
+  React.useEffect(() => {
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_PUBLIC_URL
+        }room-packages?number_of_rooms=${room}&checkin_date=${moment(
+          date1
+        ).format("YYYY-MM-DD")}&checkout_date=${moment(date2).format(
+          "YYYY-MM-DD"
+        )}`
+      )
+      .then((res) => {
+        if (res) {
+          const info = res.data.data;
+          // console.log("response user profile msg", info);
+          setArray([...info]);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [room, date1, date2]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setData({
@@ -130,12 +153,26 @@ const Book = () => {
   //   }
   // }, [valid, handleSubmit]);
 
-  const handleCharge = (adult, teen) => {
+  const handleCharge = (id) => {
     setCharge(true);
-    setView({
-      adult: adult,
-      teen: teen,
-    });
+    if (id === 1) {
+      setView({
+        adult: 1500,
+        teen: 1100,
+      });
+    }
+    if (id === 2) {
+      setView({
+        adult: 2000,
+        teen: 1500,
+      });
+    }
+    if (id === 3) {
+      setView({
+        adult: 2500,
+        teen: 1800,
+      });
+    }
   };
   const handleMod = (e) => {
     e.preventDefault();
@@ -273,7 +310,7 @@ const Book = () => {
           <>
             <form className="avail" onSubmit={handleSubmit}>
               <div className="first">
-                <h1>You are booking for:</h1>
+                <h1>Reserve for:</h1>
                 <div className="textInput">
                   <p>No. of guests</p>
                   <div className="text-input" onClick={() => setOn(true)}>
@@ -392,8 +429,8 @@ const Book = () => {
                 <div className="top">
                   <h1>{doc.name}</h1>
                   <div className="topRight">
-                    <h1>₹ {doc.total_amount}</h1>
-                    <p>+540 taxes & fees</p>
+                    <h1>₹ {doc.package_amount}</h1>
+                    <p>+{doc.tax_amount} taxes & fees</p>
                   </div>
                 </div>
                 <div className="border"></div>
@@ -403,9 +440,7 @@ const Book = () => {
                     <li>Price for 2 adults + 1 adult (at additional cost) </li>
                     <li>
                       Extra mattress available at extra charges.{" "}
-                      <a onClick={() => handleCharge(1500, 1100)}>
-                        View charges
-                      </a>
+                      <a onClick={() => handleCharge(doc.id)}>View charges</a>
                     </li>
                     <li>Check-in: 12noon ; Check-out: 11 a.m.</li>
                     <li>
@@ -423,6 +458,7 @@ const Book = () => {
                       className="btn"
                       onClick={() => {
                         setExec(doc.name);
+                        setAmount(doc.total_amount);
                         setRight(true);
                       }}
                     >
@@ -443,6 +479,7 @@ const Book = () => {
         date1={date1}
         date2={date2}
         name={exec}
+        amount={amount}
       />
       <Cancel draw={draw} setDraw={setDraw} />
       <Charge draw={charge} setDraw={setCharge} view={view} />

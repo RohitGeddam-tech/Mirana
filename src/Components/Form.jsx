@@ -80,7 +80,7 @@ const Form = ({ className = "" }) => {
         message: text,
       });
       setBtnLoading(true);
-      console.log(form);
+      // console.log(form);
     } else {
       setValidity(false);
     }
@@ -92,7 +92,7 @@ const Form = ({ className = "" }) => {
         .post(`${process.env.REACT_APP_PUBLIC_URL}/contact-us`, form)
         .then((res) => {
           if (res) {
-            console.log("response msg", res);
+            // console.log("response msg", res);
             setBtnLoading(false);
             setSuccess(true);
           }

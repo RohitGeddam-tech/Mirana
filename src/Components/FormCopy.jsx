@@ -4,7 +4,16 @@ import axios from "axios";
 import { Modal } from "@material-ui/core";
 import moment from "moment";
 
-const Form = ({ className = "", date1, date2, pack, guest, room, setOpen }) => {
+const Form = ({
+  className = "",
+  date1,
+  date2,
+  pack,
+  guest,
+  room,
+  setOpen,
+  amount,
+}) => {
   // const [details, setDetails] = useState({ ...defaultFormState });
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
@@ -15,7 +24,7 @@ const Form = ({ className = "", date1, date2, pack, guest, room, setOpen }) => {
   const [lnameInvalid, setLnameInvalid] = useState(false);
   const [mobileInvalid, setMobileInvalid] = useState(false);
   const [emailInvalid, setEmailInvalid] = useState(false);
-  const [textInvalid, setTextInvalid] = useState(false);
+  // const [textInvalid, setTextInvalid] = useState(false);
   const [form, setForm] = useState({});
   const [validity, setValidity] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -46,19 +55,19 @@ const Form = ({ className = "", date1, date2, pack, guest, room, setOpen }) => {
       case "text":
         setText(e.target.value);
         // setTextInvalid(textchange());
-        setTextInvalid(!e.target.validity.valid);
+        // setTextInvalid(!e.target.validity.valid);
         break;
       default:
         break;
     }
   };
 
-  useEffect(() => {
-    setText(`Guests and Rooms: ${guest} guests & ${room} rooms,
-Check-in: ${moment(date1).format("YYYY-MM-DD")}, 
-Check-out: ${moment(date2).format("YYYY-MM-DD")},
-Package: ${pack}.`);
-  }, []);
+  //   useEffect(() => {
+  //     setText(`Guests and Rooms: ${guest} guests & ${room} rooms,
+  // Check-in: ${moment(date1).format("YYYY-MM-DD")},
+  // Check-out: ${moment(date2).format("YYYY-MM-DD")},
+  // Package: ${pack}.`);
+  //   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,13 +75,7 @@ Package: ${pack}.`);
       setMobileInvalid(true);
     }
     if (
-      !(
-        fnameInvalid &&
-        lnameInvalid &&
-        textInvalid &&
-        mobileInvalid &&
-        emailInvalid
-      ) &&
+      !(fnameInvalid && lnameInvalid && mobileInvalid && emailInvalid) &&
       mobile.length === 10
     ) {
       setValidity(true);
@@ -91,13 +94,13 @@ Package: ${pack}.`);
   };
 
   useEffect(() => {
-    console.log("form msg", form);
+    // console.log("form msg", form);
     if (validity) {
       axios
         .post(`${process.env.REACT_APP_PUBLIC_URL}contact-us/`, form)
         .then((res) => {
           if (res) {
-            console.log("response msg", res);
+            // console.log("response msg", res);
             setBtnLoading(false);
             setSuccess(true);
           }
@@ -121,6 +124,38 @@ Package: ${pack}.`);
           <h2>{h2}</h2>
           <p>{p}</p>
         </div> */}
+        <div className="flexInput">
+          <div className="textInput a">
+            <p className="label">No. of rooms</p>
+            <p className="value">
+              {room !== 1 ? `${room} rooms` : `${room} room`}
+            </p>
+          </div>
+          <div className="textInput b">
+            <p className="label">No. of guests</p>
+            <p className="value">
+              {guest !== 1 ? `${guest} Guests` : `${guest} Guest`}
+            </p>
+          </div>
+          <div className="textInput c">
+            <p className="label">Package</p>
+            <p className="value">{pack}</p>
+          </div>
+          <div className="textInput d">
+            <p className="label">Check in date</p>
+            <p className="value">{moment(date1).format("YYYY-MM-DD")}</p>
+          </div>
+          <div className="textInput e">
+            <p className="label">Check out date</p>
+            <p className="value">{moment(date2).format("YYYY-MM-DD")}</p>
+          </div>
+          <div className="textInput f">
+            <p className="label">Price</p>
+            <p className="value">
+              ₹ {amount} <span>(inc. taxes)</span>
+            </p>
+          </div>
+        </div>
         <div className="inputFlex">
           <div className="text-input">
             <input
@@ -193,7 +228,7 @@ Package: ${pack}.`);
         {mobileInvalid ? (
           <p className="error-text">Please provide a valid mobile no.</p>
         ) : null}
-        <div className="text-input" style={{ display: "none" }}>
+        <div className="text-input">
           <textarea
             className={className}
             value={text}
@@ -201,19 +236,18 @@ Package: ${pack}.`);
             onChange={handleChange}
             onClick={() => setClicked(!clicked)}
             type="text"
-            disabled
             // pattern="^([A-Za-z0-9 ,.'`-]{10,200})$"
             minLength="10"
             required
           />
           <label htmlFor="message" className="input-placeholder">
-            Write your message here*
+            Write your message here
           </label>
-          {textInvalid ? (
+          {/* {textInvalid ? (
             <p className="error-text">
               Please provide a minimum of 10 characters
             </p>
-          ) : null}
+          ) : null} */}
         </div>
         <div className="bottom">
           <button type="submit" className="btn" disabled={btnLoading}>

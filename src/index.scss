@@ -157,10 +157,97 @@ body {
     outline: none !important;
     &.modalContact {
       .box {
+        .body {
+          form.modalForm {
+            .flexInput {
+              width: 100%;
+              display: flex;
+              flex-flow: row wrap;
+              align-items: center;
+              padding-top: 15px;
+              margin-bottom: 8px;
+              .textInput {
+                width: 32%;
+                margin-bottom: 30px;
+                .label {
+                  font-weight: normal;
+                  font-style: normal;
+                  font-size: 14px;
+                  line-height: 16px;
+                  color: #919eab;
+                  margin-bottom: 10px;
+                  margin-top: 0;
+                }
+                .value {
+                  font-weight: bold;
+                  font-style: normal;
+                  font-size: 16px;
+                  line-height: 19px;
+                  color: #667c8a;
+                  margin-bottom: 0;
+                }
+              }
+              // justify-content: space-between;
+            }
+            .inputFlex {
+              width: 100%;
+              display: flex;
+              justify-content: space-between;
+              .text-input {
+                width: 48%;
+              }
+            }
+          }
+        }
+        @media (max-width: 565px) {
+          .head{
+            width: 95%;
+            padding-top: 20px;
+          }
+          .body {
+            form.modalForm {
+              width: 94%;
+              margin: 0 auto;
+              padding-bottom: 20px;
+              .inputFlex {
+                width: 100%;
+                display: flex;
+                flex-flow: column;
+                justify-content: space-between;
+                .text-input {
+                  width: 100%;
+                }
+              }
+              .flexInput {
+                .textInput {
+                  width: 48%;
+                  &.a {
+                    order: 1;
+                  }
+                  &.b {
+                    order: 2;
+                  }
+                  &.c {
+                    order: 3;
+                  }
+                  &.d {
+                    order: 5;
+                  }
+                  &.e {
+                    order: 6;
+                  }
+                  &.f {
+                    order: 4;
+                  }
+                }
+              }
+            }
+          }
+        }
         @media (max-width: 445px) {
           width: 92%;
-          .body{
-            width: 100%;
+          .body {
+            width: 98%;
           }
         }
       }
@@ -204,6 +291,29 @@ body {
         width: 470px;
         @media (max-width: 565px) {
           width: 350px;
+          .flexInput {
+            .textInput {
+              width: 48%;
+              &.a {
+                order: 1;
+              }
+              &.b {
+                order: 2;
+              }
+              &.c {
+                order: 3;
+              }
+              &.d {
+                order: 5;
+              }
+              &.e {
+                order: 6;
+              }
+              &.f {
+                order: 4;
+              }
+            }
+          }
         }
         @media (max-width: 445px) {
           width: 280px;
