@@ -177,7 +177,7 @@ const BookBack = () => {
       localStorage.getItem("role") === "admin"
     ) {
       axios
-        .get(`${process.env.REACT_APP_PUBLIC_URL}admin/ongoing-bookings`, {
+        .get(`https://devapi.headquarter.tech/admin/ongoing-bookings`, {
           headers: headers,
         })
         .then((res) => {

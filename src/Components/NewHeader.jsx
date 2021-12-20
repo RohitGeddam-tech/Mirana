@@ -8,6 +8,7 @@ import XHam from "./Xham";
 import logo from "../image/logo.png";
 import account from "../image/account.png";
 import LoginBtn from "./LoginBtn";
+// import moment from "moment";
 
 const NewHeader = () => {
   const [width] = useWindowSize();
@@ -128,6 +129,19 @@ const NewHeader = () => {
                   Contact Us
                 </NavHashLink>
                 <NavHashLink
+                  // onClick={() => {
+                  //   sessionStorage.clear();
+                  //   sessionStorage.setItem("guestData", 1);
+                  //   sessionStorage.setItem("roomData", 1);
+                  //   sessionStorage.setItem(
+                  //     "date1Data",
+                  //     JSON.stringify(new Date())
+                  //   );
+                  //   sessionStorage.setItem(
+                  //     "date2Data",
+                  //     JSON.stringify(moment(new Date()).add(1, "days"))
+                  //   );
+                  // }}
                   to="/Book#top"
                   className="btn"
                   style={{ marginLeft: "10px" }}

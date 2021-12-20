@@ -708,6 +708,123 @@ body {
   }
 }
 
+.modalBanner {
+  position: relative;
+  outline: none !important;
+  .box {
+    position: absolute;
+    z-index: 800;
+    top: 50%;
+    left: 45%;
+    transform: translate(-45%, -50%);
+    background-color: white;
+    outline: none !important;
+    max-width: 550px;
+    // height: 220px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding: 20px;
+    // @media (max-width: 490px) {
+    //   left: 30%;
+    //   transform: translate(-23.5%, -50%);
+    // }
+    @media (max-width: 570px) {
+      left: 10%;
+      transform: translate(-5%, -50%);
+    }
+    .img {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      cursor: pointer;
+    }
+    .bottom {
+      width: 90%;
+      display: flex;
+      justify-content: flex-end;
+      padding-bottom: 10px;
+    }
+    h1 {
+      margin: 15px 0;
+      font-weight: bold;
+      font-size: 30px;
+      line-height: 35px;
+      font-feature-settings: "pnum" on, "lnum" on;
+      color: #667c8a;
+    }
+    p {
+      width: 90%;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 14px;
+      font-feature-settings: "pnum" on, "lnum" on;
+      color: #919eab;
+      padding-bottom: 10px;
+    }
+    .adult {
+      width: 90%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 10px 0;
+      .text-input {
+        width: 30%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        // padding: 15px 0;
+        // padding-bottom: 0;
+        font-variant-numeric: lining-nums;
+        @media (max-width: 600px) {
+          width: 40%;
+        }
+        span {
+          height: 20px;
+          width: 20px;
+          // border: 1.8px solid #ba7f45;
+          // color: #ba7f45;
+          // border-radius: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          // font-size: 19px;
+          // font-weight: bolder;
+          cursor: pointer;
+          img {
+            height: 20px;
+            width: 20px;
+          }
+        }
+        .input {
+          border: none;
+          font-family: "Raleway", sans-serif;
+          font-size: 30px;
+          font-weight: bold;
+          line-height: 40px;
+          // text-align: center;
+          margin: 0;
+          color: #ba7f45;
+        }
+        h1 {
+          font-family: "Raleway", sans-serif;
+          width: 100%;
+          font-size: 30px;
+          line-height: 35px;
+          font-weight: bold;
+          margin: 0;
+          text-align: center;
+          padding-bottom: 0;
+          color: #ba7f45;
+        }
+      }
+    }
+  }
+}
+
 code {
   font-family: "Raleway", sans-serif;
 }

@@ -32,14 +32,18 @@ const Book = () => {
   const date2numbers = JSON.parse(date2Book);
 
   // const [date1, setDate1] = useState(new Date(`${date1numbers}`));
-  const [date1, setDate1] = useState(new Date());
+  const [date1, setDate1] = useState(
+    moment(new Date(`${date1numbers}`)).format("YYYY-MM-DD")
+  );
   const [guest, setGuest] = useState(guestnumbers);
   const [room, setRoom] = useState(roomnumbers);
   // console.log(room, guest);
   const [data, setData] = useState({});
   const [on, setOn] = useState(false);
   // const [date2, setDate2] = useState(new Date(`${date2numbers}`));
-  const [date2, setDate2] = useState(new Date());
+  const [date2, setDate2] = useState(
+    moment(new Date(`${date2numbers}`)).format("YYYY-MM-DD")
+  );
   const [num, setNum] = useState(0);
   const [exec, setExec] = useState("");
   const [amount, setAmount] = useState("");
@@ -71,58 +75,68 @@ const Book = () => {
   //     });
   // }, []);
 
-  Date.prototype.addDays = function (days) {
-    const date = new Date(this.valueOf());
-    date.setDate(date.getDate() + days);
-    return date;
-  };
+  // Date.prototype.addDays = function (days) {
+  //   const date = new Date(this.valueOf());
+  //   date.setDate(date.getDate() + days);
+  //   return date;
+  // };
   const handleChange = (e) => {
-    setDate1(e);
+    setDate1(moment(e).format("YYYY-MM-DD"));
   };
 
   React.useEffect(() => {
-    if (guest === null || room === null || date1 === date2) {
+    if (sessionStorage.getItem("guestData") === null) {
       // console.log("react usestae is running");
       setGuest(1);
       setRoom(1);
-      setDate2(date1.addDays(1));
-    } else {
-      setDate1(new Date(`${date1numbers}`));
-      setDate2(new Date(`${date2numbers}`));
+      setDate2(moment(new Date()).add(1, "days").format("YYYY-MM-DD"));
+      setDate1(moment(new Date()).format("YYYY-MM-DD"));
     }
+    // else {
+    //   setGuest(guestnumbers);
+    //   setRoom(roomnumbers);
+    //   setDate1(moment(new Date(`${date1numbers}`)).format("YYYY-MM-DD"));
+    //   setDate2(moment(new Date(`${date2numbers}`)).format("YYYY-MM-DD"));
+    // }
   }, []);
 
   React.useEffect(() => {
+    // console.log(date1, date2);
     if (
-      date1.getTime() === date2.getTime() ||
-      date1.getTime() >= date2.getTime() ||
-      date1.getDate() === date2.getDate()
+      // date1.getTime() === date2.getTime() ||
+      moment(date1).format("YYYY-MM-DD") >=
+        moment(date2).format("YYYY-MM-DD") ||
+      moment(date1).format("YYYY-MM-DD") === moment(date2).format("YYYY-MM-DD")
     ) {
-      setDate2(date1.addDays(1));
+      setDate2(moment(date1).add(1, "days").format("YYYY-MM-DD"));
     }
   }, [handleChange, date1, date2, setDate2, setDate1]);
 
   React.useEffect(() => {
-    axios
-      .get(
-        `${
-          process.env.REACT_APP_PUBLIC_URL
-        }room-packages?number_of_rooms=${room}&checkin_date=${moment(
-          date1
-        ).format("YYYY-MM-DD")}&checkout_date=${moment(date2).format(
-          "YYYY-MM-DD"
-        )}`
-      )
-      .then((res) => {
-        if (res) {
-          const info = res.data.data;
-          // console.log("response user profile msg", info);
-          setArray([...info]);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (
+      moment(date1).format("YYYY-MM-DD") < moment(date2).format("YYYY-MM-DD")
+    ) {
+      axios
+        .get(
+          `${
+            process.env.REACT_APP_PUBLIC_URL
+          }room-packages?number_of_rooms=${room}&checkin_date=${moment(
+            date1
+          ).format("YYYY-MM-DD")}&checkout_date=${moment(date2).format(
+            "YYYY-MM-DD"
+          )}`
+        )
+        .then((res) => {
+          if (res) {
+            const info = res.data.data;
+            // console.log("response user profile msg", info);
+            setArray([...info]);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [room, date1, date2]);
 
   const handleSubmit = (e) => {
