@@ -7,18 +7,23 @@ import pay from "../../image/pay.png";
 import moment from "moment";
 import Cancel from "../Cancel";
 import "./Pay.scss";
-import { NavHashLink } from "react-router-hash-link";
+// import { NavHashLink } from "react-router-hash-link";
 import arrow2 from "../../image/Frame2.png";
 import useWindowSize from "../useWindowSize";
+import { Alert } from "@material-ui/lab";
+import { Snackbar } from "@material-ui/core";
+import axios from "axios";
 
 const Pay = () => {
   const dataBook = sessionStorage.getItem("bookData");
+  const dataId = sessionStorage.getItem("bookId");
   const dataMoney = sessionStorage.getItem("bookMoney");
   const guestBook = sessionStorage.getItem("guestData");
   const roomBook = sessionStorage.getItem("roomData");
   const date1Book = sessionStorage.getItem("date1Data");
   const date2Book = sessionStorage.getItem("date2Data");
   const pack = JSON.stringify(dataBook);
+  const packId = JSON.parse(dataId);
   const money = JSON.parse(dataMoney);
   const guest = JSON.parse(guestBook);
   const room = JSON.parse(roomBook);
@@ -28,7 +33,7 @@ const Pay = () => {
   const date2 = moment(date2numbers).format("Do MMM");
   const date1back = new Date(`${date1numbers}`);
   const date2back = new Date(`${date2numbers}`);
-  console.log(date1, date2, guest, room);
+  // console.log(date1, date2, guest, room);
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
@@ -41,10 +46,26 @@ const Pay = () => {
   const [form, setForm] = useState({});
   const [validity, setValidity] = useState(false);
   const [valid, setValid] = useState(false);
+  const [next, setNext] = useState(false);
   const [logged, setLogged] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [timer, setTimer] = useState(true);
+  const [error, setError] = useState({});
   const [draw, setDraw] = useState(false);
+  const [alertState, setAlertState] = useState({
+    open: false,
+    message: "",
+    type: "success",
+  });
   //   const [btnLoading, setBtnLoading] = useState(false);
   const [width] = useWindowSize();
+
+  React.useEffect(() => {
+    if (localStorage.getItem("next") !== null) {
+      setNext(true);
+      setLogged(true);
+    }
+  });
 
   const backPage = () => {
     setValid(true);
@@ -60,18 +81,9 @@ const Pay = () => {
     }
   }, [valid]);
 
-  React.useEffect(() => {
-    setInvalid(true);
-    if (sessionStorage.getItem("logged") !== null) {
-      setLogged(true);
-    }
-  }, []);
-
-  React.useEffect(() => {
-    if (sessionStorage.getItem("logged") !== null) {
-      setLogged(true);
-    }
-  });
+  const handleAlertClose = () => {
+    setAlertState({ open: false, message: "", type: "success" });
+  };
 
   React.useEffect(() => {
     if (sessionStorage.getItem("bookData") === null) {
@@ -80,6 +92,24 @@ const Pay = () => {
     }
   }, []);
 
+  React.useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => {
+        setTimer(false);
+      }, 30000);
+      return () => clearTimeout(timer);
+    }
+  }, [setSuccess, success]);
+
+  const [counter, setCounter] = React.useState(30);
+  React.useEffect(() => {
+    if (success) {
+      const timer =
+        counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+      return () => clearInterval(timer);
+    }
+    // console.log(counter);
+  }, [counter, setSuccess, success]);
   const handleChange = (e) => {
     // console.log("e value", e);
     switch (e.target.name) {
@@ -104,13 +134,55 @@ const Pay = () => {
     }
   };
 
-  const otpClick = () => {
+  const [btnDisable, setBtnDisable] = useState(false);
+
+  const otpClick = async () => {
     if (
       (city !== "" && email !== "" && mobile !== "") ||
       emailInvalid ||
       cityInvalid
     ) {
-      setInvalid(false);
+      setBtnDisable(true);
+      try {
+        const res = await axios.post(
+          `${process.env.REACT_APP_PUBLIC_URL}send-otp`,
+          {
+            type: "register",
+            email: email,
+          }
+        );
+        if (res) {
+          console.log("response msg", res);
+          setSuccess(res.data.success);
+          console.log(success);
+          const { message = "Otp sent successfully" } = res.data;
+          setAlertState({ open: true, message, type: "success" });
+          setInvalid(true);
+          setBtnDisable(false);
+          // }
+        }
+      } catch (err) {
+        console.log(err);
+        const {
+          message = "Sorry! We are unable to process your request.",
+          status_code,
+          errors = {},
+        } = (err.response && err.response.data) || {};
+
+        setSuccess(false);
+        console.log(success);
+
+        const errArr = Object.keys(errors);
+        if (status_code === 422 && errArr.length) {
+          const error = {};
+          errArr.forEach((key) => (error[key] = errors[key][0]));
+          setError(error);
+        } else {
+          setAlertState({ open: true, message, type: "error" });
+        }
+        setBtnDisable(false);
+        setInvalid(false);
+      }
     }
   };
 
@@ -121,8 +193,8 @@ const Pay = () => {
       setForm({
         mobile: mobile,
         email: email,
-        city: city,
-        code: code,
+        name: city,
+        otp: code,
       });
       //  setBtnLoading(true);
       console.log(form);
@@ -134,26 +206,63 @@ const Pay = () => {
   React.useEffect(() => {
     if (validity) {
       console.log(form);
-      sessionStorage.clear();
-      sessionStorage.setItem("bookData", JSON.stringify(pack));
-      sessionStorage.setItem("bookMoney", JSON.stringify(money));
-      sessionStorage.setItem("guestData", JSON.stringify(guest));
-      sessionStorage.setItem("roomData", JSON.stringify(room));
-      sessionStorage.setItem("date1Data", JSON.stringify(date1back));
-      sessionStorage.setItem("date2Data", JSON.stringify(date2back));
-      sessionStorage.setItem("nameData", JSON.stringify(form.city));
-      sessionStorage.setItem("mailData", JSON.stringify(form.email));
-      sessionStorage.setItem("phoneData", JSON.stringify(form.mobile));
-      if (sessionStorage.getItem("logged") === null) {
-        sessionStorage.setItem("logged", true);
-        sessionStorage.setItem("mailed", JSON.stringify(form.city));
-      }
-      if (sessionStorage.getItem("mailed") === null) {
-        sessionStorage.setItem("mailed", JSON.stringify(form.city));
-      }
-      window.location.href = "/Part2#top";
+      axios
+        .post(`${process.env.REACT_APP_PUBLIC_URL}register`, form)
+        .then((res) => {
+          if (res) {
+            // const info = res.data.data;
+            localStorage.clear();
+            console.log("response user profile msg", res.data);
+            localStorage.setItem("access-token", res.data.access_token);
+            localStorage.setItem("refresh-token", res.data.refresh_token);
+            setNext(true);
+            setLogged(true);
+            sessionStorage.clear();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }, [form, validity]);
+
+  // const [add, setAdd] = useState(false);
+
+  const handleNext = () => {
+    const data = {
+      checkin_date: date1numbers,
+      checkout_date: moment(date2numbers).format("YYYY-MM-DD"),
+      package: packId,
+      number_of_guests: guest,
+      number_of_rooms: room,
+    };
+    const tokenData = localStorage.getItem("access-token");
+    const token = JSON.stringify(tokenData);
+    // console.log(token.slice(1, -1));
+    const headers = {
+      Authorization: `Bearer ${token.slice(1, -1)}`,
+    };
+    axios
+      .post(`${process.env.REACT_APP_PUBLIC_URL}bookings`, data, {
+        headers: headers,
+      })
+      .then((res) => {
+        if (res) {
+          console.log(res.data);
+          if (res.data.success) {
+            // setAdd(res.data.success);
+            sessionStorage.setItem(
+              "paymentInfo",
+              JSON.stringify(res.data.data)
+            );
+            window.location.href = "/Part2";
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <>
@@ -285,17 +394,45 @@ const Pay = () => {
                           </p>
                         ) : null}
                       </div>
-                      {logged ? null : (
+                      {/* {logged ? null : (
                         <button
-                          className={`${!invalid ? "btn resend" : "btn"}`}
+                          className={`${invalid ? "btn resend" : "btn"}`}
                           type="button"
                           // onClick={() => setInvalid(emailInvalid)}
                           onClick={otpClick}
-                          // disabled={!invalid}
+                          disabled={btnDisable}
                         >
                           {/* Send OTP */}
-                          {invalid ? "Send OTP" : "Re-send OTP"}
+                          {/* {invalid ? "Re-send OTP" : "Send OTP"}
                         </button>
+                      )} */}
+                      {logged ? null : (
+                        <>
+                          {success ? (
+                            <button
+                              className={`btn resend`}
+                              type="button"
+                              // onClick={() => setInvalid(emailInvalid)}
+                              onClick={otpClick}
+                              disabled={timer}
+                            >
+                              {counter === 0
+                                ? "Re-send OTP"
+                                : `Re-send OTP(${counter})`}
+                            </button>
+                          ) : (
+                            <button
+                            className={`${invalid ? "btn resend" : "btn"}`}
+                            type="button"
+                            // onClick={() => setInvalid(emailInvalid)}
+                            onClick={otpClick}
+                            disabled={btnDisable}
+                            >
+                              {/* Send OTP */}
+                              Send OTP
+                            </button>
+                          )}
+                        </>
                       )}
                     </div>
                     {logged ? null : (
@@ -308,7 +445,7 @@ const Pay = () => {
                             name="code"
                             onChange={handleChange}
                             pattern="[0-9]{6}"
-                            disabled={invalid}
+                            disabled={!invalid}
                             required
                           />
                           <label htmlFor="code" className="input-placeholder">
@@ -323,20 +460,20 @@ const Pay = () => {
                       </div>
                     )}
                   </div>
-                </div>
-                <div className="bottom">
-                  <button type="submit" className="btn">
-                    {/* {btnLoading ? (
+                  <div className="bottom">
+                    <button type="submit" className="btn">
+                      {/* {btnLoading ? (
                       "Sending..."
                     ) : (
                       <> */}
-                    Next
-                    <span>
-                      <img src={arrow2} alt="arrow" />
-                    </span>
-                    {/* </>
+                      Register
+                      <span>
+                        <img src={arrow2} alt="arrow" />
+                      </span>
+                      {/* </>
                     )} */}
-                  </button>
+                    </button>
+                  </div>
                 </div>
               </form>
             </div>
@@ -348,7 +485,7 @@ const Pay = () => {
                   <div className="pack">
                     <div className="packdetail">
                       <p>{pack.slice(1, -1)} Package</p>
-                      <h5>₹ {money + 540}</h5>
+                      <h5>₹ {money}</h5>
                     </div>
                     <div className="packdetail2">
                       <p>
@@ -379,7 +516,39 @@ const Pay = () => {
               </div>
             </div>
           </div>
+          {next ? (
+            <div
+              className="bottom"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                paddingTop: "40px",
+              }}
+            >
+              <button className="btn" onClick={handleNext}>
+                Next
+                <span>
+                  <img src={arrow2} alt="arrow" />
+                </span>
+              </button>
+            </div>
+          ) : null}
         </div>
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          open={alertState.open}
+          onClose={handleAlertClose}
+          autoHideDuration={5000}
+        >
+          <Alert
+            onClose={handleAlertClose}
+            severity={alertState.type}
+            variant="filled"
+          >
+            {alertState.message}
+          </Alert>
+        </Snackbar>
         {/* <h1>
           {pack.slice(1, -1)}: {money}
         </h1> */}

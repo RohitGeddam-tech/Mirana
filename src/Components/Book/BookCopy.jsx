@@ -32,62 +32,57 @@ const Book = () => {
   // console.log(date1numbers, date1Book);
 
   // const [date1, setDate1] = useState(new Date(`${date1numbers}`));
-  const [date1, setDate1] = useState(new Date());
-  const [guest, setGuest] = useState(guestnumbers);
-  const [room, setRoom] = useState(roomnumbers);
+  const [date1, setDate1] = useState(moment(new Date()).format("YYYY-MM-DD"));
+  const [guest, setGuest] = useState(1);
+  const [room, setRoom] = useState(1);
+  // console.log(room, guest);
   const [data, setData] = useState({});
   const [on, setOn] = useState(false);
   // const [date2, setDate2] = useState(new Date(`${date2numbers}`));
-  const [date2, setDate2] = useState(new Date());
+  const [date2, setDate2] = useState(
+    moment(new Date()).add(1, "days").format("YYYY-MM-DD")
+  );
   const [valid, setValid] = useState(false);
   const [execValid, setExecValid] = useState(false);
-  const [luxValid, setLuxValid] = useState(false);
-  const [paraValid, setParaValid] = useState(false);
   const [exec, setExec] = useState("");
-  const [luxury, setLuxury] = useState("");
-  const [paradise, setParadise] = useState("");
   const [execMoney, setExecMoney] = useState("");
-  const [luxMoney, setLuxMoney] = useState("");
-  const [paraMoney, setParaMoney] = useState("");
+  const [execId, setExecId] = useState(0);
   const [draw, setDraw] = useState(false);
   const [charge, setCharge] = useState(false);
   const [view, setView] = useState([]);
-  const [right, setRight] = useState(false);
+  const [array, setArray] = useState([]);
+  const [msg, setMsg] = useState("");
+  const [roomApi, setRoomApi] = useState(1);
 
-  // console.log("guestBook: ", guest);
-  // console.log("guestBook: ", room);
-  // console.log("guestBook: ", date1);
-  // console.log("guestBook: ", date2);
-  // console.log("guestBook: ", JSON.stringify(date2numbers));
-
-  Date.prototype.addDays = function (days) {
-    const date = new Date(this.valueOf());
-    date.setDate(date.getDate() + days);
-    return date;
-  };
   const handleChange = (e) => {
-    setDate1(e);
+    setDate1(moment(e).format("YYYY-MM-DD"));
   };
 
   React.useEffect(() => {
-    if (guest === null || room === null || date1 === date2) {
+    if (sessionStorage.getItem("guestData") !== null) {
+      console.log("moemnt");
+    }
+    if (sessionStorage.getItem("guestData") !== null) {
       // console.log("react usestae is running");
-      setGuest(1);
-      setRoom(1);
-      setDate2(date1.addDays(1));
-    } else {
-      setDate1(new Date(`${date1numbers}`));
-      setDate2(new Date(`${date2numbers}`));
+      setGuest(guestnumbers);
+      setRoom(roomnumbers);
+      setRoomApi(roomnumbers);
+      // setDate1(moment(new Date()).format("YYYY-MM-DD"));
+      setDate1(moment(new Date(`${date1numbers}`)).format("YYYY-MM-DD"));
+      setDate2(moment(new Date(`${date2numbers}`)).format("YYYY-MM-DD"));
+      console.log(date1, date2);
     }
   }, []);
 
   React.useEffect(() => {
+    // console.log(date1, date2);
     if (
-      date1.getTime() === date2.getTime() ||
-      date1.getTime() >= date2.getTime() ||
-      date1.getDate() === date2.getDate()
+      // date1.getTime() === date2.getTime() ||
+      moment(date1).format("YYYY-MM-DD") >=
+        moment(date2).format("YYYY-MM-DD") ||
+      moment(date1).format("YYYY-MM-DD") === moment(date2).format("YYYY-MM-DD")
     ) {
-      setDate2(date1.addDays(1));
+      setDate2(moment(date1).add(1, "days").format("YYYY-MM-DD"));
     }
   }, [handleChange, date1, date2, setDate2, setDate1]);
 
@@ -98,138 +93,111 @@ const Book = () => {
       room: room,
       date1: date1,
       date2: date2,
-      luxury: luxury,
-      execute: exec,
-      paradise: paradise,
-      paraMoney: paraMoney,
-      luxMoney: luxMoney,
-      execMoney: execMoney,
+      text: exec,
     });
-    // console.log("data link-/books: ", data);
-    // console.log(`date1: ${date1.toString().slice(0, 10)};
-    // date2: ${date2.toString().slice(0, 10)};
-    // Guests: ${guest};
-    // rooms: ${room}
-    // `);
     if (
-      date1.getDate() !== date2.getDate() &&
+      moment(date1).format("YYYY-MM-DD") !==
+        moment(date2).format("YYYY-MM-DD") &&
       date1 !== null &&
       date2 !== null &&
       guest !== 0 &&
       room !== 0
     ) {
-      setValid(true);
+      console.log("done");
     } else {
       console.log("error");
     }
   };
 
-  // React.useEffect(() => {
-  //   if (valid) {
-  //     console.log(data);
-  //   }
-  // }, [valid, handleSubmit]);
-
-  const execSubmit = () => {
-    setExec("Execute");
-    setExecMoney("5000");
-    setData({
-      guest: guest,
-      room: room,
-      date1: date1,
-      date2: date2,
-      luxury: luxury,
-      execute: exec,
-      paradise: paradise,
-      paraMoney: paraMoney,
-      luxMoney: luxMoney,
-      execMoney: execMoney,
-    });
+  const execSubmit = (id, name, money) => {
+    setExec(name);
+    setExecMoney(money);
+    setExecId(id);
     if (
-      date1 === "" &&
-      date2 === "" &&
-      date1 === date2 &&
+      moment(date1).format("YYYY-MM-DD") ===
+        moment(date2).format("YYYY-MM-DD") &&
       guest === 0 &&
       room === 0 &&
       exec === "" &&
-      execMoney === ""
+      execMoney === "" &&
+      execId === 0
     ) {
       console.log("error data: ", data);
     } else {
-      setExecValid(true);
-    }
-  };
-
-  const luxSubmit = () => {
-    setLuxury("Luxury");
-    setLuxMoney("6500");
-    setData({
-      guest: guest,
-      room: room,
-      date1: date1,
-      date2: date2,
-      luxury: luxury,
-      execute: exec,
-      paradise: paradise,
-      paraMoney: paraMoney,
-      luxMoney: luxMoney,
-      execMoney: execMoney,
-    });
-    if (
-      date1 === "" &&
-      date2 === "" &&
-      date1 === date2 &&
-      guest === 0 &&
-      room === 0 &&
-      luxury === "" &&
-      luxMoney === ""
-    ) {
-      console.log("error data: ", data);
-    } else {
-      setLuxValid(true);
-    }
-  };
-
-  const paraSubmit = () => {
-    setParadise("Paradise");
-    setParaMoney("7500");
-    setData({
-      guest: guest,
-      room: room,
-      date1: date1,
-      date2: date2,
-      luxury: luxury,
-      execute: exec,
-      paradise: paradise,
-      paraMoney: paraMoney,
-      luxMoney: luxMoney,
-      execMoney: execMoney,
-    });
-    if (
-      date1 === "" &&
-      date2 === "" &&
-      date1 === date2 &&
-      guest === 0 &&
-      room === 0 &&
-      paradise === "" &&
-      paraMoney === ""
-    ) {
-      console.log("error data: ", data);
-    } else {
-      setParaValid(true);
+      setValid(true);
     }
   };
 
   React.useEffect(() => {
     if (valid) {
-      console.log("data link-/: ", data);
-      // sessionStorage.clear();
-      sessionStorage.removeItem("guestData");
-      sessionStorage.removeItem("roomData");
-      sessionStorage.removeItem("date1Data");
-      sessionStorage.removeItem("date2Data");
+      setData({
+        guest: guest,
+        room: room,
+        date1: date1,
+        date2: date2,
+        execute: exec,
+        execMoney: execMoney,
+        execId: execId,
+      });
+      setExecValid(true);
     }
-  }, [data, valid]);
+  }, [valid]);
+
+  React.useEffect(() => {
+    // console.log(date1, date2);All rooms are booked
+    if (
+      // date1.getTime() === date2.getTime() ||
+      moment(date1).format("YYYY-MM-DD") >=
+        moment(date2).format("YYYY-MM-DD") ||
+      moment(date1).format("YYYY-MM-DD") === moment(date2).format("YYYY-MM-DD")
+    ) {
+      setDate2(moment(date1).add(1, "days").format("YYYY-MM-DD"));
+    }
+  }, [handleChange, date1, date2, setDate2, setDate1]);
+
+  React.useEffect(() => {
+    if (
+      moment(date1).format("YYYY-MM-DD") < moment(date2).format("YYYY-MM-DD")
+    ) {
+      axios
+        .get(
+          `${
+            process.env.REACT_APP_PUBLIC_URL
+          }room-packages?number_of_rooms=${roomApi}&checkin_date=${moment(
+            date1
+          ).format("YYYY-MM-DD")}&checkout_date=${moment(date2).format(
+            "YYYY-MM-DD"
+          )}`
+        )
+        .then((res) => {
+          if (res) {
+            const info = res.data.data;
+            // console.log("response user profile msg", info);
+            if (res.data.message === "") {
+              setArray([...info]);
+              setMsg("");
+            } else {
+              setMsg(res.data.message);
+              setArray([]);
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [roomApi, date1, date2]);
+
+  // React.useEffect(() => {
+  //   if (valid) {
+  //     console.log("data link-/: ", data);
+  //     // sessionStorage.clear();
+  //     sessionStorage.removeItem("guestData");
+  //     sessionStorage.removeItem("roomData");
+  //     sessionStorage.removeItem("date1Data");
+  //     sessionStorage.removeItem("date2Data");
+  //   }
+  // }, [data, valid]);
 
   React.useEffect(() => {
     if (execValid) {
@@ -247,63 +215,37 @@ const Book = () => {
       if (execMoney !== "") {
         sessionStorage.setItem("bookMoney", execMoney);
       }
+      if (execId !== 0) {
+        sessionStorage.setItem("bookId", execId);
+      }
       sessionStorage.setItem("guestData", JSON.stringify(guest));
       sessionStorage.setItem("roomData", JSON.stringify(room));
-      // window.location.href = "/Pay#top";
+      window.location.href = "/Pay#top";
     }
   }, [data, execValid]);
 
-  React.useEffect(() => {
-    if (luxValid) {
-      console.log("data link-/: ", data);
-      // sessionStorage.clear();
-      sessionStorage.removeItem("guestData");
-      sessionStorage.removeItem("roomData");
-      sessionStorage.removeItem("date1Data");
-      sessionStorage.removeItem("date2Data");
-      sessionStorage.setItem("date1Data", JSON.stringify(date1));
-      sessionStorage.setItem("date2Data", JSON.stringify(date2));
-      if (luxury !== "") {
-        sessionStorage.setItem("bookData", luxury);
-      }
-      if (luxMoney !== "") {
-        sessionStorage.setItem("bookMoney", luxMoney);
-      }
-      sessionStorage.setItem("guestData", JSON.stringify(guest));
-      sessionStorage.setItem("roomData", JSON.stringify(room));
-      // window.location.href = "/Pay#top";
-    }
-  }, [data, luxValid]);
-
-  React.useEffect(() => {
-    if (paraValid) {
-      console.log("data link-/: ", data);
-      // sessionStorage.clear();
-      sessionStorage.removeItem("guestData");
-      sessionStorage.removeItem("roomData");
-      sessionStorage.removeItem("date1Data");
-      sessionStorage.removeItem("date2Data");
-      sessionStorage.setItem("date1Data", JSON.stringify(date1));
-      sessionStorage.setItem("date2Data", JSON.stringify(date2));
-      if (paradise !== "") {
-        sessionStorage.setItem("bookData", paradise);
-      }
-      if (paraMoney !== "") {
-        sessionStorage.setItem("bookMoney", paraMoney);
-      }
-      sessionStorage.setItem("guestData", JSON.stringify(guest));
-      sessionStorage.setItem("roomData", JSON.stringify(room));
-      // window.location.href = "/Pay#top";
-    }
-  }, [data, paraValid]);
-
-  const handleCharge = (adult, teen) => {
+  const handleCharge = (id) => {
     setCharge(true);
-    setView({
-      adult: adult,
-      teen: teen,
-    });
+    if (id === 1) {
+      setView({
+        adult: 1500,
+        teen: 1100,
+      });
+    }
+    if (id === 2) {
+      setView({
+        adult: 2000,
+        teen: 1500,
+      });
+    }
+    if (id === 3) {
+      setView({
+        adult: 2500,
+        teen: 1800,
+      });
+    }
   };
+
   const handleMod = (e) => {
     e.preventDefault();
     setData({
@@ -313,13 +255,13 @@ const Book = () => {
       date2: date2,
     });
     if (
-      date1.getDate() !== date2.getDate() &&
+      moment(date1).format("YYYY-MM-DD") !==
+        moment(date2).format("YYYY-MM-DD") &&
       date1 !== null &&
       date2 !== null &&
       guest !== 0 &&
       room !== 0
     ) {
-      setValid(true);
       setOn(false);
     } else {
       console.log("error", date1, date2, guest, room);
@@ -440,7 +382,7 @@ const Book = () => {
           <>
             <form className="avail" onSubmit={handleSubmit}>
               <div className="first">
-                <h1>You are booking for:</h1>
+                <h1>Reserve for:</h1>
                 <div className="textInput">
                   <p>No. of guests</p>
                   <div className="text-input" onClick={() => setOn(true)}>
@@ -476,7 +418,7 @@ const Book = () => {
               </div>
               <div className="second">
                 <button className="btn" type="submit">
-                  Search
+                  Search Rooms
                   {/* <span>
                 <img src={arrow2} alt="arrow" />
               </span> */}
@@ -538,7 +480,13 @@ const Book = () => {
                   adult (at additional cost)
                 </p>
                 <div className="bottom">
-                  <button className="btn" onClick={() => setOn(false)}>
+                  <button
+                    className="btn"
+                    onClick={() => {
+                      setOn(false);
+                      setRoomApi(room);
+                    }}
+                  >
                     Proceed
                   </button>
                 </div>
@@ -549,157 +497,75 @@ const Book = () => {
       </div>
       <div className="book">
         <div className="container">
-          <h1>Choose a package</h1>
-          <div className="package">
-            <div className="left">
-              <img src={book} alt="book" />
-            </div>
-            <div className="right">
-              <div className="top">
-                <h1>Executive</h1>
-                <div className="topRight">
-                  <h1>₹ 5000</h1>
-                  <p>+540 taxes & fees</p>
+          {msg === "" ? (
+            <>
+              <h1>Choose a package</h1>
+              {array.map((doc) => (
+                <div className="package" key={doc.id}>
+                  <div className="left">
+                    <img src={book} alt="book" />
+                  </div>
+                  <div className="right">
+                    <div className="top">
+                      <h1>{doc.name}</h1>
+                      <div className="topRight">
+                        <h1>₹ {doc.package_amount}</h1>
+                        <p>+{doc.tax_amount} taxes & fees</p>
+                      </div>
+                    </div>
+                    <div className="border"></div>
+                    <div className="body">
+                      <ul>
+                        <li>
+                          Complimentary {doc.services.join(" + ")} available.
+                        </li>
+                        <li>
+                          Price for 2 adults + 1 adult (at additional cost){" "}
+                        </li>
+                        <li>
+                          Extra mattress available at extra charges.{" "}
+                          <a onClick={() => handleCharge(doc.id)}>
+                            View charges
+                          </a>
+                        </li>
+                        <li>Check-in: 12noon ; Check-out: 11 a.m.</li>
+                        <li>
+                          Free cancellation before 7 days of check-in.{" "}
+                          <a onClick={() => setDraw(true)}>
+                            View cancellation policy
+                          </a>
+                        </li>
+                      </ul>
+                      <div className="buttons">
+                        <NavHashLink to="/Rooms#top" className="loginBtn">
+                          View Room
+                        </NavHashLink>
+                        <button
+                          className="btn"
+                          onClick={() =>
+                            execSubmit(doc.id, doc.name, doc.total_amount)
+                          }
+                        >
+                          Reserve
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="border"></div>
-              <div className="body">
-                <ul>
-                  <li>Complimentary breakfast available.</li>
-                  <li>Price for 2 adults + 1 adult (at additional cost) </li>
-                  <li>
-                    Extra mattress available at extra charges.{" "}
-                    <a onClick={() => handleCharge(1500, 1100)}>View charges</a>
-                  </li>
-                  <li>Check-in: 12noon ; Check-out: 11 a.m.</li>
-                  <li>
-                    Free cancellation before 7 days of check-in.{" "}
-                    <a onClick={() => setDraw(true)}>
-                      View cancellation policy
-                    </a>
-                  </li>
-                </ul>
-                <div className="buttons">
-                  <NavHashLink to="/Rooms#top" className="loginBtn">
-                    View Room
-                  </NavHashLink>
-                  {/* <button className="btn" onClick={execSubmit}>
-                    Reserve
-                  </button> */}
-                  <button
-                    className="btn"
-                    onClick={() => {
-                      setExec("Execute");
-                      setRight(true);
-                    }}
-                  >
-                    Reserve
-                  </button>
-                  {/* <input type="button" value={exec} className='btn' onClick={execChange}/> */}
-                </div>
-              </div>
+              ))}
+            </>
+          ) : (
+            <div
+              style={{
+                padding: "80px 0",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <h1>{msg}</h1>
             </div>
-          </div>
-          <div className="package">
-            <div className="left">
-              <img src={book} alt="book" />
-            </div>
-            <div className="right">
-              <div className="top">
-                <h1>Luxury</h1>
-                <div className="topRight">
-                  <h1>₹ 6500</h1>
-                  <p>+540 taxes & fees</p>
-                </div>
-              </div>
-              <div className="border"></div>
-              <div className="body">
-                <ul>
-                  <li>Complimentary breakfast + dinner available.</li>
-                  <li>Price for 2 adults + 1 adult (at additional cost) </li>
-                  <li>
-                    Extra mattress available at extra charges.{" "}
-                    <a onClick={() => handleCharge(2000, 1500)}>View charges</a>
-                  </li>
-                  <li>Check-in: 12noon ; Check-out: 11 a.m.</li>
-                  <li>
-                    Free cancellation before 7 days of check-in.{" "}
-                    <a onClick={() => setDraw(true)}>
-                      View cancellation policy
-                    </a>
-                  </li>
-                </ul>
-                <div className="buttons">
-                  <NavHashLink to="/Rooms#top" className="loginBtn">
-                    View Room
-                  </NavHashLink>
-                  {/* <button className="btn" onClick={luxSubmit}>
-                    Reserve
-                  </button> */}
-                  <button
-                    className="btn"
-                    onClick={() => {
-                      setLuxury("Luxury");
-                      setRight(true);
-                    }}
-                  >
-                    Reserve
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="package">
-            <div className="left">
-              <img src={book} alt="book" />
-            </div>
-            <div className="right">
-              <div className="top">
-                <h1>Paradise</h1>
-                <div className="topRight">
-                  <h1>₹ 7500</h1>
-                  <p>+540 taxes & fees</p>
-                </div>
-              </div>
-              <div className="border"></div>
-              <div className="body">
-                <ul>
-                  <li>
-                    Complimentary breakfast + lunch + tea + dinner available.
-                  </li>
-                  <li>Price for 2 adults + 1 adult (at additional cost) </li>
-                  <li>
-                    Extra mattress available at extra charges.{" "}
-                    <a onClick={() => handleCharge(2500, 1800)}>View charges</a>
-                  </li>
-                  <li>Check-in: 12noon ; Check-out: 11 a.m.</li>
-                  <li>
-                    Free cancellation before 7 days of check-in.{" "}
-                    <a onClick={() => setDraw(true)}>
-                      View cancellation policy
-                    </a>
-                  </li>
-                </ul>
-                <div className="buttons">
-                  <NavHashLink to="/Rooms#top" className="loginBtn">
-                    View Room
-                  </NavHashLink>
-                  {/* <button className="btn" onClick={paraSubmit}>
-                    Reserve
-                  </button> */}
-                  <button
-                    className="btn"
-                    onClick={() => {
-                      setParadise("Paradise");
-                      setRight(true);
-                    }}
-                  >
-                    Reserve
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </div>
       <Cancel draw={draw} setDraw={setDraw} />

@@ -149,35 +149,39 @@
           color: #919eab;
           padding-bottom: 5px;
           text-align: start;
+          position: relative;
+          &.p {
+            // width: 80%;
+            // font-size: 14px;
+            // line-height: 16px;
+            padding-top: 6px !important;
+            padding-left: 6px !important;
+            top: -3px !important;
+            background: rgba(186, 127, 69, 0.2);
+            border-radius: 3px;
+            font-weight: bold;
+            // height: 28px;
+            // margin: 0;
+            color: #ba7f45;
+          }
           &:nth-child(1) {
+            width: 10%;
             padding-left: 25px;
           }
           &:nth-child(8) {
             padding-right: 25px;
           }
           &:nth-child(7) {
-            width: 6%;
+            width: 8%;
           }
           &:nth-child(6) {
-            width: 8%;
+            width: 7%;
           }
           &:nth-child(2) {
             width: 8%;
           }
           &:nth-child(5) {
             width: 8%;
-            p {
-              width: 80%;
-              font-size: 14px;
-              line-height: 16px;
-              padding: 6px !important;
-              background: rgba(186, 127, 69, 0.2);
-              border-radius: 3px;
-              font-weight: bold;
-              // height: 28px;
-              margin: 0;
-              color: #ba7f45;
-            }
           }
           &:nth-child(4) {
             width: 8%;
@@ -192,34 +196,38 @@
           height: 60px;
           border-bottom: 1px solid #dadada;
           padding-left: 5px;
+          position: relative;
           &:nth-child(1) {
             padding-left: 25px;
           }
           &:nth-child(8) {
-            padding-right: 25px;
-          }
-          &:nth-child(7) {
-            width: 6%;
+            padding-right: 30px;
+            padding-left: 15px;
           }
           &:nth-child(3) {
             padding-right: 5px;
           }
-          &:nth-child(6) {
-            width: 8%;
-          }
-          &:nth-child(2) {
-            width: 8%;
-          }
-          &:nth-child(5),
-          &:nth-child(4) {
-            width: 8%;
+          span.span {
+            width: 15px;
+            height: 15px;
+            border-radius: 50px;
+            position: absolute;
+            left: -4px;
+            // top: 18px;
+            bottom: 36%;
+            &.green {
+              background-color: #3cbb00;
+            }
+            &.orange {
+              background-color: #f57a00;
+            }
           }
           .select {
             width: 90%;
             position: relative;
             .dots {
               position: absolute;
-              top: 10px;
+              top: -18px;
               right: -16px;
               cursor: pointer;
               padding: 0;
@@ -501,7 +509,7 @@
             }
           }
         }
-        &:nth-child(4) {
+        &:last-child {
           td {
             border-bottom-color: transparent;
           }

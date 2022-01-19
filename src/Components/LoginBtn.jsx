@@ -32,6 +32,8 @@ const LoginBtn = ({ close, cancel }) => {
   });
   const [width] = useWindowSize();
 
+  const [btnDisable, setBtnDisable] = useState(false);
+
   const otpClick = async () => {
     if (!emailInvalid && email !== "") {
       console.log("email empty", email !== "");
@@ -39,6 +41,7 @@ const LoginBtn = ({ close, cancel }) => {
       setInvalid(true);
       console.log("state invalid", invalid);
       setValidity(true);
+      setBtnDisable(true);
     } else {
       setInvalid(false);
     }
@@ -60,6 +63,7 @@ const LoginBtn = ({ close, cancel }) => {
           console.log(success);
           const { message = "Otp sent successfully" } = res.data;
           setAlertState({ open: true, message, type: "success" });
+          setBtnDisable(false);
           // }
         }
       } catch (err) {
@@ -81,6 +85,7 @@ const LoginBtn = ({ close, cancel }) => {
         } else {
           setAlertState({ open: true, message, type: "error" });
         }
+        setBtnDisable(false);
       }
     }
     console.log(emailInvalid, invalid);
@@ -91,7 +96,7 @@ const LoginBtn = ({ close, cancel }) => {
       type: "login",
       email: email,
     };
-    console.log(form);
+    // console.log(form);
     if (validity) {
       try {
         const res = await axios.post(
@@ -105,6 +110,7 @@ const LoginBtn = ({ close, cancel }) => {
           console.log(success);
           const { message = "Otp sent successfully" } = res.data;
           setAlertState({ open: true, message, type: "success" });
+          setBtnDisable(false);
           // }
         }
       } catch (err) {
@@ -126,6 +132,7 @@ const LoginBtn = ({ close, cancel }) => {
         } else {
           setAlertState({ open: true, message, type: "error" });
         }
+        setBtnDisable(false);
       }
     }
   }, [setValidity, validity]);
@@ -146,7 +153,7 @@ const LoginBtn = ({ close, cancel }) => {
         counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
       return () => clearInterval(timer);
     }
-    console.log(counter);
+    // console.log(counter);
   }, [counter, setSuccess, success]);
 
   const handleSubmit = async (e) => {
@@ -171,7 +178,7 @@ const LoginBtn = ({ close, cancel }) => {
           localStorage.setItem("refresh-token", res.data.refresh_token);
           setLogin(true);
           setRight(true);
-          console.log(code, res);
+          // console.log(code, res);
           sessionStorage.setItem("logged", true);
           sessionStorage.setItem("mailed", JSON.stringify(email));
           window.location.reload();
@@ -217,7 +224,8 @@ const LoginBtn = ({ close, cancel }) => {
           localStorage.setItem("refresh-token", res.data.refresh_token);
           setLogin(true);
           setRight(true);
-          console.log(code, res);
+          // console.log(code, res);
+          localStorage.setItem("next", true);
           sessionStorage.setItem("logged", true);
           sessionStorage.setItem("mailed", JSON.stringify(email));
           window.location.reload();
@@ -249,17 +257,17 @@ const LoginBtn = ({ close, cancel }) => {
     if (localStorage.getItem("access-token") !== null) {
       setRight(true);
     }
-  }, []);
+  });
 
   useEffect(() => {
     if (right) {
       const tokenData = localStorage.getItem("access-token");
       const token = JSON.stringify(tokenData);
-      console.log(token.slice(1, -1));
+      // console.log(token.slice(1, -1));
       const headers = {
         Authorization: `Bearer ${token.slice(1, -1)}`,
       };
-      console.log(headers);
+      // console.log(headers);
       // if (right) {
       axios
         .get(`${process.env.REACT_APP_PUBLIC_URL}user-profile`, {
@@ -268,16 +276,18 @@ const LoginBtn = ({ close, cancel }) => {
         .then((res) => {
           if (res) {
             const info = res.data.data;
-            console.log("response user profile msg", info);
+            // console.log("response user profile msg", info);
             localStorage.setItem("email", info.email);
             localStorage.setItem("name", info.name);
             localStorage.setItem("mobile", info.mobile);
+            // localStorage.setItem("next", true);
             localStorage.setItem("role", info.role);
+            sessionStorage.setItem("delete", true);
             if (info.role === "admin") {
               window.location.href = "/RoomBack#top";
             }
             setSuccess(res.data.success);
-            console.log(success);
+            // console.log(success);
           }
         })
         .catch((err) => {
@@ -287,15 +297,32 @@ const LoginBtn = ({ close, cancel }) => {
     }
   }, [right]);
 
+  // const [del, setDel] = useState(false);
+
+  // React.useEffect(() => {
+  //   if (sessionStorage.getItem("delete") !== null) {
+  //     setDel(true);
+  //     console.log("running");
+  //   }
+  // });
+
+  // React.useEffect(() => {
+  //   if (del) {
+  //     // window.location.reload();
+  //     console.log("deleting");
+  //     sessionStorage.removeItem("delete");
+  //   }
+  // }, [del]);
+
   // [handleSubmit, valid]
 
   React.useEffect(() => {
-    if (sessionStorage.length >= 1) {
-      const log = sessionStorage.getItem("logged");
+    if (localStorage.getItem("next") !== null) {
+      const log = localStorage.getItem("next");
       const loggedIn = JSON.parse(log);
-      const mail = sessionStorage.getItem("mailed");
+      const mail = sessionStorage.getItem("email");
       const mails = JSON.parse(mail);
-      console.log(mails);
+      // console.log(mails);
       if (loggedIn) {
         setEmail(mails);
         setLogin(true);
@@ -309,11 +336,13 @@ const LoginBtn = ({ close, cancel }) => {
 
   const [newName, setNewName] = useState("");
 
-  // if (localStorage.getItem("name") !== null) {
-  //   const nameData = localStorage.getItem("name");
-  //   const newName = JSON.stringify(nameData);
-  //   setNewName(newName);
-  // }
+  React.useEffect(() => {
+    if (localStorage.getItem("name") !== null) {
+      const nameData = localStorage.getItem("name");
+      const newName = JSON.stringify(nameData);
+      setNewName(newName);
+    }
+  });
 
   return (
     <>
@@ -321,13 +350,9 @@ const LoginBtn = ({ close, cancel }) => {
         <div className="afterLogin">
           <button className={`${close}`}>
             <span>
-              {localStorage.getItem("name") === null ? (
-                <p className="acc">{email.slice(0, 1)}</p>
-              ) : (
-                <p className="acc">{newName.slice(0, 1)}</p>
-              )}
+              <p className="acc">{newName.slice(1, 2)}</p>
             </span>
-            Name
+            {newName.slice(1, -1)}
           </button>
           <Dropdown className="d">
             <DropdownMenu>
@@ -432,7 +457,7 @@ const LoginBtn = ({ close, cancel }) => {
                       type="button"
                       // onClick={() => setInvalid(emailInvalid)}
                       onClick={otpClick}
-                      // disabled={!invalid}
+                      disabled={btnDisable}
                     >
                       {/* Send OTP */}
                       Send OTP

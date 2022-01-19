@@ -32,6 +32,7 @@ const data = [
     status: "Paid",
     guest: 2,
     roomNo: 1,
+    money: 4500,
   },
   {
     name: "Kiran Patil",
@@ -44,6 +45,7 @@ const data = [
     status: "Pending",
     guest: 3,
     roomNo: 2,
+    money: 6000,
   },
   {
     name: "Rohit Geddam",
@@ -56,6 +58,7 @@ const data = [
     status: "Pending",
     guest: 4,
     roomNo: 2,
+    money: 9500,
   },
 ];
 
@@ -74,13 +77,7 @@ const statusData = [
   },
 ];
 
-const Status = ({
-  status,
-  handleSelect,
-  room,
-  handleSettings,
-  handleCheck,
-}) => {
+const Status = ({ room, handleSettings, handleCheck }) => {
   const dotData = [
     {
       key: "1",
@@ -99,7 +96,7 @@ const Status = ({
   ];
   return (
     <div className="select">
-      <Dropdown
+      {/* <Dropdown
         selection
         defaultValue={status}
         onChange={(event) => handleSelect(event, room)}
@@ -107,7 +104,7 @@ const Status = ({
         fluid
         className="p"
         options={statusData}
-      ></Dropdown>
+      ></Dropdown> */}
       <Dropdown icon="ellipsis vertical" className="dots">
         <Dropdown.Menu>
           {dotData.map((doc) => (
@@ -127,12 +124,15 @@ const BookBack = () => {
   const [open, setOpen] = useState(false);
   const [down, setDown] = useState(false);
   const [modal, setModal] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const [search, setSearch] = useState("");
   const [searched, setSearched] = useState("");
   const [sel, setSel] = useState("");
   const [selected, setSelected] = useState("");
   const [door, setDoor] = useState();
-  const [array, setArray] = useState([...data]);
+  // const [array, setArray] = useState([...data]);
+  const [array, setArray] = useState([]);
   const [form, setForm] = useState([]);
   const [popup, setPopup] = useState([]);
   const [error, setError] = useState({});
@@ -152,6 +152,13 @@ const BookBack = () => {
   const [right, setRight] = useState(false);
   const [correct, setCorrect] = useState(false);
   const [draw, setDraw] = useState(false);
+  const [packid, setPackid] = useState(0);
+  const [success, setSuccess] = useState(false);
+  const [alertState, setAlertState] = useState({
+    open: false,
+    message: "",
+    type: "success",
+  });
 
   const handleSearch = (e) => {
     // console.log("e value", e);
@@ -164,37 +171,6 @@ const BookBack = () => {
     }, 1000);
     return () => clearTimeout(timer);
   }, [search]);
-
-  const fetchData = async () => {
-    const tokenData = localStorage.getItem("access-token");
-    const token = JSON.stringify(tokenData);
-    // console.log(token.slice(1, -1));
-    const headers = {
-      Authorization: `Bearer ${token.slice(1, -1)}`,
-    };
-    if (
-      localStorage.getItem("role") !== null &&
-      localStorage.getItem("role") === "admin"
-    ) {
-      axios
-        .get(`https://devapi.headquarter.tech/admin/ongoing-bookings`, {
-          headers: headers,
-        })
-        .then((res) => {
-          if (res) {
-            const info = res.data.data;
-            console.log("response user profile msg", info);
-            console.log("file array state1: ", array.length);
-            setArray([...info]);
-            console.log("file array state2: ", array.length);
-            console.log("file array state: ", array);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  };
 
   const getData = async () => {
     const tokenData = localStorage.getItem("access-token");
@@ -209,13 +185,26 @@ const BookBack = () => {
     ) {
       axios
         .get(
-          `${
-            process.env.REACT_APP_PUBLIC_URL
-          }admin/ongoing-bookings?checkin_date=${moment(date1).format(
-            "YYYY-MM-DD"
-          )}&checkout_date=${moment(date2).format("YYYY-MM-DD")}${
-            searched !== "" ? `&search=${searched}` : ""
-          }`,
+          `${process.env.REACT_APP_PUBLIC_URL}admin/ongoing-bookings${
+            moment(new Date()).format("YYYY-MM-DD") !==
+              moment(startDate).format("YYYY-MM-DD") ||
+            moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
+              moment(endDate).format("YYYY-MM-DD") ||
+            searched !== ""
+              ? "?"
+              : ""
+          }${
+            (moment(new Date()).format("YYYY-MM-DD") !==
+              moment(startDate).format("YYYY-MM-DD") ||
+              moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
+                moment(endDate).format("YYYY-MM-DD")) &&
+            moment(endDate).format("YYYY-MM-DD") >
+              moment(startDate).format("YYYY-MM-DD")
+              ? `checkin_date=${moment(startDate).format(
+                  "YYYY-MM-DD"
+                )}&checkout_date=${moment(endDate).format("YYYY-MM-DD")}`
+              : ""
+          }${searched !== "" ? `&search=${searched}` : ""}`,
           {
             headers: headers,
           }
@@ -236,13 +225,27 @@ const BookBack = () => {
     }
   };
 
-  React.useEffect(() => {
-    fetchData();
-  }, []);
+  // React.useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   React.useEffect(() => {
-    getData();
-  }, [searched]);
+    if (
+      moment(endDate).format("YYYY-MM-DD") <=
+      moment(startDate).format("YYYY-MM-DD")
+    ) {
+      setEndDate(moment(startDate).add(1, "days").format("YYYY-MM-DD"));
+    }
+  }, [startDate, endDate]);
+
+  React.useEffect(() => {
+    if (
+      moment(endDate).format("YYYY-MM-DD") >
+      moment(startDate).format("YYYY-MM-DD")
+    ) {
+      getData();
+    }
+  }, [searched, startDate, endDate]);
 
   const handleSelect = (e, room) => {
     // console.log(e);
@@ -269,18 +272,20 @@ const BookBack = () => {
 
   const handleSettings = (room) => {
     array.forEach((members) => {
-      if (members.room === room) {
+      if (members.id === room) {
         setForm({
-          name: members.name,
-          phone: members.phone,
-          mail: members.mail,
-          check_in: members.check_in,
-          check_out: members.check_out,
-          pack: members.pack,
-          room: members.room,
-          status: members.status,
-          roomNo: members.roomNo,
-          guest: members.guest,
+          roomVal: members.rooms,
+          money: members.total_paid_amount,
+          id: members.id,
+          name: members.user.name,
+          phone: members.user.mobile,
+          mail: members.user.email,
+          check_in: members.checkin_date,
+          check_out: members.checkout_date,
+          pack: members.package.name,
+          status: members.payment_status,
+          roomNo: members.number_of_rooms,
+          guest: members.number_of_guests,
         });
         // console.log({ message: "form array deployed", form });
         // setModal(true);
@@ -292,30 +297,36 @@ const BookBack = () => {
 
   const handleCheck = (room) => {
     array.forEach((members) => {
-      if (members.room === room) {
+      if (members.id === room) {
         setForm({
-          name: members.name,
-          phone: members.phone,
-          mail: members.mail,
-          check_in: members.check_in,
-          check_out: members.check_out,
-          pack: members.pack,
-          room: members.room,
-          status: members.status,
-          roomNo: members.roomNo,
-          guest: members.guest,
+          roomVal: members.rooms.map((opt) => opt.room).join(", "),
+          money: members.total_paid_amount,
+          id: members.id,
+          name: members.user.name,
+          phone: members.user.mobile,
+          mail: members.user.email,
+          check_in: members.checkin_date,
+          check_out: members.checkout_date,
+          pack: members.package.name,
+          status: members.payment_status,
+          roomNo: members.number_of_rooms,
+          guest: members.number_of_guests,
         });
         // console.log({ message: "form array deployed", form });
         setModal(true);
-        setNum(members.room);
+        setNum(room);
         // setOpen(true);
       }
     });
   };
 
   // React.useEffect(() => {
+  //   console.log(form);
+  // }, [modal]);
+
+  // React.useEffect(() => {
   //   console.log({ message: "form array deployed", form });
-  // }, [handleSettings, modal]);
+  // }, [handleCheck]);
 
   Date.prototype.addDays = function (days) {
     const date = new Date(this.valueOf());
@@ -390,19 +401,19 @@ const BookBack = () => {
     // console.log(phone === form.phone);
     // console.log("phoneInvalid", phone.length === 10 || phone === form.phone);
     if (
-      (!(nameInvalid && mailInvalid) && phone.length === 10) ||
+      (!(nameInvalid && mailInvalid) && phone.length > 8) ||
       phone === form.phone
     ) {
       setRight(true);
       setPopup({
         name: name,
-        phone: phone,
-        mail: mail,
-        check_in: date1,
-        check_out: date2,
-        pack: selected,
-        room: room,
-        guest: guest,
+        mobile: phone,
+        email: mail,
+        checkin_date: moment(date1).format("YYYY-MM-DD"),
+        checkout_date: moment(date2).format("YYYY-MM-DD"),
+        package: packid,
+        number_of_rooms: room,
+        number_of_guests: guest,
       });
       setOpen(false);
     } else {
@@ -414,7 +425,7 @@ const BookBack = () => {
   const putData = async () => {
     if (right) {
       // console.log("onForm submit: ", popup);
-      const tokenData = localStorage.getItem("accessToken");
+      const tokenData = localStorage.getItem("access-token");
       const token = JSON.stringify(tokenData);
       // console.log(token.slice(1, -1));
       const headers = {
@@ -431,30 +442,56 @@ const BookBack = () => {
             }
           );
           if (res) {
-            console.log(res.data.data);
-            // setStart(false);
+            // console.log(res.data.data);
+            setOpen(false);
+            setRight(false);
+            // console.log("response msg", res);
+            setSuccess(res.data.success);
+            setPopup([]);
+            // console.log(success);
+            const { message = "Booking updated successfully" } = res.data;
+            setAlertState({ open: true, message, type: "success" });
             // console.log(popup);
-            // window.location.reload();
-            // setForm({});
+            setForm({});
+            window.location.reload();
           }
         } catch (err) {
-          // console.log(name);
-          console.log(err);
+          // console.log(err);
+          const {
+            message = "Sorry! We are unable to process your request.",
+            status_code,
+            errors = {},
+          } = (err.response && err.response.data) || {};
+
+          setSuccess(false);
+          // console.log(success);
+
+          const errArr = Object.keys(errors);
+          if (status_code === 422 && errArr.length) {
+            const error = {};
+            errArr.forEach((key) => (error[key] = errors[key][0]));
+            setError(error);
+          } else {
+            setAlertState({ open: true, message, type: "error" });
+          }
+          setOpen(false);
+          setRight(false);
         }
       }
     }
   };
 
   React.useEffect(() => {
-    console.log(popup);
-    putData();
+    if (right) {
+      putData();
+    }
   }, [handleSubmit]);
 
   const addData = async () => {
     const rooms = {
-      status: sel,
+      payment_status: sel.toLowerCase(),
     };
-    const tokenData = localStorage.getItem("accessToken");
+    const tokenData = localStorage.getItem("access-token");
     const token = JSON.stringify(tokenData);
     const headers = {
       Authorization: `Bearer ${token.slice(1, -1)}`,
@@ -470,18 +507,16 @@ const BookBack = () => {
           }
         );
         if (res) {
-          console.log(res.data.data);
-          // setStart(false);
-          // console.log(popup);
-          // window.location.reload();
-          // setForm({});
+          setModal(false);
+          setSel("");
+          window.location.reload();
         }
       } catch (err) {
         // console.log(name);
         console.log(err);
+        setModal(false);
       }
     }
-    setModal(false);
   };
 
   React.useEffect(() => {
@@ -489,24 +524,24 @@ const BookBack = () => {
   }, [correct]);
 
   const checkout = (stat) => {
-    console.log(sel);
+    // console.log(sel);
     if (sel !== stat && sel !== "") {
       setCorrect(true);
     }
   };
 
-  const roomArray = [
-    { key: "1", text: 101, value: 101 },
-    { key: "2", text: 102, value: 102 },
-    { key: "3", text: 103, value: 103 },
-    { key: "4", text: 104, value: 104 },
-    { key: "5", text: 105, value: 105 },
-    { key: "6", text: 201, value: 201 },
-    { key: "7", text: 202, value: 202 },
-    { key: "8", text: 203, value: 203 },
-    { key: "9", text: 204, value: 204 },
-    { key: "10", text: 205, value: 205 },
-  ];
+  // const roomArray = [
+  //   { key: "1", text: 101, value: 101 },
+  //   { key: "2", text: 102, value: 102 },
+  //   { key: "3", text: 103, value: 103 },
+  //   { key: "4", text: 104, value: 104 },
+  //   { key: "5", text: 105, value: 105 },
+  //   { key: "6", text: 201, value: 201 },
+  //   { key: "7", text: 202, value: 202 },
+  //   { key: "8", text: 203, value: 203 },
+  //   { key: "9", text: 204, value: 204 },
+  //   { key: "10", text: 205, value: 205 },
+  // ];
 
   const selectedArray = [
     { key: "1", text: "Executive", value: "Executive" },
@@ -570,32 +605,83 @@ const BookBack = () => {
               <th>Guest Name</th>
               <th>Mobile No.</th>
               <th>Email</th>
-              <th>Check-in</th>
               <th>
-                <p>Check-out</p>
+                Check-in
+                <div
+                  className="dateFil"
+                  // style={{ opacity: "0", width: "15px", height: "20px", cursor:"pointer" }}
+                >
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <DatePicker
+                      // disablePast={true}
+                      label={`Check-in`}
+                      value={startDate}
+                      onChange={setStartDate}
+                      inputVariant="outlined"
+                      format="E, dd MMM"
+                      animateYearScrolling
+                    />
+                  </MuiPickersUtilsProvider>
+                </div>
+              </th>
+              <th
+                className={`${
+                  moment(new Date()).format("YYYY-MM-DD") !==
+                    moment(startDate).format("YYYY-MM-DD") ||
+                  moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
+                    moment(endDate).format("YYYY-MM-DD") ||
+                  searched !== ""
+                    ? "p"
+                    : ""
+                }`}
+              >
+                Check-out
+                <div
+                  className="dateFil"
+                  // style={{ opacity: "0.3", width: "15px", height: "20px", cursor:"pointer" }}
+                >
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <DatePicker
+                      // disablePast={true}
+                      label={`Check-out`}
+                      minDate={startDate}
+                      value={endDate}
+                      onChange={setEndDate}
+                      inputVariant="outlined"
+                      format="E, dd MMM"
+                      animateYearScrolling
+                    />
+                  </MuiPickersUtilsProvider>
+                </div>
               </th>
               <th>Package type</th>
               <th>Room No.</th>
               <th>Payment Status</th>
             </tr>
             {array.map((doc) => (
-              <tr>
-                <td>{doc.name}</td>
-                <td>{doc.phone}</td>
-                <td>{doc.mail}</td>
-                <td>{moment(doc.check_in).format("DD MMM YYYY")}</td>
-                <td>{moment(doc.check_out).format("DD MMM YYYY")}</td>
-                <td>{doc.pack}</td>
-                <td>{doc.room}</td>
+              <tr key={doc.id}>
+                <td>{doc.user.name}</td>
+                <td>{doc.user.mobile}</td>
+                <td>{doc.user.email}</td>
+                <td>{moment(doc.checkin_date).format("DD MMM YYYY")}</td>
+                <td>{moment(doc.checkout_date).format("DD MMM YYYY")}</td>
+                <td>{doc.package.name}</td>
+                <td>{doc.rooms.map((opt) => opt.room).join(", ")}</td>
                 <td>
+                  <span
+                    className={`span ${
+                      doc.payment_status === "Pending" ? "orange" : ""
+                    } ${doc.payment_status === "Paid" ? "green" : ""}`}
+                  ></span>
+                  {doc.payment_status}
                   <Status
                     // setOpen={setOpen}
-                    status={doc.status}
+                    status={doc.payment_status}
                     // open={open}
                     handleSettings={handleSettings}
                     handleSelect={handleSelect}
                     handleCheck={handleCheck}
-                    room={doc.room}
+                    room={doc.id}
                   />
                 </td>
               </tr>
@@ -690,7 +776,18 @@ const BookBack = () => {
                   <Dropdown
                     selection
                     defaultValue={selected}
-                    onChange={(e) => setSelected(e.target.innerText)}
+                    onChange={(e) => {
+                      setSelected(e.target.innerText);
+                      if (e.target.innerText === "Paradise") {
+                        setPackid(3);
+                      }
+                      if (e.target.innerText === "Luxury") {
+                        setPackid(2);
+                      }
+                      if (e.target.innerText === "Executive") {
+                        setPackid(1);
+                      }
+                    }}
                     button
                     fluid
                     className="d"
@@ -774,21 +871,34 @@ const BookBack = () => {
                 <div className="top">
                   <div className="internal">
                     <p>Room No.:</p>
-                    <h5>{form.room}</h5>
+                    <h5>{form.roomVal}</h5>
+                    {/* {form.length > 0 ? (
+                      <h5>{form.roomVal.map((opt) => opt.room).join(", ")}</h5>
+                    ) : null} */}
                   </div>
+                  <div className="internal">
+                    <p>Pending room fees:</p>
+                    <h5>
+                      ₹{form.money} <span>{`(total ₹1${form.money})`}</span>
+                    </h5>
+                  </div>
+                </div>
+                <div className="top">
                   <div className="internal">
                     <p>Payment Status:</p>
                     <Dropdown
                       selection
                       defaultValue={form.status}
-                      onChange={(e) => {
-                        setSel(e.target.innerText);
-                      }}
+                      onChange={(e) => setSel(e.target.innerText)}
                       button
                       fluid
                       className="p"
                       options={statusData}
                     ></Dropdown>
+                  </div>
+                  <div className="internal" style={{ opacity: "0" }}>
+                    <p>Room No.:</p>
+                    <h5>{form.phone}</h5>
                   </div>
                 </div>
                 <div className="bottom">

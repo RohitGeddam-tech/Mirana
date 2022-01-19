@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import "./Upcoming.scss";
-import { Modal, Select } from "@material-ui/core";
+import { Modal, RootRef, Select, Snackbar } from "@material-ui/core";
 import clear from "../image/clear.png";
 import create from "../image/create.png";
 import check from "../image/check.png";
@@ -19,41 +19,40 @@ import { NavHashLink } from "react-router-hash-link";
 import Settings from "./Settings";
 import NewMember from "./NewMember";
 import axios from "axios";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import ListItemText from "@material-ui/core/ListItemText";
+import { Alert } from "@material-ui/lab";
+// import Select from '@material-ui/core/Select';
+import Checkbox from "@material-ui/core/Checkbox";
+import { components } from "react-select";
+import ReactSelect from "react-select";
 
-const data = [
-  {
-    name: "Darshan Sawant",
-    phone: 9869753456,
-    mail: "darshansawant743@gmail.com",
-    check_in: "2021-10-21",
-    check_out: "2021-10-22",
-    pack: "Luxury",
-    room: 201,
-    status: "Paid",
-  },
-  {
-    name: "Kiran Patil",
-    phone: 8108345778,
-    mail: "ksp@gmail.com",
-    check_in: "2021-10-21",
-    check_out: "2021-10-22",
-    pack: "Paradise",
-    room: 205,
-    status: "Pending",
-  },
-  {
-    name: "Rohit Geddam",
-    phone: 7977250075,
-    mail: "rohitgeddam0@gmail.com",
-    check_in: "2021-10-21",
-    check_out: "2021-10-22",
-    pack: "Executive",
-    room: 104,
-    status: "Pending",
-  },
-];
+const Option = (props) => {
+  // console.log("props: ", { ...props });
+  return (
+    <div>
+      <components.Option {...props}>
+        <input
+          type="checkbox"
+          checked={props.isSelected}
+          onChange={() => null}
+        />{" "}
+        <label>{props.label}</label>
+      </components.Option>
+    </div>
+  );
+};
 
-const Status = ({ status, room, handleSettings, handleCheck }) => {
+const Status = ({
+  status,
+  room,
+  handleSettings,
+  handleCheck,
+  handleCancel,
+}) => {
   const dotData = [
     {
       key: "1",
@@ -74,7 +73,7 @@ const Status = ({ status, room, handleSettings, handleCheck }) => {
       text: "Cancel Booking",
       value: "cancel",
       icon: "cancel",
-      handle: handleCheck,
+      handle: handleCancel,
     },
   ];
   return (
@@ -98,10 +97,13 @@ const UpBack = () => {
   const [open, setOpen] = useState(false);
   const [modal, setModal] = useState(false);
   const [search, setSearch] = useState("");
+  const [personName, setPersonName] = useState([]);
   const [searched, setSearched] = useState("");
   const [selected, setSelected] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const [door, setDoor] = useState();
-  const [array, setArray] = useState([...data]);
+  const [array, setArray] = useState([]);
   const [form, setForm] = useState([]);
   const [popup, setPopup] = useState([]);
   const [error, setError] = useState({});
@@ -109,15 +111,24 @@ const UpBack = () => {
   const [date2, setDate2] = useState(new Date());
   const [stat, setStat] = useState(false);
   const [number, setNumber] = useState("");
-  const [num, setNum] = useState(false);
+  const [num, setNum] = useState("");
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
+  const [guest, setGuest] = useState("");
+  const [room, setRoom] = useState("");
   const [phone, setPhone] = useState("");
   const [nameInvalid, setNameInvalid] = useState(false);
   const [phoneInvalid, setPhoneInvalid] = useState(false);
   const [mailInvalid, setMailInvalid] = useState(false);
   const [right, setRight] = useState(false);
   const [draw, setDraw] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [roomArray, setRoomArray] = useState([]);
+  const [alertState, setAlertState] = useState({
+    open: false,
+    message: "",
+    type: "success",
+  });
 
   const handleSearch = (e) => {
     // console.log("e value", e);
@@ -131,41 +142,10 @@ const UpBack = () => {
     return () => clearTimeout(timer);
   }, [search]);
 
-  const fetchData = async () => {
-    const tokenData = localStorage.getItem("access-token");
-    const token = JSON.stringify(tokenData);
-    console.log(token.slice(1, -1));
-    const headers = {
-      Authorization: `Bearer ${token.slice(1, -1)}`,
-    };
-    if (
-      localStorage.getItem("role") !== null &&
-      localStorage.getItem("role") === "admin"
-    ) {
-      axios
-        .get(`${process.env.REACT_APP_PUBLIC_URL}admin/upcoming-bookings`, {
-          headers: headers,
-        })
-        .then((res) => {
-          if (res) {
-            const info = res.data.data;
-            console.log("response user profile msg", info);
-            console.log("file array state1: ", array.length);
-            setArray([...info]);
-            console.log("file array state2: ", array.length);
-            console.log("file array state: ", array);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  };
-
   const getData = async () => {
     const tokenData = localStorage.getItem("access-token");
     const token = JSON.stringify(tokenData);
-    console.log(token.slice(1, -1));
+    // console.log(token.slice(1, -1));
     const headers = {
       Authorization: `Bearer ${token.slice(1, -1)}`,
     };
@@ -175,13 +155,26 @@ const UpBack = () => {
     ) {
       axios
         .get(
-          `${
-            process.env.REACT_APP_PUBLIC_URL
-          }admin/upcoming-bookings?checkin_date=${moment(date1).format(
-            "YYYY-MM-DD"
-          )}&checkout_date=${moment(date2).format("YYYY-MM-DD")}${
-            searched !== "" ? `&search=${searched}` : ""
-          }`,
+          `${process.env.REACT_APP_PUBLIC_URL}admin/upcoming-bookings${
+            moment(new Date()).format("YYYY-MM-DD") !==
+              moment(startDate).format("YYYY-MM-DD") ||
+            moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
+              moment(endDate).format("YYYY-MM-DD") ||
+            searched !== ""
+              ? "?"
+              : ""
+          }${
+            (moment(new Date()).format("YYYY-MM-DD") !==
+              moment(startDate).format("YYYY-MM-DD") ||
+              moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
+                moment(endDate).format("YYYY-MM-DD")) &&
+            moment(endDate).format("YYYY-MM-DD") >
+              moment(startDate).format("YYYY-MM-DD")
+              ? `checkin_date=${moment(startDate).format(
+                  "YYYY-MM-DD"
+                )}&checkout_date=${moment(endDate).format("YYYY-MM-DD")}`
+              : ""
+          }${searched !== "" ? `&search=${searched}` : ""}`,
           {
             headers: headers,
           }
@@ -189,11 +182,11 @@ const UpBack = () => {
         .then((res) => {
           if (res) {
             const info = res.data.data;
-            console.log("response user profile msg", info);
-            console.log("file array state1: ", array.length);
+            // console.log("response user profile msg", info);
+            // console.log("file array state1: ", array.length);
             setArray([...info]);
-            console.log("file array state2: ", array.length);
-            console.log("file array state: ", array);
+            // console.log("file array state2: ", array.length);
+            // console.log("file array state: ", array);
           }
         })
         .catch((err) => {
@@ -202,26 +195,42 @@ const UpBack = () => {
     }
   };
 
-  React.useEffect(() => {
-    fetchData();
-  }, []);
+  // React.useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   React.useEffect(() => {
-    getData();
-  }, [searched]);
+    if (
+      moment(endDate).format("YYYY-MM-DD") <=
+      moment(startDate).format("YYYY-MM-DD")
+    ) {
+      setEndDate(moment(startDate).add(1, "days").format("YYYY-MM-DD"));
+    }
+  }, [startDate, endDate]);
+
+  React.useEffect(() => {
+    if (
+      moment(endDate).format("YYYY-MM-DD") >
+      moment(startDate).format("YYYY-MM-DD")
+    ) {
+      getData();
+    }
+  }, [searched, startDate, endDate]);
 
   const handleSettings = (room) => {
     array.forEach((members) => {
-      if (members.room === room) {
+      if (members.id === room) {
         setForm({
-          name: members.name,
-          phone: members.phone,
-          mail: members.mail,
-          check_in: members.check_in,
-          check_out: members.check_out,
-          pack: members.pack,
-          room: members.room,
-          status: members.status,
+          id: members.id,
+          name: members.user.name,
+          phone: members.user.mobile,
+          mail: members.user.email,
+          check_in: members.checkin_date,
+          check_out: members.checkout_date,
+          pack: members.package.name,
+          status: members.payment_status,
+          roomNo: members.number_of_rooms,
+          guest: members.number_of_guests,
         });
         // console.log({ message: "form array deployed", form });
         // setModal(true);
@@ -232,16 +241,18 @@ const UpBack = () => {
 
   const handleCheck = (room) => {
     array.forEach((members) => {
-      if (members.room === room) {
+      if (members.id === room) {
         setForm({
-          name: members.name,
-          phone: members.phone,
-          mail: members.mail,
-          check_in: members.check_in,
-          check_out: members.check_out,
-          pack: members.pack,
-          room: members.room,
-          status: members.status,
+          id: members.id,
+          name: members.user.name,
+          phone: members.user.mobile,
+          mail: members.user.email,
+          check_in: members.checkin_date,
+          check_out: members.checkout_date,
+          pack: members.package.name,
+          status: members.payment_status,
+          roomNo: members.number_of_rooms,
+          guest: members.number_of_guests,
         });
         // console.log({ message: "form array deployed", form });
         setModal(true);
@@ -281,6 +292,9 @@ const UpBack = () => {
     setNumber(form.room);
     setPhone(form.phone);
     setMail(form.mail);
+    setGuest(form.guest);
+    setRoom(form.roomNo);
+    setNum(form.id);
     // }
   }, [form]);
 
@@ -307,31 +321,35 @@ const UpBack = () => {
         setMail(e.target.value);
         setMailInvalid(!e.target.validity.valid);
         break;
+      case "guest":
+        setGuest(e.target.value);
+        break;
+      case "room":
+        setRoom(e.target.value);
+        break;
       default:
         break;
     }
   };
 
+  const [packid, setPackid] = useState(0);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(phone.length);
-    // console.log(phone.toString());
-    // const mob = phone.toString();
-    // setPhone(mob);
-    // console.log("phoneInvalid", phoneInvalid);
     if (
-      (!(nameInvalid && mailInvalid) && phone.length === 10) ||
+      (!(nameInvalid && mailInvalid) && phone.length > 8) ||
       phone === form.phone
     ) {
       setRight(true);
       setPopup({
         name: name,
-        phone: phone,
-        mail: mail,
-        check_in: date1,
-        check_out: date2,
-        pack: selected,
-        room: number,
+        mobile: phone,
+        email: mail,
+        checkin_date: moment(date1).format("YYYY-MM-DD"),
+        checkout_date: moment(date2).format("YYYY-MM-DD"),
+        package: packid,
+        number_of_rooms: room,
+        number_of_guests: guest,
       });
       setOpen(false);
     } else {
@@ -340,41 +358,233 @@ const UpBack = () => {
     }
   };
 
+  const putData = async () => {
+    if (right && packid > 0) {
+      console.log("onForm submit: ", popup);
+      const tokenData = localStorage.getItem("access-token");
+      const token = JSON.stringify(tokenData);
+      // console.log(token.slice(1, -1));
+      const headers = {
+        Authorization: `Bearer ${token.slice(1, -1)}`,
+      };
+      if (right) {
+        // console.log(form);
+        try {
+          const res = await axios.put(
+            `${process.env.REACT_APP_PUBLIC_URL}admin/upcoming-bookings/${num}`,
+            popup,
+            {
+              headers: headers,
+            }
+          );
+          if (res) {
+            console.log(res.data);
+            setOpen(false);
+            setRight(false);
+            // console.log("response msg", res);
+            setSuccess(res.data.success);
+            // console.log(success);
+            const { message = "Booking updated successfully" } = res.data;
+            setAlertState({ open: true, message, type: "success" });
+            // console.log(popup);
+            window.location.reload();
+            // setForm({});
+          }
+        } catch (err) {
+          // console.log(err);
+          const {
+            message = "Sorry! We are unable to process your request.",
+            status_code,
+            errors = {},
+          } = (err.response && err.response.data) || {};
+
+          setSuccess(false);
+          console.log(success);
+
+          const errArr = Object.keys(errors);
+          if (status_code === 422 && errArr.length) {
+            const error = {};
+            errArr.forEach((key) => (error[key] = errors[key][0]));
+            setError(error);
+          } else {
+            setAlertState({ open: true, message, type: "error" });
+          }
+          setOpen(false);
+          setRight(false);
+        }
+      }
+    }
+  };
+
   React.useEffect(() => {
     if (right) {
-      console.log("onForm submit: ", popup);
+      // console.log("onForm submit: ", popup);
+      putData();
     }
   }, [handleSubmit]);
 
-  const checkout = () => {
-    setDate1(new Date(`${form.check_in}`));
-    setDate2(new Date(`${form.check_out}`));
-    // setSelected(form.pack);
-    setName(form.name);
-    setNumber(form.room);
-    setPhone(form.phone);
-    setMail(form.mail);
-    setModal(false);
+  const handleAlertClose = () => {
+    setAlertState({ open: false, message: "", type: "success" });
   };
 
-  const roomArray = [
-    { key: "1", text: 101, value: 101 },
-    { key: "2", text: 102, value: 102 },
-    { key: "3", text: 103, value: 103 },
-    { key: "4", text: 104, value: 104 },
-    { key: "5", text: 105, value: 105 },
-    { key: "6", text: 201, value: 201 },
-    { key: "7", text: 202, value: 202 },
-    { key: "8", text: 203, value: 203 },
-    { key: "9", text: 204, value: 204 },
-    { key: "10", text: 205, value: 205 },
-  ];
+  const [arrayRooms, setArrayRooms] = useState([]);
+  // const [roomValue, setRoomValue] = useState([]);
+
+  const handleMultiple = (event) => {
+    // console.log(event);
+    setPersonName(event);
+  };
+
+  // React.useEffect(() => {
+  //   console.log(personName);
+  //   // console.log("room value: ", roomValue);
+  //   console.log("array of rooms", arrayRooms);
+  // }, [handleMultiple]);
+
+  const checkout = async () => {
+    // setModal(false);
+    // const { sub } = handleMultiple();
+    // console.log(personName);
+    const room = personName.map((doc) => doc.value);
+
+    // console.log("room sent: ", room);
+    const rooms = {
+      rooms: room,
+    };
+    const tokenData = localStorage.getItem("access-token");
+    const token = JSON.stringify(tokenData);
+    const headers = {
+      Authorization: `Bearer ${token.slice(1, -1)}`,
+    };
+    if (personName.length > 0) {
+      // console.log(form);
+      try {
+        const res = await axios.post(
+          `${process.env.REACT_APP_PUBLIC_URL}admin/upcoming-bookings-checkin/${num}`,
+          rooms,
+          {
+            headers: headers,
+          }
+        );
+        if (res) {
+          console.log(res.data);
+          setModal(false);
+          // console.log(popup);
+          setPersonName([]);
+          setPopup({});
+          window.location.reload();
+          // setForm({});
+        }
+      } catch (err) {
+        // console.log(name);
+        console.log(err);
+        setModal(false);
+        alert("error");
+      }
+    }
+  };
+
+  React.useEffect(async () => {
+    // setModal(false);
+    // console.log(personName);
+    const tokenData = localStorage.getItem("access-token");
+    const token = JSON.stringify(tokenData);
+    const headers = {
+      Authorization: `Bearer ${token.slice(1, -1)}`,
+    };
+    // console.log(form);
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_PUBLIC_URL}admin/available-rooms?checkin_date=2021-12-06&checkout_date=2021-12-07`,
+        {
+          headers: headers,
+        }
+      );
+      if (res) {
+        // console.log(res.data.data);
+        // setModal(false);
+        setRoomArray([...res.data.data]);
+        // console.log(popup);
+        // setForm({});
+      }
+    } catch (err) {
+      // console.log(name);
+      console.log(err);
+      // setModal(false);
+    }
+  }, []);
 
   const selectedArray = [
     { key: "1", text: "Executive", value: "Executive" },
     { key: "2", text: "Luxury", value: "Luxury" },
     { key: "3", text: "Paradise", value: "Paradise" },
   ];
+
+  const [cancelModal, setCancelModal] = useState(false);
+
+  const handleCancel = (id) => {
+    setNum(id);
+    setCancelModal(true);
+  };
+
+  const Canceled = async () => {
+    const tokenData = localStorage.getItem("access-token");
+    const token = JSON.stringify(tokenData);
+    const headers = {
+      Authorization: `Bearer ${token.slice(1, -1)}`,
+    };
+    // console.log(form);
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_PUBLIC_URL}admin/upcoming-bookings-cancel/${num}`,
+        {},
+        {
+          headers: headers,
+        }
+      );
+      if (res) {
+        console.log(res.data);
+        setCancelModal(false);
+        // setRight(false);
+        // console.log("response msg", res);
+        setSuccess(res.data.success);
+        // console.log(success);
+        const { message = "Booking canceled successfully" } = res.data;
+        setAlertState({ open: true, message, type: "success" });
+        // console.log(popup);
+        // window.location.reload();
+        // setForm({});
+      }
+    } catch (err) {
+      // console.log(err);
+      const {
+        message = "Sorry! We are unable to process your request.",
+        status_code,
+        errors = {},
+      } = (err.response && err.response.data) || {};
+
+      setSuccess(false);
+      console.log(success);
+
+      const errArr = Object.keys(errors);
+      if (status_code === 422 && errArr.length) {
+        const error = {};
+        errArr.forEach((key) => (error[key] = errors[key][0]));
+        setError(error);
+      } else {
+        setAlertState({ open: true, message, type: "error" });
+      }
+      setCancelModal(false);
+    }
+  };
+
+  React.useEffect(() => {
+    if (roomArray.length > 0) {
+      setArrayRooms(
+        roomArray.map((doc) => ({ value: doc.id, label: doc.room }))
+      );
+    }
+  }, [roomArray]);
 
   return (
     <>
@@ -432,32 +642,123 @@ const UpBack = () => {
               <th>Guest Name</th>
               <th>Mobile No.</th>
               <th>Email</th>
-              <th>Check-in</th>
               <th>
-                <p>Check-out</p>
+                Check-in
+                <div
+                  className="dateFil"
+                  // style={{ opacity: "0", width: "15px", height: "20px", cursor:"pointer" }}
+                >
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <DatePicker
+                      // disablePast={true}
+                      label={`Check-in`}
+                      value={startDate}
+                      onChange={setStartDate}
+                      inputVariant="outlined"
+                      format="E, dd MMM"
+                      animateYearScrolling
+                    />
+                  </MuiPickersUtilsProvider>
+                </div>
               </th>
+              <th
+                className={`${
+                  moment(new Date()).format("YYYY-MM-DD") !==
+                    moment(startDate).format("YYYY-MM-DD") ||
+                  moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
+                    moment(endDate).format("YYYY-MM-DD") ||
+                  searched !== ""
+                    ? "p"
+                    : ""
+                }`}
+              >
+                Check-out
+                <div
+                  className="dateFil"
+                  // style={{ opacity: "0.3", width: "15px", height: "20px", cursor:"pointer" }}
+                >
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <DatePicker
+                      // disablePast={true}
+                      label={`Check-out`}
+                      minDate={startDate}
+                      value={endDate}
+                      onChange={setEndDate}
+                      inputVariant="outlined"
+                      format="E, dd MMM"
+                      animateYearScrolling
+                    />
+                  </MuiPickersUtilsProvider>
+                </div>
+              </th>
+              <th>Guests</th>
+              <th>Rooms</th>
               <th>Package type</th>
             </tr>
             {array.map((doc) => (
-              <tr>
-                <td>{doc.name}</td>
-                <td>{doc.phone}</td>
-                <td>{doc.mail}</td>
-                <td>{moment(doc.check_in).format("DD MMM YYYY")}</td>
-                <td>{moment(doc.check_out).format("DD MMM YYYY")}</td>
-                <td>{doc.pack}</td>
+              <tr key={doc.id}>
+                <td>{doc.user.name}</td>
+                <td>{doc.user.mobile}</td>
+                <td>{doc.user.email}</td>
+                <td>{moment(doc.checkin_date).format("DD MMM YYYY")}</td>
+                <td>{moment(doc.checkout_date).format("DD MMM YYYY")}</td>
+                <td>{`${doc.number_of_guests} ${
+                  doc.number_of_guests === 1 ? `guest` : `guests`
+                }`}</td>
+                <td>{`${doc.number_of_rooms} ${
+                  doc.number_of_rooms === 1 ? `room` : `rooms`
+                }`}</td>
+                <td>{doc.package.name}</td>
                 <td>
                   <Status
                     // setOpen={setOpen}
                     // open={open}
+                    // status={doc.payment_status}
                     handleSettings={handleSettings}
                     handleCheck={handleCheck}
-                    room={doc.room}
+                    handleCancel={handleCancel}
+                    room={doc.id}
                   />
                 </td>
               </tr>
             ))}
           </table>
+          <Modal
+            className="modalBack"
+            open={cancelModal}
+            onClose={() => {
+              setCancelModal(false);
+            }}
+          >
+            <div className="box">
+              <div className="head">
+                <p>Confirmation</p>
+                <img
+                  className="img"
+                  src={clear}
+                  alt="cancel"
+                  onClick={() => setCancelModal(false)}
+                />
+              </div>
+              <div className="body">
+                <p>
+                  Are you sure you want to cancel this booking? You cannot undo
+                  this.
+                </p>
+                <div className="bottom">
+                  <button
+                    className="loginBtn"
+                    onClick={() => setCancelModal(false)}
+                  >
+                    Go back
+                  </button>
+                  <button className="btn" onClick={Canceled}>
+                    Cancel booking
+                  </button>
+                </div>
+              </div>
+            </div>
+          </Modal>
           <Modal
             className="modalBack"
             open={open}
@@ -547,14 +848,25 @@ const UpBack = () => {
                   <Dropdown
                     selection
                     defaultValue={selected}
-                    onChange={(e) => setSelected(e.target.value)}
+                    onChange={(e) => {
+                      setSelected(e.target.innerText);
+                      if (e.target.innerText === "Paradise") {
+                        setPackid(3);
+                      }
+                      if (e.target.innerText === "Luxury") {
+                        setPackid(2);
+                      }
+                      if (e.target.innerText === "Executive") {
+                        setPackid(1);
+                      }
+                    }}
                     button
                     fluid
                     className="d"
                     options={selectedArray}
                   ></Dropdown>
                 </div>
-                <div className="select">
+                {/* <div className="select">
                   <h5>Room No.</h5>
                   <Dropdown
                     selection
@@ -565,6 +877,34 @@ const UpBack = () => {
                     className="d"
                     options={roomArray}
                   ></Dropdown>
+                </div> */}
+                <div className="text-input">
+                  <input
+                    value={guest}
+                    type="number"
+                    className="input"
+                    name="guest"
+                    onChange={handleChange}
+                    pattern="^([0-9]{10})$"
+                    required
+                  />
+                  <label htmlFor="guest" className="input-placeholder">
+                    No. of guests.
+                  </label>
+                </div>
+                <div className="text-input">
+                  <input
+                    value={room}
+                    type="number"
+                    className="input"
+                    name="room"
+                    onChange={handleChange}
+                    pattern="^([0-9]{10})$"
+                    required
+                  />
+                  <label htmlFor="room" className="input-placeholder">
+                    No. of rooms.
+                  </label>
                 </div>
                 <button className="btn" type="submit">
                   Save Changes
@@ -612,18 +952,35 @@ const UpBack = () => {
                 </div>
                 <div className="top">
                   <div className="internal">
-                    <p>Room No.:</p>
-                    <Dropdown
-                      selection
-                      defaultValue={number}
-                      onChange={(e) => setNumber(e.target.value)}
-                      button
-                      fluid
-                      className="p"
-                      options={roomArray}
-                    ></Dropdown>
+                    <p>Guests:</p>
+                    <h5>{`${form.guest} ${
+                      form.guest === 1 ? `guest` : `guests`
+                    }`}</h5>
                   </div>
-                  <div className="internal" style={{ opacity: "0" }}>
+                  <div className="internal">
+                    <p>Rooms:</p>
+                    <h5>{`${form.roomNo} ${
+                      form.roomNo === 1 ? `room` : `rooms`
+                    }`}</h5>
+                  </div>
+                </div>
+                <div className="top">
+                  <div className="internal" style={{ width: "85%" }}>
+                    <p>Alloted Rooms</p>
+                    <ReactSelect
+                      options={arrayRooms}
+                      isMulti
+                      closeMenuOnSelect={false}
+                      hideSelectedOptions={false}
+                      components={{
+                        Option,
+                      }}
+                      onChange={handleMultiple}
+                      allowSelectAll={false}
+                      value={personName}
+                    />
+                  </div>
+                  <div className="internal" style={{ display: "none" }}>
                     <p>Room No.:</p>
                     <h5>{form.room}</h5>
                   </div>
@@ -639,6 +996,20 @@ const UpBack = () => {
               </div>
             </div>
           </Modal>
+          <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+            open={alertState.open}
+            onClose={handleAlertClose}
+            autoHideDuration={5000}
+          >
+            <Alert
+              onClose={handleAlertClose}
+              severity={alertState.type}
+              variant="filled"
+            >
+              {alertState.message}
+            </Alert>
+          </Snackbar>
         </div>
         <NewMember draw={draw} setDraw={setDraw} />
       </div>

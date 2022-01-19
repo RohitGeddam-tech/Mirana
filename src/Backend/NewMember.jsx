@@ -7,6 +7,7 @@ import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { Dropdown } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import axios from "axios";
+import moment from "moment";
 
 const NewMember = ({ draw, setDraw }) => {
   const [name, setName] = useState("");
@@ -72,22 +73,24 @@ const NewMember = ({ draw, setDraw }) => {
     }
   };
 
+  const [packid, setPackid] = useState(0);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(phone.length);
-    console.log(phone);
-    console.log("phoneInvalid", phoneInvalid);
-    if (!(nameInvalid && mailInvalid) && phone.length === 10) {
+    // console.log(phone.length);
+    // console.log(phone);
+    // console.log("phoneInvalid", phoneInvalid);
+    if (!(nameInvalid && mailInvalid) && phone.length > 8) {
       setRight(true);
       setPopup({
         name: name,
-        phone: phone,
-        mail: mail,
-        check_in: date1,
-        check_out: date2,
-        pack: selected,
-        room: number,
-        guest: guest,
+        mobile: phone,
+        email: mail,
+        checkin_date: moment(date1).format("YYYY-MM-DD"),
+        checkout_date: moment(date2).format("YYYY-MM-DD"),
+        package: packid,
+        number_of_rooms: number,
+        number_of_guests: guest,
       });
       setDraw(false);
     } else {
@@ -97,7 +100,7 @@ const NewMember = ({ draw, setDraw }) => {
   };
 
   const addData = async () => {
-    const tokenData = localStorage.getItem("accessToken");
+    const tokenData = localStorage.getItem("access-token");
     const token = JSON.stringify(tokenData);
     const headers = {
       Authorization: `Bearer ${token.slice(1, -1)}`,
@@ -115,8 +118,10 @@ const NewMember = ({ draw, setDraw }) => {
         if (res) {
           console.log(res.data.data);
           // setStart(false);
+          setPopup({});
+          setDraw(false);
           // console.log(popup);
-          // window.location.reload();
+          window.location.reload();
           // setForm({});
         }
       } catch (err) {
@@ -127,22 +132,12 @@ const NewMember = ({ draw, setDraw }) => {
   };
 
   React.useEffect(() => {
-    console.log("new member: ", popup)
-    addData();
+    // console.log("new member: ", popup);
+    if (popup && Object.entries(popup).length > 0) {
+      console.log("new member: ", popup);
+      addData();
+    }
   }, [handleSubmit]);
-
-  const roomArray = [
-    { key: "1", text: "101", value: "101" },
-    { key: "2", text: "102", value: "102" },
-    { key: "3", text: "103", value: "103" },
-    { key: "4", text: "104", value: "104" },
-    { key: "5", text: "105", value: "105" },
-    { key: "6", text: "201", value: "201" },
-    { key: "7", text: "202", value: "202" },
-    { key: "8", text: "203", value: "203" },
-    { key: "9", text: "204", value: "204" },
-    { key: "10", text: "205", value: "205" },
-  ];
 
   const selectedArray = [
     { key: "1", text: "Executive", value: "Executive" },
@@ -244,7 +239,18 @@ const NewMember = ({ draw, setDraw }) => {
                 selection
                 defaultValue={selected}
                 placeholder="Package Type"
-                onChange={(e) => setSelected(e.target.innerText)}
+                onChange={(e) => {
+                  setSelected(e.target.innerText);
+                  if (e.target.innerText === "Paradise") {
+                    setPackid(3);
+                  }
+                  if (e.target.innerText === "Luxury") {
+                    setPackid(2);
+                  }
+                  if (e.target.innerText === "Executive") {
+                    setPackid(1);
+                  }
+                }}
                 button
                 fluid
                 className="d"

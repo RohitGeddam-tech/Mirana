@@ -148,9 +148,9 @@ const NewHeader = () => {
                 >
                   Book Now
                 </NavHashLink>
-                {/* <a style={{ marginLeft: "20px" }}>
+                <a style={{ marginLeft: "20px" }}>
                   <LoginBtn close={`loginBtn`} cancel={true} />
-                </a> */}
+                </a>
               </div>
             </div>
           </div>

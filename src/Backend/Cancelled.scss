@@ -149,6 +149,21 @@
           color: #919eab;
           padding-bottom: 5px;
           text-align: start;
+          position: relative;
+          &.p {
+            // width: 80%;
+            // font-size: 14px;
+            // line-height: 16px;
+            padding-top: 6px !important;
+            padding-left: 6px !important;
+            top: -3px !important;
+            background: rgba(186, 127, 69, 0.2);
+            border-radius: 3px;
+            font-weight: bold;
+            // height: 28px;
+            // margin: 0;
+            color: #ba7f45;
+          }
           &:nth-child(1) {
             padding-left: 25px;
           }
@@ -495,7 +510,7 @@
             }
           }
         }
-        &:nth-child(4) {
+        &:last-child {
           td {
             border-bottom-color: transparent;
           }

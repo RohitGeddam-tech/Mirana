@@ -104,30 +104,11 @@ const Status = ({
 };
 
 const UpBack = () => {
-  const [open, setOpen] = useState(false);
-  const [down, setDown] = useState(false);
-  const [modal, setModal] = useState(false);
   const [search, setSearch] = useState("");
   const [searched, setSearched] = useState("");
-  const [sel, setSel] = useState("");
-  const [selected, setSelected] = useState("");
-  const [door, setDoor] = useState();
-  const [array, setArray] = useState([...data]);
-  const [form, setForm] = useState([]);
-  const [popup, setPopup] = useState([]);
-  const [error, setError] = useState({});
-  const [date1, setDate1] = useState(new Date());
-  const [date2, setDate2] = useState(new Date());
-  const [stat, setStat] = useState(false);
-  const [number, setNumber] = useState("");
-  const [num, setNum] = useState(false);
-  const [name, setName] = useState("");
-  const [mail, setMail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [nameInvalid, setNameInvalid] = useState(false);
-  const [phoneInvalid, setPhoneInvalid] = useState(false);
-  const [mailInvalid, setMailInvalid] = useState(false);
-  const [right, setRight] = useState(false);
+  const [array, setArray] = useState([]);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const [draw, setDraw] = useState(false);
 
   const handleSearch = (e) => {
@@ -142,41 +123,10 @@ const UpBack = () => {
     return () => clearTimeout(timer);
   }, [search]);
 
-  const fetchData = async () => {
-    const tokenData = localStorage.getItem("access-token");
-    const token = JSON.stringify(tokenData);
-    console.log(token.slice(1, -1));
-    const headers = {
-      Authorization: `Bearer ${token.slice(1, -1)}`,
-    };
-    if (
-      localStorage.getItem("role") !== null &&
-      localStorage.getItem("role") === "admin"
-    ) {
-      axios
-        .get(`${process.env.REACT_APP_PUBLIC_URL}admin/cancelled-bookings`, {
-          headers: headers,
-        })
-        .then((res) => {
-          if (res) {
-            const info = res.data.data;
-            console.log("response user profile msg", info);
-            console.log("file array state1: ", array.length);
-            setArray([...info]);
-            console.log("file array state2: ", array.length);
-            console.log("file array state: ", array);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  };
-
   const getData = async () => {
     const tokenData = localStorage.getItem("access-token");
     const token = JSON.stringify(tokenData);
-    console.log(token.slice(1, -1));
+    // console.log(token.slice(1, -1));
     const headers = {
       Authorization: `Bearer ${token.slice(1, -1)}`,
     };
@@ -186,13 +136,26 @@ const UpBack = () => {
     ) {
       axios
         .get(
-          `${
-            process.env.REACT_APP_PUBLIC_URL
-          }admin/cancelled-bookings?checkin_date=${moment(date1).format(
-            "YYYY-MM-DD"
-          )}&checkout_date=${moment(date2).format("YYYY-MM-DD")}${
-            searched !== "" ? `&search=${searched}` : ""
-          }`,
+          `${process.env.REACT_APP_PUBLIC_URL}admin/canceled-bookings${
+            moment(new Date()).format("YYYY-MM-DD") !==
+              moment(startDate).format("YYYY-MM-DD") ||
+            moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
+              moment(endDate).format("YYYY-MM-DD") ||
+            searched !== ""
+              ? "?"
+              : ""
+          }${
+            (moment(new Date()).format("YYYY-MM-DD") !==
+              moment(startDate).format("YYYY-MM-DD") ||
+              moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
+                moment(endDate).format("YYYY-MM-DD")) &&
+            moment(endDate).format("YYYY-MM-DD") >
+              moment(startDate).format("YYYY-MM-DD")
+              ? `checkin_date=${moment(startDate).format(
+                  "YYYY-MM-DD"
+                )}&checkout_date=${moment(endDate).format("YYYY-MM-DD")}`
+              : ""
+          }${searched !== "" ? `&search=${searched}` : ""}`,
           {
             headers: headers,
           }
@@ -200,11 +163,11 @@ const UpBack = () => {
         .then((res) => {
           if (res) {
             const info = res.data.data;
-            console.log("response user profile msg", info);
-            console.log("file array state1: ", array.length);
+            // console.log("response user profile msg", info);
+            // console.log("file array state1: ", array.length);
             setArray([...info]);
-            console.log("file array state2: ", array.length);
-            console.log("file array state: ", array);
+            // console.log("file array state2: ", array.length);
+            // console.log("file array state: ", array);
           }
         })
         .catch((err) => {
@@ -213,187 +176,27 @@ const UpBack = () => {
     }
   };
 
-  React.useEffect(() => {
-    fetchData();
-  }, []);
-
-  React.useEffect(() => {
-    getData();
-  }, [searched]);
-
-  const handleSelect = (e, room) => {
-    // console.log(e.target.value);
-    setSel(e.target.value);
-    setDoor(room);
-  };
-
-  React.useEffect(() => {
-    array.forEach((members) => {
-      if (members.room === door) {
-        members.status = sel ? sel : members.status;
-        // console.log({ message: "member array updated", members });
-      }
-    });
-    // console.log("handleSelect useEffect is running");
-    setArray(array);
-    // console.log("after change: ", array);
-    return array;
-  }, [handleSelect]);
-
-  const handleSettings = (room) => {
-    array.forEach((members) => {
-      if (members.room === room) {
-        setForm({
-          name: members.name,
-          phone: members.phone,
-          mail: members.mail,
-          check_in: members.check_in,
-          check_out: members.check_out,
-          pack: members.pack,
-          room: members.room,
-          status: members.status,
-        });
-        // console.log({ message: "form array deployed", form });
-        // setModal(true);
-        setOpen(true);
-      }
-    });
-  };
-
-  const handleCheck = (room) => {
-    array.forEach((members) => {
-      if (members.room === room) {
-        setForm({
-          name: members.name,
-          phone: members.phone,
-          mail: members.mail,
-          check_in: members.check_in,
-          check_out: members.check_out,
-          pack: members.pack,
-          room: members.room,
-          status: members.status,
-        });
-        // console.log({ message: "form array deployed", form });
-        setModal(true);
-        // setOpen(true);
-      }
-    });
-  };
-
   // React.useEffect(() => {
-  //   console.log({ message: "form array deployed", form });
-  // }, [handleSettings, modal]);
-
-  Date.prototype.addDays = function (days) {
-    const date = new Date(this.valueOf());
-    date.setDate(date.getDate() + days);
-    return date;
-  };
-  const handleDate = (e) => {
-    setDate1(e);
-  };
-
-  React.useEffect(() => {
-    setDate1(new Date(`${form.check_in}`));
-    // console.log(date1);
-    setDate2(new Date(`${form.check_out}`));
-    // console.log(date2);
-  }, []);
-
-  React.useEffect(() => {
-    // if (popup === []) {
-    setDate1(new Date(`${form.check_in}`));
-    // console.log(date1);
-    setDate2(new Date(`${form.check_out}`));
-    // console.log(date2);
-    setSelected(form.pack);
-    setName(form.name);
-    setNumber(form.room);
-    setPhone(form.phone);
-    setMail(form.mail);
-    // }
-  }, [form]);
+  //   fetchData();
+  // }, []);
 
   React.useEffect(() => {
     if (
-      date1.getTime() === date2.getTime() ||
-      date1.getTime() >= date2.getTime() ||
-      date1.getDate() === date2.getDate()
+      moment(endDate).format("YYYY-MM-DD") <=
+      moment(startDate).format("YYYY-MM-DD")
     ) {
-      setDate2(date1.addDays(1));
+      setEndDate(moment(startDate).add(1, "days").format("YYYY-MM-DD"));
     }
-  }, [handleDate, date1, date2, setDate2, setDate1]);
-
-  const handleChange = (e) => {
-    switch (e.target.name) {
-      case "name":
-        setName(e.target.value);
-        setNameInvalid(!e.target.validity.valid);
-        break;
-      case "phone":
-        setPhone(e.target.value);
-        break;
-      case "mail":
-        setMail(e.target.value);
-        setMailInvalid(!e.target.validity.valid);
-        break;
-      default:
-        break;
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(phone.length);
-    console.log(phone);
-    console.log("phoneInvalid", phoneInvalid);
-    if (!(nameInvalid && mailInvalid) && phone.length === 10) {
-      setRight(true);
-      setPopup({
-        name: name,
-        phone: phone,
-        mail: mail,
-        check_in: date1,
-        check_out: date2,
-        pack: selected,
-        room: number,
-      });
-      setOpen(false);
-    } else {
-      setRight(false);
-      console.log("error submit: ", error);
-    }
-  };
+  }, [startDate, endDate]);
 
   React.useEffect(() => {
-    if (right) {
-      console.log("onForm submit: ", popup);
+    if (
+      moment(endDate).format("YYYY-MM-DD") >
+      moment(startDate).format("YYYY-MM-DD")
+    ) {
+      getData();
     }
-  }, [handleSubmit]);
-
-  const checkout = () => {
-    setDate1(new Date(`${form.check_in}`));
-    setDate2(new Date(`${form.check_out}`));
-    // setSelected(form.pack);
-    setName(form.name);
-    setNumber(form.room);
-    setPhone(form.phone);
-    setMail(form.mail);
-    setModal(false);
-  };
-
-  const roomArray = [
-    { key: "1", text: 101, value: 101 },
-    { key: "2", text: 102, value: 102 },
-    { key: "3", text: 103, value: 103 },
-    { key: "4", text: 104, value: 104 },
-    { key: "5", text: 105, value: 105 },
-    { key: "6", text: 201, value: 201 },
-    { key: "7", text: 202, value: 202 },
-    { key: "8", text: 203, value: 203 },
-    { key: "9", text: 204, value: 204 },
-    { key: "10", text: 205, value: 205 },
-  ];
+  }, [searched, startDate, endDate]);
 
   return (
     <>
@@ -451,242 +254,73 @@ const UpBack = () => {
               <th>Guest Name</th>
               <th>Mobile No.</th>
               <th>Email</th>
-              <th>Check-in</th>
+
               <th>
-                <p>Check-out</p>
+                Check-in
+                <div
+                  className="dateFil"
+                  // style={{ opacity: "0", width: "15px", height: "20px", cursor:"pointer" }}
+                >
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <DatePicker
+                      // disablePast={true}
+                      label={`Check-in`}
+                      value={startDate}
+                      onChange={setStartDate}
+                      inputVariant="outlined"
+                      format="E, dd MMM"
+                      animateYearScrolling
+                    />
+                  </MuiPickersUtilsProvider>
+                </div>
+              </th>
+              <th
+                className={`${
+                  moment(new Date()).format("YYYY-MM-DD") !==
+                    moment(startDate).format("YYYY-MM-DD") ||
+                  moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
+                    moment(endDate).format("YYYY-MM-DD") ||
+                  searched !== ""
+                    ? "p"
+                    : ""
+                }`}
+              >
+                Check-out
+                <div
+                  className="dateFil"
+                  // style={{ opacity: "0.3", width: "15px", height: "20px", cursor:"pointer" }}
+                >
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <DatePicker
+                      // disablePast={true}
+                      label={`Check-out`}
+                      minDate={endDate}
+                      value={endDate}
+                      onChange={setEndDate}
+                      inputVariant="outlined"
+                      format="E, dd MMM"
+                      animateYearScrolling
+                    />
+                  </MuiPickersUtilsProvider>
+                </div>
               </th>
               <th>Package type</th>
               <th>Cancelled on</th>
             </tr>
             {array.map((doc) => (
-              <tr>
-                <td>{doc.name}</td>
-                <td>{doc.phone}</td>
-                <td>{doc.mail}</td>
-                <td>{moment(doc.check_in).format("DD MMM YYYY")}</td>
-                <td>{moment(doc.check_out).format("DD MMM YYYY")}</td>
-                <td>{doc.pack}</td>
-                <td>{moment(doc.cancel).format("DD MMM YYYY")}</td>
+              <tr key={doc.id}>
+                <td>{doc.user.name}</td>
+                <td>{doc.user.mobile}</td>
+                <td>{doc.user.email}</td>
+                <td>{moment(doc.checkin_date).format("DD MMM YYYY")}</td>
+                <td>{moment(doc.checkout_date).format("DD MMM YYYY")}</td>
+                <td>{doc.package.name}</td>
+                {doc.canceled_on !== "" ? (
+                  <td>{moment(doc.canceled_on).format("DD MMM YYYY")}</td>
+                ) : null}
               </tr>
             ))}
           </table>
-          <Modal
-            className="modalBack"
-            open={open}
-            onClose={() => {
-              setOpen(false);
-            }}
-          >
-            <div className="box">
-              <div className="head">
-                <p>Edit Booking</p>
-                <img
-                  className="img"
-                  src={clear}
-                  alt="cancel"
-                  onClick={() => setOpen(false)}
-                />
-              </div>
-              <form className="enterData" onSubmit={handleSubmit}>
-                <div className="text-input">
-                  <input
-                    value={name}
-                    className="input"
-                    name="name"
-                    pattern="^([A-Za-z ,.'`-]{2,30})$"
-                    onChange={handleChange}
-                    type="text"
-                    required
-                  />
-                  <label htmlFor="name" className="input-placeholder">
-                    Guest Name
-                  </label>
-                </div>
-                <div className="text-input">
-                  <input
-                    value={phone}
-                    type="number"
-                    className="input"
-                    name="phone"
-                    onChange={handleChange}
-                    pattern="^([0-9]{10})$"
-                    required
-                  />
-                  <label htmlFor="phone" className="input-placeholder">
-                    Mobile No.
-                  </label>
-                </div>
-                <div className="text-input">
-                  <input
-                    className="input"
-                    value={mail}
-                    name="mail"
-                    onChange={handleChange}
-                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$"
-                    type="email"
-                    required
-                  />
-                  <label htmlFor="mail" className="input-placeholder">
-                    Email
-                  </label>
-                </div>
-                <div className="date">
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <DatePicker
-                      disablePast={true}
-                      label={`Check-in date`}
-                      // minDate={date1}
-                      value={date1}
-                      onChange={handleDate}
-                      inputVariant="outlined"
-                      format="E, dd MMM"
-                      animateYearScrolling
-                    />
-                    <DatePicker
-                      disablePast={true}
-                      label={`Check-out date`}
-                      inputVariant="outlined"
-                      minDate={date1}
-                      format="E, dd MMM"
-                      value={date2}
-                      onChange={setDate2}
-                      animateYearScrolling
-                    />
-                  </MuiPickersUtilsProvider>
-                </div>
-                <div className="select">
-                  <h5>Package Type</h5>
-                  <p onClick={() => setStat(!stat)}>
-                    {selected}{" "}
-                    <span className="spanRight">
-                      <img src={below} alt="down" />
-                    </span>
-                  </p>
-                  {stat ? (
-                    <div className="opt">
-                      <input
-                        type="button"
-                        value="Executive"
-                        onClick={(e) => {
-                          setSelected(e.target.value);
-                          setStat(false);
-                        }}
-                      />
-                      <input
-                        type="button"
-                        value="Luxury"
-                        onClick={(e) => {
-                          setSelected(e.target.value);
-                          setStat(false);
-                        }}
-                      />
-                      <input
-                        type="button"
-                        value="Paradise"
-                        onClick={(e) => {
-                          setSelected(e.target.value);
-                          setStat(false);
-                        }}
-                      />
-                    </div>
-                  ) : null}
-                </div>
-                <div className="select">
-                  <h5>Room No.</h5>
-                  <p onClick={() => setNum(!num)}>
-                    {number}{" "}
-                    <span className="spanRight">
-                      <img src={below} alt="down" />
-                    </span>
-                  </p>
-                  {num ? (
-                    <div className="opt">
-                      {roomArray.map((doc) => (
-                        <input
-                          type="button"
-                          value={doc.room}
-                          onClick={(e) => {
-                            setNumber(e.target.value);
-                            setNum(false);
-                          }}
-                        />
-                      ))}
-                    </div>
-                  ) : null}
-                </div>
-                <button className="btn" type="submit">
-                  Save Changes
-                </button>
-              </form>
-            </div>
-          </Modal>
-          <Modal
-            className="modalBack"
-            open={modal}
-            onClose={() => {
-              setModal(false);
-            }}
-          >
-            <div className="box">
-              <div className="head">
-                <p>Allot a room</p>
-                <img
-                  className="img"
-                  src={clear}
-                  alt="cancel"
-                  onClick={() => setModal(false)}
-                />
-              </div>
-              <div className="checkInfo">
-                <div className="top">
-                  <div className="internal">
-                    <p>Name:</p>
-                    <h5>{form.name}</h5>
-                  </div>
-                  <div className="internal">
-                    <p>Package Type:</p>
-                    <h5>{form.pack}</h5>
-                  </div>
-                </div>
-                <div className="top">
-                  <div className="internal">
-                    <p>Check in:</p>
-                    <h5>{moment(form.check_in).format("DD MMM YYYY")}</h5>
-                  </div>
-                  <div className="internal">
-                    <p>Check out:</p>
-                    <h5>{moment(form.check_out).format("DD MMM YYYY")}</h5>
-                  </div>
-                </div>
-                <div className="top">
-                  <div className="internal">
-                    <p>Room No.:</p>
-                    <Dropdown
-                      selection
-                      defaultValue={number}
-                      onChange={(e) => setNumber(e.target.value)}
-                      button
-                      fluid
-                      className="p"
-                      options={roomArray}
-                    ></Dropdown>
-                  </div>
-                  <div className="internal" style={{ opacity: "0" }}>
-                    <p>Room No.:</p>
-                    <h5>{form.room}</h5>
-                  </div>
-                </div>
-                <div className="bottom">
-                  <button className="loginBtn" onClick={() => setModal(false)}>
-                    cancel
-                  </button>
-                  <button className="btn" onClick={checkout}>
-                    Checkout
-                  </button>
-                </div>
-              </div>
-            </div>
-          </Modal>
         </div>
         <NewMember draw={draw} setDraw={setDraw} />
       </div>

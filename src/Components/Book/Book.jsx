@@ -32,17 +32,15 @@ const Book = () => {
   const date2numbers = JSON.parse(date2Book);
 
   // const [date1, setDate1] = useState(new Date(`${date1numbers}`));
-  const [date1, setDate1] = useState(
-    moment(new Date(`${date1numbers}`)).format("YYYY-MM-DD")
-  );
-  const [guest, setGuest] = useState(guestnumbers);
-  const [room, setRoom] = useState(roomnumbers);
+  const [date1, setDate1] = useState(moment(new Date()).format("YYYY-MM-DD"));
+  const [guest, setGuest] = useState(1);
+  const [room, setRoom] = useState(1);
   // console.log(room, guest);
   const [data, setData] = useState({});
   const [on, setOn] = useState(false);
   // const [date2, setDate2] = useState(new Date(`${date2numbers}`));
   const [date2, setDate2] = useState(
-    moment(new Date(`${date2numbers}`)).format("YYYY-MM-DD")
+    moment(new Date()).add(1, "days").format("YYYY-MM-DD")
   );
   const [num, setNum] = useState(0);
   const [exec, setExec] = useState("");
@@ -85,12 +83,17 @@ const Book = () => {
   };
 
   React.useEffect(() => {
-    if (sessionStorage.getItem("guestData") === null) {
+    if (sessionStorage.getItem("guestData") !== null) {
+      console.log("moemnt");
+    }
+    if (sessionStorage.getItem("guestData") !== null) {
       // console.log("react usestae is running");
-      setGuest(1);
-      setRoom(1);
-      setDate2(moment(new Date()).add(1, "days").format("YYYY-MM-DD"));
-      setDate1(moment(new Date()).format("YYYY-MM-DD"));
+      setGuest(guestnumbers);
+      setRoom(roomnumbers);
+      // setDate1(moment(new Date()).format("YYYY-MM-DD"));
+      setDate1(moment(new Date(`${date1numbers}`)).format("YYYY-MM-DD"));
+      setDate2(moment(new Date(`${date2numbers}`)).format("YYYY-MM-DD"));
+      console.log(date1, date2);
     }
     // else {
     //   setGuest(guestnumbers);
@@ -112,6 +115,8 @@ const Book = () => {
     }
   }, [handleChange, date1, date2, setDate2, setDate1]);
 
+  const [roomApi, setRoomApi] = useState(1);
+
   React.useEffect(() => {
     if (
       moment(date1).format("YYYY-MM-DD") < moment(date2).format("YYYY-MM-DD")
@@ -120,7 +125,7 @@ const Book = () => {
         .get(
           `${
             process.env.REACT_APP_PUBLIC_URL
-          }room-packages?number_of_rooms=${room}&checkin_date=${moment(
+          }room-packages?number_of_rooms=${roomApi}&checkin_date=${moment(
             date1
           ).format("YYYY-MM-DD")}&checkout_date=${moment(date2).format(
             "YYYY-MM-DD"
@@ -137,7 +142,7 @@ const Book = () => {
           console.log(err);
         });
     }
-  }, [room, date1, date2]);
+  }, [roomApi, date1, date2]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -421,7 +426,14 @@ const Book = () => {
                   adult (at additional cost)
                 </p>
                 <div className="bottom">
-                  <button className="btn" onClick={() => setOn(false)}>
+                  <button
+                    className="btn"
+                    onClick={() => {
+                      setOn(false);
+                      setRoomApi(room);
+                      console.log("clicked on proceed");
+                    }}
+                  >
                     Proceed
                   </button>
                 </div>

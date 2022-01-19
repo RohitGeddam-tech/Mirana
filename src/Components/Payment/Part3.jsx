@@ -8,29 +8,11 @@ import { NavHashLink } from "react-router-hash-link";
 import moment from "moment";
 
 const Part3 = () => {
-  const dataBook = sessionStorage.getItem("bookData");
-  const dataMoney = sessionStorage.getItem("bookMoney");
-  const dataName = sessionStorage.getItem("nameData");
-  const dataPhone = sessionStorage.getItem("phoneData");
-  const dataMail = sessionStorage.getItem("mailData");
-  const guestBook = sessionStorage.getItem("guestData");
-  const roomBook = sessionStorage.getItem("roomData");
-  const date1Book = sessionStorage.getItem("date1Data");
-  const date2Book = sessionStorage.getItem("date2Data");
-  const pack = JSON.parse(dataBook);
-  const money = JSON.parse(dataMoney);
-  const name = JSON.parse(dataName);
-  const mail = JSON.parse(dataMail);
-  const phone = JSON.parse(dataPhone);
-  const guest = JSON.parse(guestBook);
-  const room = JSON.parse(roomBook);
-  const date1numbers = JSON.parse(date1Book);
-  const date2numbers = JSON.parse(date2Book);
-  const date1 = moment(date1numbers).format("DD MMM YYYY");
-  const date2 = moment(date2numbers).format("DD MMM YYYY");
+  const dataInfo = sessionStorage.getItem("dataInfo");
+  const dataMap = JSON.parse(dataInfo);
   // sessionStorage.clear();
   React.useEffect(() => {
-    if (sessionStorage.getItem("bookMoney") === null) {
+    if (localStorage.getItem("next") === null) {
       // alert("Please select the Package");
       window.location.href = "/Book#top";
     }
@@ -39,38 +21,38 @@ const Part3 = () => {
   const data = [
     {
       label: "Name",
-      value: name,
+      value: dataMap.name,
     },
     {
       label: "Mobile Number",
-      value: phone,
+      value: dataMap.mobile,
     },
     {
       label: "Email Address",
-      value: mail,
+      value: dataMap.email,
     },
     {
       label: "Package",
-      value: `${
-        sessionStorage.getItem("bookData") === null ? null : pack.slice(1, -1)
-      } Package`,
+      value: dataMap.package,
     },
     {
       label: "Check in",
-      value: date1,
+      value: dataMap.checkin_date,
     },
     {
       label: "Check out",
-      value: date2,
+      value: dataMap.checkout_date,
     },
     {
       label: "Room Details",
-      value: `${guest} ${guest > 1 ? "adults" : "adult"} ${room}
-      ${room > 1 ? "rooms" : "room"}`,
+      value: `${dataMap.number_of_guests} ${
+        dataMap.number_of_guests > 1 ? "adults" : "adult"
+      } ${dataMap.number_of_rooms}
+      ${dataMap.number_of_rooms > 1 ? "rooms" : "room"}`,
     },
     {
       label: "Room Charges",
-      value: `${money + 540}`,
+      value: `₹ ${dataMap.total_payable_amount}`,
     },
   ];
 

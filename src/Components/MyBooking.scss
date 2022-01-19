@@ -149,6 +149,7 @@
           line-height: 19px;
           text-decoration-line: underline;
           color: #d83621;
+          cursor: pointer;
         }
       }
     }
@@ -162,24 +163,18 @@
       .inform {
         .bottom {
           h5 {
-            color: #3cbb00;
-            background: rgba(60, 187, 0, 0.2);
-          }
-        }
-      }
-    }
-    .third {
-      padding-top: 20px;
-      p {
-        font-weight: bold;
-        font-size: 18px;
-        line-height: 31px;
-      }
-      .inform {
-        .bottom {
-          h5 {
-            color: #d83621;
-            background: rgba(216, 54, 33, 0.2);
+            &.green {
+              color: #3cbb00;
+              background: rgba(60, 187, 0, 0.2);
+            }
+            &.red {
+              color: #d83621;
+              background: rgba(216, 54, 33, 0.2);
+            }
+            &.orange {
+              background: rgba(245, 122, 0, 0.2);
+              color: #f57a00;
+            }
           }
         }
       }

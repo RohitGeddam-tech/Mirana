@@ -63,10 +63,10 @@ const Status = ({ status, handleSelect, room }) => {
 };
 
 const RoomBack = () => {
-  const [yes, setYes] = useState("");
-  const [not, setNot] = useState("");
-  const [book, setBook] = useState("");
-  const [none, setNone] = useState("");
+  // const [yes, setYes] = useState("");
+  // const [not, setNot] = useState("");
+  // const [book, setBook] = useState("");
+  // const [none, setNone] = useState("");
   const [yesactive, setYesactive] = useState(false);
   const [notactive, setNotactive] = useState(false);
   const [bookactive, setBookactive] = useState(false);
