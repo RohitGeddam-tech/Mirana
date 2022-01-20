@@ -96,10 +96,16 @@ const RoomBack = () => {
             date
           ).format("YYYY-MM-DD")}${
             yesactive || notactive || bookactive || noneactive ? "&status=" : ""
-          }${yesactive ? `available` : ""}${yesactive && notactive ? "," : ""}${
-            notactive ? `unavailable` : ""
-          }${bookactive && notactive ? "," : ""}${bookactive ? `booked` : ""}${
-            bookactive && noneactive ? "," : ""
+          }${yesactive ? `available` : ""}${
+            (yesactive && notactive) ||
+            (yesactive && bookactive) ||
+            (yesactive && noneactive)
+              ? ","
+              : ""
+          }${notactive ? `unavailable` : ""}${
+            (bookactive && notactive) || (bookactive && noneactive) ? "," : ""
+          }${bookactive ? `booked` : ""}${
+            (bookactive && noneactive) || (notactive && noneactive) ? "," : ""
           }${noneactive ? `always_unavailable` : ""}`,
           {
             headers: headers,
@@ -108,11 +114,11 @@ const RoomBack = () => {
         .then((res) => {
           if (res) {
             const info = res.data.data;
-            console.log("response user profile msg", info);
-            console.log("file array state1: ", file.length);
+            // console.log("response user profile msg", info);
+            // console.log("file array state1: ", file.length);
             setFile([...info]);
-            console.log("file array state2: ", file.length);
-            console.log("file array state: ", file);
+            // console.log("file array state2: ", file.length);
+            // console.log("file array state: ", file);
           }
         })
         .catch((err) => {

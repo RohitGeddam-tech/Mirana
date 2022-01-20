@@ -989,7 +989,14 @@ const UpBack = () => {
                   <button className="loginBtn" onClick={() => setModal(false)}>
                     cancel
                   </button>
-                  <button className="btn" onClick={checkout}>
+                  <button
+                    className="btn"
+                    disabled={
+                      moment(form.check_in).format("DD MMM YYYY") !==
+                      moment(new Date()).format("DD MMM YYYY")
+                    }
+                    onClick={checkout}
+                  >
                     Checkout
                   </button>
                 </div>
