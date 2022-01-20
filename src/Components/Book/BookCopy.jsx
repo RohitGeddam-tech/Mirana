@@ -430,6 +430,7 @@ const Book = () => {
               open={on}
               onClose={() => {
                 setOn(false);
+                setRoomApi(room);
               }}
             >
               <div className="box">
@@ -437,7 +438,10 @@ const Book = () => {
                   className="img"
                   src={clear}
                   alt="cancel"
-                  onClick={() => setOn(false)}
+                  onClick={() => {
+                    setOn(false);
+                    setRoomApi(room);
+                  }}
                 />
                 <div className="adult">
                   <h1>Adults (12+)</h1>
