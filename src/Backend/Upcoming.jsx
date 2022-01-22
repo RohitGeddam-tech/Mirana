@@ -29,9 +29,9 @@ import { Alert } from "@material-ui/lab";
 import Checkbox from "@material-ui/core/Checkbox";
 import { components } from "react-select";
 import ReactSelect from "react-select";
+import ReactPaginate from "react-paginate";
 
 const Option = (props) => {
-  // console.log("props: ", { ...props });
   return (
     <div>
       <components.Option {...props}>
@@ -82,6 +82,7 @@ const Status = ({
         <Dropdown.Menu>
           {dotData.map((doc) => (
             <Dropdown.Item
+              key={doc.key}
               text={doc.text}
               icon={doc.icon}
               onClick={() => doc.handle(room)}
@@ -129,9 +130,14 @@ const UpBack = () => {
     message: "",
     type: "success",
   });
+  const [current, setCurrent] = useState(1);
+  const [total, setTotal] = useState(0);
+
+  const handlePageClick = (data) => {
+    setCurrent(data.selected + 1);
+  };
 
   const handleSearch = (e) => {
-    // console.log("e value", e);
     setSearch(e.target.value);
   };
 
@@ -160,7 +166,8 @@ const UpBack = () => {
               moment(startDate).format("YYYY-MM-DD") ||
             moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
               moment(endDate).format("YYYY-MM-DD") ||
-            searched !== ""
+            searched !== "" ||
+            current > 0
               ? "?"
               : ""
           }${
@@ -185,6 +192,8 @@ const UpBack = () => {
             // console.log("response user profile msg", info);
             // console.log("file array state1: ", array.length);
             setArray([...info]);
+            setCurrent(res.data.meta.pagination.current_page);
+            setTotal(res.data.meta.pagination.total_pages);
             // console.log("file array state2: ", array.length);
             // console.log("file array state: ", array);
           }
@@ -239,6 +248,33 @@ const UpBack = () => {
     });
   };
 
+  const handleApiRooms = async (check_in, check_out) => {
+    // setModal(false);
+    // console.log(check_in, check_out);
+    const tokenData = localStorage.getItem("access-token");
+    const token = JSON.stringify(tokenData);
+    const headers = {
+      Authorization: `Bearer ${token.slice(1, -1)}`,
+    };
+    try {
+      const res = await axios.get(
+        `${
+          process.env.REACT_APP_PUBLIC_URL
+        }admin/available-rooms?checkin_date=${moment(check_in).format(
+          "YYYY-MM-DD"
+        )}&checkout_date=${moment(check_out).format("YYYY-MM-DD")}`,
+        {
+          headers: headers,
+        }
+      );
+      if (res) {
+        setRoomArray([...res.data.data]);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleCheck = (room) => {
     array.forEach((members) => {
       if (members.id === room) {
@@ -255,6 +291,7 @@ const UpBack = () => {
           guest: members.number_of_guests,
         });
         // console.log({ message: "form array deployed", form });
+        handleApiRooms(members.checkin_date, members.checkout_date);
         setModal(true);
         // setOpen(true);
       }
@@ -354,13 +391,13 @@ const UpBack = () => {
       setOpen(false);
     } else {
       setRight(false);
-      console.log("error submit: ", error);
+      // console.log("error submit: ", error);
     }
   };
 
   const putData = async () => {
     if (right && packid > 0) {
-      console.log("onForm submit: ", popup);
+      // console.log("onForm submit: ", popup);
       const tokenData = localStorage.getItem("access-token");
       const token = JSON.stringify(tokenData);
       // console.log(token.slice(1, -1));
@@ -378,7 +415,7 @@ const UpBack = () => {
             }
           );
           if (res) {
-            console.log(res.data);
+            // console.log(res.data);
             setOpen(false);
             setRight(false);
             // console.log("response msg", res);
@@ -399,7 +436,7 @@ const UpBack = () => {
           } = (err.response && err.response.data) || {};
 
           setSuccess(false);
-          console.log(success);
+          // console.log(success);
 
           const errArr = Object.keys(errors);
           if (status_code === 422 && errArr.length) {
@@ -467,7 +504,7 @@ const UpBack = () => {
           }
         );
         if (res) {
-          console.log(res.data);
+          // console.log(res.data);
           setModal(false);
           // console.log(popup);
           setPersonName([]);
@@ -479,40 +516,10 @@ const UpBack = () => {
         // console.log(name);
         console.log(err);
         setModal(false);
-        alert("error");
+        // alert("error");
       }
     }
   };
-
-  React.useEffect(async () => {
-    // setModal(false);
-    // console.log(personName);
-    const tokenData = localStorage.getItem("access-token");
-    const token = JSON.stringify(tokenData);
-    const headers = {
-      Authorization: `Bearer ${token.slice(1, -1)}`,
-    };
-    // console.log(form);
-    try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_PUBLIC_URL}admin/available-rooms?checkin_date=2021-12-06&checkout_date=2021-12-07`,
-        {
-          headers: headers,
-        }
-      );
-      if (res) {
-        // console.log(res.data.data);
-        // setModal(false);
-        setRoomArray([...res.data.data]);
-        // console.log(popup);
-        // setForm({});
-      }
-    } catch (err) {
-      // console.log(name);
-      console.log(err);
-      // setModal(false);
-    }
-  }, []);
 
   const selectedArray = [
     { key: "1", text: "Executive", value: "Executive" },
@@ -543,7 +550,7 @@ const UpBack = () => {
         }
       );
       if (res) {
-        console.log(res.data);
+        // console.log(res.data);
         setCancelModal(false);
         // setRight(false);
         // console.log("response msg", res);
@@ -564,7 +571,7 @@ const UpBack = () => {
       } = (err.response && err.response.data) || {};
 
       setSuccess(false);
-      console.log(success);
+      // console.log(success);
 
       const errArr = Object.keys(errors);
       if (status_code === 422 && errArr.length) {
@@ -595,23 +602,26 @@ const UpBack = () => {
           <h1>Bookings</h1>
           <div className="Navigation">
             <div className="links">
-              <NavHashLink to="/BookBack#top" activeClassName="activate">
+              <NavHashLink
+                to="/Admin/Bookings/Ongoing#top"
+                activeClassName="activate"
+              >
                 Ongoing
               </NavHashLink>
               <NavHashLink
-                to="/BookBack/upcoming#top"
+                to="/Admin/Bookings/Upcoming#top"
                 activeClassName="activate"
               >
                 Upcoming
               </NavHashLink>
               <NavHashLink
-                to="/BookBack/Completed#top"
+                to="/Admin/Bookings/Completed#top"
                 activeClassName="activate"
               >
                 Completed
               </NavHashLink>
               <NavHashLink
-                to="/BookBack/Cancelled#top"
+                to="/Admin/Bookings/Cancelled#top"
                 activeClassName="activate"
               >
                 Cancelled
@@ -638,91 +648,114 @@ const UpBack = () => {
             </div>
           </div>
           <table className="mainData">
-            <tr>
-              <th>Guest Name</th>
-              <th>Mobile No.</th>
-              <th>Email</th>
-              <th>
-                Check-in
-                <div
-                  className="dateFil"
-                  // style={{ opacity: "0", width: "15px", height: "20px", cursor:"pointer" }}
+            <tbody>
+              <tr>
+                <th>Guest Name</th>
+                <th>Mobile No.</th>
+                <th>Email</th>
+                <th>
+                  Check-in
+                  <div
+                    className="dateFil"
+                    // style={{ opacity: "0", width: "15px", height: "20px", cursor:"pointer" }}
+                  >
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <DatePicker
+                        // disablePast={true}
+                        label={`Check-in`}
+                        value={startDate}
+                        onChange={setStartDate}
+                        inputVariant="outlined"
+                        format="E, dd MMM"
+                        animateYearScrolling
+                      />
+                    </MuiPickersUtilsProvider>
+                  </div>
+                </th>
+                <th
+                  className={`${
+                    moment(new Date()).format("YYYY-MM-DD") !==
+                      moment(startDate).format("YYYY-MM-DD") ||
+                    moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
+                      moment(endDate).format("YYYY-MM-DD") ||
+                    searched !== ""
+                      ? "p"
+                      : ""
+                  }`}
                 >
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <DatePicker
-                      // disablePast={true}
-                      label={`Check-in`}
-                      value={startDate}
-                      onChange={setStartDate}
-                      inputVariant="outlined"
-                      format="E, dd MMM"
-                      animateYearScrolling
-                    />
-                  </MuiPickersUtilsProvider>
-                </div>
-              </th>
-              <th
-                className={`${
-                  moment(new Date()).format("YYYY-MM-DD") !==
-                    moment(startDate).format("YYYY-MM-DD") ||
-                  moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
-                    moment(endDate).format("YYYY-MM-DD") ||
-                  searched !== ""
-                    ? "p"
-                    : ""
-                }`}
-              >
-                Check-out
-                <div
-                  className="dateFil"
-                  // style={{ opacity: "0.3", width: "15px", height: "20px", cursor:"pointer" }}
-                >
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <DatePicker
-                      // disablePast={true}
-                      label={`Check-out`}
-                      minDate={startDate}
-                      value={endDate}
-                      onChange={setEndDate}
-                      inputVariant="outlined"
-                      format="E, dd MMM"
-                      animateYearScrolling
-                    />
-                  </MuiPickersUtilsProvider>
-                </div>
-              </th>
-              <th>Guests</th>
-              <th>Rooms</th>
-              <th>Package type</th>
-            </tr>
-            {array.map((doc) => (
-              <tr key={doc.id}>
-                <td>{doc.user.name}</td>
-                <td>{doc.user.mobile}</td>
-                <td>{doc.user.email}</td>
-                <td>{moment(doc.checkin_date).format("DD MMM YYYY")}</td>
-                <td>{moment(doc.checkout_date).format("DD MMM YYYY")}</td>
-                <td>{`${doc.number_of_guests} ${
-                  doc.number_of_guests === 1 ? `guest` : `guests`
-                }`}</td>
-                <td>{`${doc.number_of_rooms} ${
-                  doc.number_of_rooms === 1 ? `room` : `rooms`
-                }`}</td>
-                <td>{doc.package.name}</td>
-                <td>
-                  <Status
-                    // setOpen={setOpen}
-                    // open={open}
-                    // status={doc.payment_status}
-                    handleSettings={handleSettings}
-                    handleCheck={handleCheck}
-                    handleCancel={handleCancel}
-                    room={doc.id}
-                  />
-                </td>
+                  Check-out
+                  <div
+                    className="dateFil"
+                    // style={{ opacity: "0.3", width: "15px", height: "20px", cursor:"pointer" }}
+                  >
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <DatePicker
+                        // disablePast={true}
+                        label={`Check-out`}
+                        minDate={startDate}
+                        value={endDate}
+                        onChange={setEndDate}
+                        inputVariant="outlined"
+                        format="E, dd MMM"
+                        animateYearScrolling
+                      />
+                    </MuiPickersUtilsProvider>
+                  </div>
+                </th>
+                <th>Guests</th>
+                <th>Rooms</th>
+                <th>Package type</th>
               </tr>
-            ))}
+              {array.map((doc) => (
+                <tr key={doc.id}>
+                  <td>{doc.user.name}</td>
+                  <td>{doc.user.mobile}</td>
+                  <td>{doc.user.email}</td>
+                  <td>{moment(doc.checkin_date).format("DD MMM YYYY")}</td>
+                  <td>{moment(doc.checkout_date).format("DD MMM YYYY")}</td>
+                  <td>{`${doc.number_of_guests} ${
+                    doc.number_of_guests === 1 ? `guest` : `guests`
+                  }`}</td>
+                  <td>{`${doc.number_of_rooms} ${
+                    doc.number_of_rooms === 1 ? `room` : `rooms`
+                  }`}</td>
+                  <td>{doc.package.name}</td>
+                  <td>
+                    <Status
+                      // setOpen={setOpen}
+                      // open={open}
+                      // status={doc.payment_status}
+                      handleSettings={handleSettings}
+                      handleCheck={handleCheck}
+                      handleCancel={handleCancel}
+                      room={doc.id}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
+          <div className="page">
+            <ReactPaginate
+              previousLabel="<<"
+              nextLabel=">>"
+              breakLabel="..."
+              pageCount={total}
+              marginPagesDisplayed={3}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageClick}
+              containerClassName="ui pagination menu out"
+              pageClassName="ui pagination menu in"
+              pageLinkClassName="item"
+              previousClassName="ui pagination menu in prev"
+              previousLinkClassName="item"
+              nextClassName="ui pagination menu in next"
+              nextLinkClassName="item"
+              breakClassName="ui pagination menu in"
+              breakLinkClassName="item"
+              activeLinkClassName="active"
+            />
+          </div>
           <Modal
             className="modalBack"
             open={cancelModal}

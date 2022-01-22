@@ -2,6 +2,7 @@
   width: 79%;
   position: absolute;
   left: 20%;
+  padding-bottom: 50px;
   .drop {
     position: relative;
     float: right;
@@ -117,6 +118,53 @@
         font-size: 14px;
         line-height: 16px;
         color: #919eab;
+      }
+    }
+    .page {
+      margin-top: 18px;
+      display: flex;
+      justify-content: center;
+      .ui.pagination.menu {
+        padding-left: 0;
+        border: 0;
+        background-color: transparent;
+        box-shadow: none;
+        &.out {
+          border-color: transparent;
+          // padding-bottom: 5px;
+          // box-shadow: none;
+          border-radius: 5px;
+          .in {
+            margin: 0 2px;
+            border-radius: 5px;
+            box-shadow: none;
+            border: 1px solid #ba7f45;
+            &.prev {
+              margin-left: 0;
+            }
+            &.next {
+              margin-right: 0;
+            }
+            .item {
+              justify-content: center;
+              padding: 0;
+              border-radius: 4px;
+              color: #ba7f45;
+              &:focus {
+                outline: none;
+              }
+              &:hover {
+                color: white !important;
+                background-color: #ba7f45;
+              }
+              &.active {
+                padding: 0;
+                background-color: #ba7f45;
+                color: white;
+              }
+            }
+          }
+        }
       }
     }
     table.mainData {
@@ -635,11 +683,11 @@
         .internal {
           padding-bottom: 37px;
           width: 170px;
-          .css-1rhbuit-multiValue{
+          .css-1rhbuit-multiValue {
             background-color: #eee;
           }
-          .css-12jo7m5{
-            font-family: "Raleway",sans-serif;
+          .css-12jo7m5 {
+            font-family: "Raleway", sans-serif;
             color: #667c8a;
             font-size: 14px;
           }
@@ -914,6 +962,9 @@
             transform: translate(9px, -7px) scale(0.65);
             background-color: white;
           }
+          .MuiInputBase-input.Mui-disabled{
+            cursor: not-allowed;
+          }
           .MuiFormLabel-root {
             font-family: "Raleway", sans-serif;
             font-style: normal;
@@ -970,6 +1021,11 @@
           line-height: 21px;
           border: 1px solid #667c8a;
           color: #667c8a !important;
+
+          &:disabled {
+            cursor: not-allowed;
+            background-color: transparent;
+          }
 
           &:focus ~ label,
           &:not([value=""]) ~ label {

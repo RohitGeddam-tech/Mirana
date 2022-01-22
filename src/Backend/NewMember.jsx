@@ -77,9 +77,6 @@ const NewMember = ({ draw, setDraw }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(phone.length);
-    // console.log(phone);
-    // console.log("phoneInvalid", phoneInvalid);
     if (!(nameInvalid && mailInvalid) && phone.length > 8) {
       setRight(true);
       setPopup({
@@ -95,7 +92,6 @@ const NewMember = ({ draw, setDraw }) => {
       setDraw(false);
     } else {
       setRight(false);
-      console.log("error submit");
     }
   };
 
@@ -106,7 +102,6 @@ const NewMember = ({ draw, setDraw }) => {
       Authorization: `Bearer ${token.slice(1, -1)}`,
     };
     if (right) {
-      // console.log(form);
       try {
         const res = await axios.post(
           `${process.env.REACT_APP_PUBLIC_URL}admin/bookings`,
@@ -116,25 +111,20 @@ const NewMember = ({ draw, setDraw }) => {
           }
         );
         if (res) {
-          console.log(res.data.data);
           // setStart(false);
           setPopup({});
           setDraw(false);
-          // console.log(popup);
           window.location.reload();
           // setForm({});
         }
       } catch (err) {
-        // console.log(name);
         console.log(err);
       }
     }
   };
 
   React.useEffect(() => {
-    // console.log("new member: ", popup);
     if (popup && Object.entries(popup).length > 0) {
-      console.log("new member: ", popup);
       addData();
     }
   }, [handleSubmit]);

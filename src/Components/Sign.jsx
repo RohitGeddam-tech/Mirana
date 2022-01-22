@@ -11,13 +11,13 @@ const Cancel = ({ draw, setDraw, setLogin }) => {
 
   const otpClick = () => {
     if (!emailInvalid && email !== "") {
-      console.log("email empty", email !== "");
-      console.log("email invalid", !emailInvalid);
+      // console.log("email empty", email !== "");
+      // console.log("email invalid", !emailInvalid);
       setInvalid(true);
     } else {
       setInvalid(false);
     }
-    console.log(emailInvalid, invalid);
+    // console.log(emailInvalid, invalid);
   };
 
   const handleSubmit = (e) => {

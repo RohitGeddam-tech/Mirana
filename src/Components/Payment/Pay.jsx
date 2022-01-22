@@ -152,9 +152,9 @@ const Pay = () => {
           }
         );
         if (res) {
-          console.log("response msg", res);
+          // console.log("response msg", res);
           setSuccess(res.data.success);
-          console.log(success);
+          // console.log(success);
           const { message = "Otp sent successfully" } = res.data;
           setAlertState({ open: true, message, type: "success" });
           setInvalid(true);
@@ -162,7 +162,7 @@ const Pay = () => {
           // }
         }
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         const {
           message = "Sorry! We are unable to process your request.",
           status_code,
@@ -170,7 +170,7 @@ const Pay = () => {
         } = (err.response && err.response.data) || {};
 
         setSuccess(false);
-        console.log(success);
+        // console.log(success);
 
         const errArr = Object.keys(errors);
         if (status_code === 422 && errArr.length) {
@@ -197,7 +197,7 @@ const Pay = () => {
         otp: code,
       });
       //  setBtnLoading(true);
-      console.log(form);
+      // console.log(form);
     } else {
       setValidity(false);
     }
@@ -205,14 +205,14 @@ const Pay = () => {
 
   React.useEffect(() => {
     if (validity) {
-      console.log(form);
+      // console.log(form);
       axios
         .post(`${process.env.REACT_APP_PUBLIC_URL}register`, form)
         .then((res) => {
           if (res) {
             // const info = res.data.data;
             localStorage.clear();
-            console.log("response user profile msg", res.data);
+            // console.log("response user profile msg", res.data);
             localStorage.setItem("access-token", res.data.access_token);
             localStorage.setItem("refresh-token", res.data.refresh_token);
             setNext(true);
@@ -248,7 +248,7 @@ const Pay = () => {
       })
       .then((res) => {
         if (res) {
-          console.log(res.data);
+          // console.log(res.data);
           if (res.data.success) {
             // setAdd(res.data.success);
             sessionStorage.setItem(

@@ -36,10 +36,10 @@ const LoginBtn = ({ close, cancel }) => {
 
   const otpClick = async () => {
     if (!emailInvalid && email !== "") {
-      console.log("email empty", email !== "");
-      console.log("email invalid", !emailInvalid);
+      // console.log("email empty", email !== "");
+      // console.log("email invalid", !emailInvalid);
       setInvalid(true);
-      console.log("state invalid", invalid);
+      // console.log("state invalid", invalid);
       setValidity(true);
       setBtnDisable(true);
     } else {
@@ -49,7 +49,7 @@ const LoginBtn = ({ close, cancel }) => {
       type: "login",
       email: email,
     };
-    console.log(form);
+    // console.log(form);
     if (validity) {
       try {
         const res = await axios.post(
@@ -58,16 +58,16 @@ const LoginBtn = ({ close, cancel }) => {
         );
         // .then((res) => {
         if (res) {
-          console.log("response msg", res);
+          // console.log("response msg", res);
           setSuccess(res.data.success);
-          console.log(success);
+          // console.log(success);
           const { message = "Otp sent successfully" } = res.data;
           setAlertState({ open: true, message, type: "success" });
           setBtnDisable(false);
           // }
         }
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         const {
           message = "Sorry! We are unable to process your request.",
           status_code,
@@ -75,7 +75,7 @@ const LoginBtn = ({ close, cancel }) => {
         } = (err.response && err.response.data) || {};
 
         setSuccess(false);
-        console.log(success);
+        // console.log(success);
 
         const errArr = Object.keys(errors);
         if (status_code === 422 && errArr.length) {
@@ -88,7 +88,7 @@ const LoginBtn = ({ close, cancel }) => {
         setBtnDisable(false);
       }
     }
-    console.log(emailInvalid, invalid);
+    // console.log(emailInvalid, invalid);
   };
 
   useEffect(async () => {
@@ -105,16 +105,16 @@ const LoginBtn = ({ close, cancel }) => {
         );
         // .then((res) => {
         if (res) {
-          console.log("response msg", res);
+          // console.log("response msg", res);
           setSuccess(res.data.success);
-          console.log(success);
+          // console.log(success);
           const { message = "Otp sent successfully" } = res.data;
           setAlertState({ open: true, message, type: "success" });
           setBtnDisable(false);
           // }
         }
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         const {
           message = "Sorry! We are unable to process your request.",
           status_code,
@@ -122,7 +122,7 @@ const LoginBtn = ({ close, cancel }) => {
         } = (err.response && err.response.data) || {};
 
         setSuccess(false);
-        console.log(success);
+        // console.log(success);
 
         const errArr = Object.keys(errors);
         if (status_code === 422 && errArr.length) {
@@ -184,7 +184,7 @@ const LoginBtn = ({ close, cancel }) => {
           window.location.reload();
         }
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         const {
           message = "Sorry! We are unable to process your request.",
           status_code,
@@ -192,7 +192,7 @@ const LoginBtn = ({ close, cancel }) => {
         } = (err.response && err.response.data) || {};
 
         setSuccess(false);
-        console.log(success);
+        // console.log(success);
 
         const errArr = Object.keys(errors);
         if (status_code === 422 && errArr.length) {
@@ -231,7 +231,7 @@ const LoginBtn = ({ close, cancel }) => {
           window.location.reload();
         }
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         const {
           message = "Sorry! We are unable to process your request.",
           status_code,
@@ -239,7 +239,7 @@ const LoginBtn = ({ close, cancel }) => {
         } = (err.response && err.response.data) || {};
 
         setSuccess(false);
-        console.log(success);
+        // console.log(success);
 
         const errArr = Object.keys(errors);
         if (status_code === 422 && errArr.length) {
@@ -284,7 +284,7 @@ const LoginBtn = ({ close, cancel }) => {
             localStorage.setItem("role", info.role);
             sessionStorage.setItem("delete", true);
             if (info.role === "admin") {
-              window.location.href = "/RoomBack#top";
+              window.location.href = "/Admin/Rooms#top";
             }
             setSuccess(res.data.success);
             // console.log(success);

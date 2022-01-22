@@ -32,7 +32,7 @@ const MyBooking = () => {
       .then((res) => {
         if (res) {
           const info = res.data.data;
-          console.log("response user profile msg", info);
+          // console.log("response user profile msg", info);
           setUpcoming([...info.upcoming_bookings]);
           setOther([...info.otherBooking]);
           // window.location.href = "/Part2#top";

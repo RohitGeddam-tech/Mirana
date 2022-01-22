@@ -46,12 +46,12 @@ const Routing = () => {
           <Route path="/Pay" exact component={Pay} />
           <Route path="/Part2" exact component={Part2} />
           <Route path="/Part3" exact component={Part3} />
-          <Route path="/PackagesBack" exact component={PackagesBack} />
-          <Route path="/RoomBack" exact component={RoomBack} />
-          <Route path="/BookBack" exact component={BookBack} />
-          <Route path="/BookBack/Upcoming" exact component={Upcoming} />
-          <Route path="/BookBack/Cancelled" exact component={Cancelled} />
-          <Route path="/BookBack/Completed" exact component={Complete} />
+          <Route path="/Admin/Packages" exact component={PackagesBack} />
+          <Route path="/Admin/Rooms" exact component={RoomBack} />
+          <Route path="/Admin/Bookings/Ongoing" exact component={BookBack} />
+          <Route path="/Admin/Bookings/Upcoming" exact component={Upcoming} />
+          <Route path="/Admin/Bookings/Cancelled" exact component={Cancelled} />
+          <Route path="/Admin/Bookings/Completed" exact component={Complete} />
           <Route path="/MyBookings" exact component={MyBooking} />
         </Switch>
       </>

@@ -17,7 +17,6 @@ import axios from "axios";
 import moment from "moment";
 
 const Status = ({ status, handleSelect, room }) => {
-  // console.log(select);
   const statusData = [
     {
       key: "1",
@@ -82,7 +81,6 @@ const RoomBack = () => {
   const getData = async () => {
     const tokenData = localStorage.getItem("access-token");
     const token = JSON.stringify(tokenData);
-    console.log(token.slice(1, -1));
     const headers = {
       Authorization: `Bearer ${token.slice(1, -1)}`,
     };
@@ -103,7 +101,7 @@ const RoomBack = () => {
               ? ","
               : ""
           }${notactive ? `unavailable` : ""}${
-            (bookactive && notactive) || (bookactive && noneactive) ? "," : ""
+            bookactive && notactive ? "," : ""
           }${bookactive ? `booked` : ""}${
             (bookactive && noneactive) || (notactive && noneactive) ? "," : ""
           }${noneactive ? `always_unavailable` : ""}`,
@@ -114,11 +112,7 @@ const RoomBack = () => {
         .then((res) => {
           if (res) {
             const info = res.data.data;
-            // console.log("response user profile msg", info);
-            // console.log("file array state1: ", file.length);
             setFile([...info]);
-            // console.log("file array state2: ", file.length);
-            // console.log("file array state: ", file);
           }
         })
         .catch((err) => {
@@ -136,9 +130,7 @@ const RoomBack = () => {
   }, [yesactive, notactive, bookactive, noneactive, date]);
 
   const handleSelect = async (e, room) => {
-    console.log(e.target.innerText);
     setSel(e.target.innerText);
-    // console.log(sel);
     setDoor(room);
     setValid(true);
 
@@ -149,23 +141,18 @@ const RoomBack = () => {
 
     if (sel === "Always Unavailable") {
       setSel("always_unavailable");
-      console.log(sel);
     }
 
     const form = {
       date: moment(date).format().slice(0, 10),
       status: sel.toLowerCase(),
     };
-    console.log(form);
     const tokenData = localStorage.getItem("access-token");
     const token = JSON.stringify(tokenData);
-    console.log(token.slice(1, -1));
     const headers = {
       Authorization: `Bearer ${token.slice(1, -1)}`,
     };
-    // console.log(headers);
     if (valid) {
-      // console.log(code);
       try {
         const res = await axios.put(
           `${process.env.REACT_APP_PUBLIC_URL}admin/rooms/${room}`,
@@ -175,7 +162,9 @@ const RoomBack = () => {
           }
         );
         if (res) {
-          console.log(res);
+          // console.log(res);
+          setSel("");
+          // window.location.reload();
         }
       } catch (err) {
         console.log(err);
@@ -211,25 +200,19 @@ const RoomBack = () => {
   // }, [yesactive, notactive, bookactive, notactive]);
 
   React.useEffect(async () => {
-    console.log(sel);
     if (sel === "Always Unavailable") {
       setSel("always_unavailable");
-      console.log(sel);
     }
     const form = {
       date: moment(new Date()).format().slice(0, 10),
       status: sel.toLowerCase(),
     };
-    console.log(form);
     const tokenData = localStorage.getItem("access-token");
     const token = JSON.stringify(tokenData);
-    console.log(token.slice(1, -1));
     const headers = {
       Authorization: `Bearer ${token.slice(1, -1)}`,
     };
-    // console.log(headers);
     if (valid) {
-      // console.log(code);
       try {
         const res = await axios.put(
           `${process.env.REACT_APP_PUBLIC_URL}/admin/rooms/${door}`,
@@ -239,7 +222,9 @@ const RoomBack = () => {
           }
         );
         if (res) {
-          console.log(res);
+          // console.log(res);
+          setSel("");
+          // window.location.reload();
         }
       } catch (err) {
         console.log(err);
@@ -302,16 +287,16 @@ const RoomBack = () => {
             </button>
           </div>
           <table className="mainData">
-            <tr>
-              <th>Room</th>
-              <th>Floor</th>
-              <th>Status</th>
-              <th>Guest Name</th>
-            </tr>
-            {file.length !== 0 ? (
-              <>
-                {file.map((doc) => (
-                  <>
+            <tbody>
+              <tr>
+                <th>Room</th>
+                <th>Floor</th>
+                <th>Status</th>
+                <th>Guest Name</th>
+              </tr>
+              {file.length !== 0 ? (
+                <>
+                  {file.map((doc) => (
                     <tr key={doc.id}>
                       <td>{doc.room}</td>
                       <td>{doc.floor}</td>
@@ -329,11 +314,10 @@ const RoomBack = () => {
                       </td>
                       <td>{doc.name}</td>
                     </tr>
-                    {/* <div className="border"></div> */}
-                  </>
-                ))}
-              </>
-            ) : null}
+                  ))}
+                </>
+              ) : null}
+            </tbody>
           </table>
         </div>
         {/* <Cancel draw={draw} setDraw={setDraw} /> */}

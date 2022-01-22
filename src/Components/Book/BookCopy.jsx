@@ -59,9 +59,9 @@ const Book = () => {
   };
 
   React.useEffect(() => {
-    if (sessionStorage.getItem("guestData") !== null) {
-      console.log("moemnt");
-    }
+    // if (sessionStorage.getItem("guestData") !== null) {
+    //   console.log("moemnt");
+    // }
     if (sessionStorage.getItem("guestData") !== null) {
       // console.log("react usestae is running");
       setGuest(guestnumbers);
@@ -70,7 +70,7 @@ const Book = () => {
       // setDate1(moment(new Date()).format("YYYY-MM-DD"));
       setDate1(moment(new Date(`${date1numbers}`)).format("YYYY-MM-DD"));
       setDate2(moment(new Date(`${date2numbers}`)).format("YYYY-MM-DD"));
-      console.log(date1, date2);
+      // console.log(date1, date2);
     }
   }, []);
 
@@ -95,18 +95,18 @@ const Book = () => {
       date2: date2,
       text: exec,
     });
-    if (
-      moment(date1).format("YYYY-MM-DD") !==
-        moment(date2).format("YYYY-MM-DD") &&
-      date1 !== null &&
-      date2 !== null &&
-      guest !== 0 &&
-      room !== 0
-    ) {
-      console.log("done");
-    } else {
-      console.log("error");
-    }
+    // if (
+    //   moment(date1).format("YYYY-MM-DD") !==
+    //     moment(date2).format("YYYY-MM-DD") &&
+    //   date1 !== null &&
+    //   date2 !== null &&
+    //   guest !== 0 &&
+    //   room !== 0
+    // ) {
+    //   console.log("done");
+    // } else {
+    //   console.log("error");
+    // }
   };
 
   const execSubmit = (id, name, money) => {
@@ -122,7 +122,7 @@ const Book = () => {
       execMoney === "" &&
       execId === 0
     ) {
-      console.log("error data: ", data);
+      console.log("error data");
     } else {
       setValid(true);
     }
@@ -201,7 +201,7 @@ const Book = () => {
 
   React.useEffect(() => {
     if (execValid) {
-      console.log("data link-/: ", data);
+      // console.log("data link-/: ", data);
       // sessionStorage.clear();
       sessionStorage.removeItem("guestData");
       sessionStorage.removeItem("roomData");
@@ -263,8 +263,6 @@ const Book = () => {
       room !== 0
     ) {
       setOn(false);
-    } else {
-      console.log("error", date1, date2, guest, room);
     }
   };
 

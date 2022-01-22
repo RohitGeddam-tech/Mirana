@@ -19,48 +19,7 @@ import { NavHashLink } from "react-router-hash-link";
 import Settings from "./Settings";
 import NewMember from "./NewMember";
 import axios from "axios";
-
-const data = [
-  {
-    name: "Darshan Solat",
-    phone: 9869753456,
-    mail: "darshansawant743@gmail.com",
-    check_in: "2021-10-21",
-    check_out: "2021-10-22",
-    pack: "Luxury",
-    room: `201,204`,
-    status: "Paid",
-    guest: 2,
-    roomNo: 1,
-    money: 4500,
-  },
-  {
-    name: "Kiran Patil",
-    phone: 8108345778,
-    mail: "ksp@gmail.com",
-    check_in: "2021-10-21",
-    check_out: "2021-10-22",
-    pack: "Paradise",
-    room: 205,
-    status: "Pending",
-    guest: 3,
-    roomNo: 2,
-    money: 6000,
-  },
-  {
-    name: "Rohit Geddam",
-    phone: 7977250075,
-    mail: "rohitgeddam0@gmail.com",
-    check_in: "2021-10-21",
-    check_out: "2021-10-22",
-    pack: "Executive",
-    room: 104,
-    status: "Pending",
-    guest: 4,
-    roomNo: 2,
-    money: 9500,
-  },
-];
+import ReactPaginate from "react-paginate";
 
 const statusData = [
   {
@@ -109,6 +68,7 @@ const Status = ({ room, handleSettings, handleCheck }) => {
         <Dropdown.Menu>
           {dotData.map((doc) => (
             <Dropdown.Item
+              key={doc.key}
               text={doc.text}
               icon={doc.icon}
               onClick={() => doc.handle(room)}
@@ -159,9 +119,14 @@ const BookBack = () => {
     message: "",
     type: "success",
   });
+  const [current, setCurrent] = useState(1);
+  const [total, setTotal] = useState(0);
+
+  const handlePageClick = (data) => {
+    setCurrent(data.selected + 1);
+  };
 
   const handleSearch = (e) => {
-    // console.log("e value", e);
     setSearch(e.target.value);
   };
 
@@ -175,7 +140,6 @@ const BookBack = () => {
   const getData = async () => {
     const tokenData = localStorage.getItem("access-token");
     const token = JSON.stringify(tokenData);
-    // console.log(token.slice(1, -1));
     const headers = {
       Authorization: `Bearer ${token.slice(1, -1)}`,
     };
@@ -190,10 +154,11 @@ const BookBack = () => {
               moment(startDate).format("YYYY-MM-DD") ||
             moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
               moment(endDate).format("YYYY-MM-DD") ||
-            searched !== ""
+            searched !== "" ||
+            current > 0
               ? "?"
               : ""
-          }${
+          }page=${current}${
             (moment(new Date()).format("YYYY-MM-DD") !==
               moment(startDate).format("YYYY-MM-DD") ||
               moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
@@ -212,11 +177,9 @@ const BookBack = () => {
         .then((res) => {
           if (res) {
             const info = res.data.data;
-            console.log("response user profile msg", info);
-            console.log("file array state1: ", array.length);
             setArray([...info]);
-            console.log("file array state2: ", array.length);
-            console.log("file array state: ", array);
+            setCurrent(res.data.meta.pagination.current_page);
+            setTotal(res.data.meta.pagination.total_pages);
           }
         })
         .catch((err) => {
@@ -248,27 +211,9 @@ const BookBack = () => {
   }, [searched, startDate, endDate]);
 
   const handleSelect = (e, room) => {
-    // console.log(e);
     setSel(e.target.innerText);
     setDoor(room);
   };
-
-  // React.useEffect(() => {
-  //   console.log(sel);
-  // }, [handleSelect]);
-
-  // React.useEffect(() => {
-  //   array.forEach((members) => {
-  //     if (members.room === door) {
-  //       members.status = sel ? sel : members.status;
-  //       // console.log({ message: "member array updated", members });
-  //     }
-  //   });
-  //   // console.log("handleSelect useEffect is running");
-  //   setArray(array);
-  //   // console.log("after change: ", array);
-  //   return array;
-  // }, [handleSelect]);
 
   const handleSettings = (room) => {
     array.forEach((members) => {
@@ -287,7 +232,6 @@ const BookBack = () => {
           roomNo: members.number_of_rooms,
           guest: members.number_of_guests,
         });
-        // console.log({ message: "form array deployed", form });
         // setModal(true);
         setOpen(true);
         setNum(room);
@@ -312,21 +256,12 @@ const BookBack = () => {
           roomNo: members.number_of_rooms,
           guest: members.number_of_guests,
         });
-        // console.log({ message: "form array deployed", form });
         setModal(true);
         setNum(room);
         // setOpen(true);
       }
     });
   };
-
-  // React.useEffect(() => {
-  //   console.log(form);
-  // }, [modal]);
-
-  // React.useEffect(() => {
-  //   console.log({ message: "form array deployed", form });
-  // }, [handleCheck]);
 
   Date.prototype.addDays = function (days) {
     const date = new Date(this.valueOf());
@@ -339,17 +274,13 @@ const BookBack = () => {
 
   React.useEffect(() => {
     setDate1(new Date(`${form.check_in}`));
-    // console.log(date1);
     setDate2(new Date(`${form.check_out}`));
-    // console.log(date2);
   }, []);
 
   React.useEffect(() => {
     // if (popup === []) {
     setDate1(new Date(`${form.check_in}`));
-    // console.log(date1);
     setDate2(new Date(`${form.check_out}`));
-    // console.log(date2);
     setSelected(form.pack);
     setName(form.name);
     setNumber(form.room);
@@ -396,10 +327,6 @@ const BookBack = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(phone);
-    // console.log('phone number : ', form.phone);
-    // console.log(phone === form.phone);
-    // console.log("phoneInvalid", phone.length === 10 || phone === form.phone);
     if (
       (!(nameInvalid && mailInvalid) && phone.length > 8) ||
       phone === form.phone
@@ -418,21 +345,17 @@ const BookBack = () => {
       setOpen(false);
     } else {
       setRight(false);
-      console.log("error submit: ", error);
     }
   };
 
   const putData = async () => {
     if (right) {
-      // console.log("onForm submit: ", popup);
       const tokenData = localStorage.getItem("access-token");
       const token = JSON.stringify(tokenData);
-      // console.log(token.slice(1, -1));
       const headers = {
         Authorization: `Bearer ${token.slice(1, -1)}`,
       };
       if (right) {
-        // console.log(form);
         try {
           const res = await axios.put(
             `${process.env.REACT_APP_PUBLIC_URL}admin/ongoing-bookings/${num}`,
@@ -442,21 +365,16 @@ const BookBack = () => {
             }
           );
           if (res) {
-            // console.log(res.data.data);
             setOpen(false);
             setRight(false);
-            // console.log("response msg", res);
             setSuccess(res.data.success);
             setPopup([]);
-            // console.log(success);
             const { message = "Booking updated successfully" } = res.data;
             setAlertState({ open: true, message, type: "success" });
-            // console.log(popup);
             setForm({});
             window.location.reload();
           }
         } catch (err) {
-          // console.log(err);
           const {
             message = "Sorry! We are unable to process your request.",
             status_code,
@@ -464,7 +382,6 @@ const BookBack = () => {
           } = (err.response && err.response.data) || {};
 
           setSuccess(false);
-          // console.log(success);
 
           const errArr = Object.keys(errors);
           if (status_code === 422 && errArr.length) {
@@ -497,7 +414,6 @@ const BookBack = () => {
       Authorization: `Bearer ${token.slice(1, -1)}`,
     };
     if (correct) {
-      // console.log(form);
       try {
         const res = await axios.post(
           `${process.env.REACT_APP_PUBLIC_URL}admin/ongoing-bookings-checkout/${num}`,
@@ -512,7 +428,6 @@ const BookBack = () => {
           window.location.reload();
         }
       } catch (err) {
-        // console.log(name);
         console.log(err);
         setModal(false);
       }
@@ -524,7 +439,6 @@ const BookBack = () => {
   }, [correct]);
 
   const checkout = (stat) => {
-    // console.log(sel);
     if (sel !== stat && sel !== "") {
       setCorrect(true);
     }
@@ -558,23 +472,26 @@ const BookBack = () => {
           <h1>Bookings</h1>
           <div className="Navigation">
             <div className="links">
-              <NavHashLink to="/BookBack#top" activeClassName="activate">
+              <NavHashLink
+                to="/Admin/Bookings/Ongoing#top"
+                activeClassName="activate"
+              >
                 Ongoing
               </NavHashLink>
               <NavHashLink
-                to="/BookBack/Upcoming#top"
+                to="/Admin/Bookings/Upcoming#top"
                 activeClassName="activate"
               >
                 Upcoming
               </NavHashLink>
               <NavHashLink
-                to="/BookBack/Completed#top"
+                to="/Admin/Bookings/Completed#top"
                 activeClassName="activate"
               >
                 Completed
               </NavHashLink>
               <NavHashLink
-                to="/BookBack/Cancelled#top"
+                to="/Admin/Bookings/Cancelled#top"
                 activeClassName="activate"
               >
                 Cancelled
@@ -601,92 +518,115 @@ const BookBack = () => {
             </div>
           </div>
           <table className="mainData">
-            <tr>
-              <th>Guest Name</th>
-              <th>Mobile No.</th>
-              <th>Email</th>
-              <th>
-                Check-in
-                <div
-                  className="dateFil"
-                  // style={{ opacity: "0", width: "15px", height: "20px", cursor:"pointer" }}
+            <tbody>
+              <tr>
+                <th>Guest Name</th>
+                <th>Mobile No.</th>
+                <th>Email</th>
+                <th>
+                  Check-in
+                  <div
+                    className="dateFil"
+                    // style={{ opacity: "0", width: "15px", height: "20px", cursor:"pointer" }}
+                  >
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <DatePicker
+                        // disablePast={true}
+                        label={`Check-in`}
+                        value={startDate}
+                        onChange={setStartDate}
+                        inputVariant="outlined"
+                        format="E, dd MMM"
+                        animateYearScrolling
+                      />
+                    </MuiPickersUtilsProvider>
+                  </div>
+                </th>
+                <th
+                  className={`${
+                    moment(new Date()).format("YYYY-MM-DD") !==
+                      moment(startDate).format("YYYY-MM-DD") ||
+                    moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
+                      moment(endDate).format("YYYY-MM-DD") ||
+                    searched !== ""
+                      ? "p"
+                      : ""
+                  }`}
                 >
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <DatePicker
-                      // disablePast={true}
-                      label={`Check-in`}
-                      value={startDate}
-                      onChange={setStartDate}
-                      inputVariant="outlined"
-                      format="E, dd MMM"
-                      animateYearScrolling
-                    />
-                  </MuiPickersUtilsProvider>
-                </div>
-              </th>
-              <th
-                className={`${
-                  moment(new Date()).format("YYYY-MM-DD") !==
-                    moment(startDate).format("YYYY-MM-DD") ||
-                  moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
-                    moment(endDate).format("YYYY-MM-DD") ||
-                  searched !== ""
-                    ? "p"
-                    : ""
-                }`}
-              >
-                Check-out
-                <div
-                  className="dateFil"
-                  // style={{ opacity: "0.3", width: "15px", height: "20px", cursor:"pointer" }}
-                >
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <DatePicker
-                      // disablePast={true}
-                      label={`Check-out`}
-                      minDate={startDate}
-                      value={endDate}
-                      onChange={setEndDate}
-                      inputVariant="outlined"
-                      format="E, dd MMM"
-                      animateYearScrolling
-                    />
-                  </MuiPickersUtilsProvider>
-                </div>
-              </th>
-              <th>Package type</th>
-              <th>Room No.</th>
-              <th>Payment Status</th>
-            </tr>
-            {array.map((doc) => (
-              <tr key={doc.id}>
-                <td>{doc.user.name}</td>
-                <td>{doc.user.mobile}</td>
-                <td>{doc.user.email}</td>
-                <td>{moment(doc.checkin_date).format("DD MMM YYYY")}</td>
-                <td>{moment(doc.checkout_date).format("DD MMM YYYY")}</td>
-                <td>{doc.package.name}</td>
-                <td>{doc.rooms.map((opt) => opt.room).join(", ")}</td>
-                <td>
-                  <span
-                    className={`span ${
-                      doc.payment_status === "Pending" ? "orange" : ""
-                    } ${doc.payment_status === "Paid" ? "green" : ""}`}
-                  ></span>
-                  {doc.payment_status}
-                  <Status
-                    // setOpen={setOpen}
-                    status={doc.payment_status}
-                    // open={open}
-                    handleSettings={handleSettings}
-                    handleSelect={handleSelect}
-                    handleCheck={handleCheck}
-                    room={doc.id}
-                  />
-                </td>
+                  Check-out
+                  <div
+                    className="dateFil"
+                    // style={{ opacity: "0.3", width: "15px", height: "20px", cursor:"pointer" }}
+                  >
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <DatePicker
+                        // disablePast={true}
+                        label={`Check-out`}
+                        minDate={startDate}
+                        value={endDate}
+                        onChange={setEndDate}
+                        inputVariant="outlined"
+                        format="E, dd MMM"
+                        animateYearScrolling
+                      />
+                    </MuiPickersUtilsProvider>
+                  </div>
+                </th>
+                <th>Package type</th>
+                <th>Room No.</th>
+                <th>Payment Status</th>
               </tr>
-            ))}
+              {array.map((doc) => (
+                <tr key={doc.id}>
+                  <td>{doc.user.name}</td>
+                  <td>{doc.user.mobile}</td>
+                  <td>{doc.user.email}</td>
+                  <td>{moment(doc.checkin_date).format("DD MMM YYYY")}</td>
+                  <td>{moment(doc.checkout_date).format("DD MMM YYYY")}</td>
+                  <td>{doc.package.name}</td>
+                  <td>{doc.rooms.map((opt) => opt.room).join(", ")}</td>
+                  <td>
+                    <span
+                      className={`span ${
+                        doc.payment_status === "Pending" ? "orange" : ""
+                      } ${doc.payment_status === "Paid" ? "green" : ""}`}
+                    ></span>
+                    {doc.payment_status}
+                    <Status
+                      // setOpen={setOpen}
+                      status={doc.payment_status}
+                      // open={open}
+                      handleSettings={handleSettings}
+                      handleSelect={handleSelect}
+                      handleCheck={handleCheck}
+                      room={doc.id}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
+          <div className="page">
+            <ReactPaginate
+              previousLabel="<<"
+              nextLabel=">>"
+              breakLabel="..."
+              pageCount={total}
+              marginPagesDisplayed={3}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageClick}
+              containerClassName="ui pagination menu out"
+              pageClassName="ui pagination menu in"
+              pageLinkClassName="item"
+              previousClassName="ui pagination menu in prev"
+              previousLinkClassName="item"
+              nextClassName="ui pagination menu in next"
+              nextLinkClassName="item"
+              breakClassName="ui pagination menu in"
+              breakLinkClassName="item"
+              activeLinkClassName="active"
+            />
+          </div>
           <Modal
             className="modalBack"
             open={open}
@@ -714,6 +654,7 @@ const BookBack = () => {
                     onChange={handleChange}
                     type="text"
                     required
+                    disabled={true}
                   />
                   <label htmlFor="name" className="input-placeholder">
                     Guest Name
@@ -728,6 +669,7 @@ const BookBack = () => {
                     onChange={handleChange}
                     pattern="^([0-9]{10})$"
                     required
+                    disabled={true}
                   />
                   <label htmlFor="phone" className="input-placeholder">
                     Mobile No.
@@ -742,6 +684,7 @@ const BookBack = () => {
                     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$"
                     type="email"
                     required
+                    disabled={true}
                   />
                   <label htmlFor="mail" className="input-placeholder">
                     Email
@@ -758,6 +701,7 @@ const BookBack = () => {
                       inputVariant="outlined"
                       format="E, dd MMM"
                       animateYearScrolling
+                      disabled={true}
                     />
                     <DatePicker
                       // disablePast={true}
@@ -815,6 +759,7 @@ const BookBack = () => {
                     onChange={handleChange}
                     pattern="^([0-9]{10})$"
                     required
+                    disabled={true}
                   />
                   <label htmlFor="guest" className="input-placeholder">
                     No. of guests.
@@ -829,6 +774,7 @@ const BookBack = () => {
                     onChange={handleChange}
                     pattern="^([0-9]{10})$"
                     required
+                    disabled={true}
                   />
                   <label htmlFor="room" className="input-placeholder">
                     No. of rooms.

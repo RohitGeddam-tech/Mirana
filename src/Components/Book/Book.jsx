@@ -83,9 +83,9 @@ const Book = () => {
   };
 
   React.useEffect(() => {
-    if (sessionStorage.getItem("guestData") !== null) {
-      console.log("moemnt");
-    }
+    // if (sessionStorage.getItem("guestData") !== null) {
+    //   console.log("moemnt");
+    // }
     if (sessionStorage.getItem("guestData") !== null) {
       // console.log("react usestae is running");
       setGuest(guestnumbers);
@@ -93,7 +93,7 @@ const Book = () => {
       // setDate1(moment(new Date()).format("YYYY-MM-DD"));
       setDate1(moment(new Date(`${date1numbers}`)).format("YYYY-MM-DD"));
       setDate2(moment(new Date(`${date2numbers}`)).format("YYYY-MM-DD"));
-      console.log(date1, date2);
+      // console.log(date1, date2);
     }
     // else {
     //   setGuest(guestnumbers);

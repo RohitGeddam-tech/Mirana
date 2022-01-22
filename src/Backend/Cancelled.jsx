@@ -19,89 +19,7 @@ import "semantic-ui-css/semantic.min.css";
 import { NavHashLink } from "react-router-hash-link";
 import NewMember from "./NewMember";
 import axios from "axios";
-
-const data = [
-  {
-    name: "Darshan Sawant",
-    phone: 9869753456,
-    mail: "darshansawant743@gmail.com",
-    check_in: "2021-10-21",
-    check_out: "2021-10-22",
-    pack: "Luxury",
-    room: 201,
-    status: "Paid",
-    cancel: "20 Jul 2021",
-  },
-  {
-    name: "Kiran Patil",
-    phone: 8108345778,
-    mail: "ksp@gmail.com",
-    check_in: "2021-10-21",
-    check_out: "2021-10-22",
-    pack: "Paradise",
-    room: 205,
-    status: "Pending",
-    cancel: "13 Jul 2021",
-  },
-  {
-    name: "Rohit Geddam",
-    phone: 7977250075,
-    mail: "rohitgeddam0@gmail.com",
-    check_in: "2021-10-21",
-    check_out: "2021-10-22",
-    pack: "Executive",
-    room: 104,
-    status: "Pending",
-    cancel: "10 Jul 2021",
-  },
-];
-
-const Status = ({
-  status,
-  handleSelect,
-  room,
-  handleSettings,
-  handleCheck,
-}) => {
-  const dotData = [
-    {
-      key: "1",
-      text: "Edit booking",
-      value: "Edit booking",
-      icon: "pencil alternate",
-      handle: handleSettings,
-    },
-    {
-      key: "2",
-      text: "Check in",
-      value: "Checkin",
-      icon: "check",
-      handle: handleCheck,
-    },
-    {
-      key: "3",
-      text: "Cancel Booking",
-      value: "cancel",
-      icon: "cancel",
-      handle: handleCheck,
-    },
-  ];
-  return (
-    <div className="select">
-      <Dropdown icon="ellipsis vertical" className="dots">
-        <Dropdown.Menu>
-          {dotData.map((doc) => (
-            <Dropdown.Item
-              text={doc.text}
-              icon={doc.icon}
-              onClick={() => doc.handle(room)}
-            />
-          ))}
-        </Dropdown.Menu>
-      </Dropdown>
-    </div>
-  );
-};
+import ReactPaginate from "react-paginate";
 
 const UpBack = () => {
   const [search, setSearch] = useState("");
@@ -110,9 +28,14 @@ const UpBack = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [draw, setDraw] = useState(false);
+  const [current, setCurrent] = useState(1);
+  const [total, setTotal] = useState(0);
+
+  const handlePageClick = (data) => {
+    setCurrent(data.selected + 1);
+  };
 
   const handleSearch = (e) => {
-    // console.log("e value", e);
     setSearch(e.target.value);
   };
 
@@ -126,7 +49,6 @@ const UpBack = () => {
   const getData = async () => {
     const tokenData = localStorage.getItem("access-token");
     const token = JSON.stringify(tokenData);
-    // console.log(token.slice(1, -1));
     const headers = {
       Authorization: `Bearer ${token.slice(1, -1)}`,
     };
@@ -141,7 +63,8 @@ const UpBack = () => {
               moment(startDate).format("YYYY-MM-DD") ||
             moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
               moment(endDate).format("YYYY-MM-DD") ||
-            searched !== ""
+            searched !== "" ||
+            current > 0
               ? "?"
               : ""
           }${
@@ -163,11 +86,9 @@ const UpBack = () => {
         .then((res) => {
           if (res) {
             const info = res.data.data;
-            // console.log("response user profile msg", info);
-            // console.log("file array state1: ", array.length);
             setArray([...info]);
-            // console.log("file array state2: ", array.length);
-            // console.log("file array state: ", array);
+            setCurrent(res.data.meta.pagination.current_page);
+            setTotal(res.data.meta.pagination.total_pages);
           }
         })
         .catch((err) => {
@@ -175,10 +96,6 @@ const UpBack = () => {
         });
     }
   };
-
-  // React.useEffect(() => {
-  //   fetchData();
-  // }, []);
 
   React.useEffect(() => {
     if (
@@ -207,23 +124,26 @@ const UpBack = () => {
           <h1>Bookings</h1>
           <div className="Navigation">
             <div className="links">
-              <NavHashLink to="/BookBack#top" activeClassName="activate">
+              <NavHashLink
+                to="/Admin/Bookings/Ongoing#top"
+                activeClassName="activate"
+              >
                 Ongoing
               </NavHashLink>
               <NavHashLink
-                to="/BookBack/upcoming#top"
+                to="/Admin/Bookings/Upcoming#top"
                 activeClassName="activate"
               >
                 Upcoming
               </NavHashLink>
               <NavHashLink
-                to="/BookBack/Completed#top"
+                to="/Admin/Bookings/Completed#top"
                 activeClassName="activate"
               >
                 Completed
               </NavHashLink>
               <NavHashLink
-                to="/BookBack/Cancelled#top"
+                to="/Admin/Bookings/Cancelled#top"
                 activeClassName="activate"
               >
                 Cancelled
@@ -250,77 +170,100 @@ const UpBack = () => {
             </div>
           </div>
           <table className="mainData">
-            <tr>
-              <th>Guest Name</th>
-              <th>Mobile No.</th>
-              <th>Email</th>
+            <tbody>
+              <tr>
+                <th>Guest Name</th>
+                <th>Mobile No.</th>
+                <th>Email</th>
 
-              <th>
-                Check-in
-                <div
-                  className="dateFil"
-                  // style={{ opacity: "0", width: "15px", height: "20px", cursor:"pointer" }}
+                <th>
+                  Check-in
+                  <div
+                    className="dateFil"
+                    // style={{ opacity: "0", width: "15px", height: "20px", cursor:"pointer" }}
+                  >
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <DatePicker
+                        // disablePast={true}
+                        label={`Check-in`}
+                        value={startDate}
+                        onChange={setStartDate}
+                        inputVariant="outlined"
+                        format="E, dd MMM"
+                        animateYearScrolling
+                      />
+                    </MuiPickersUtilsProvider>
+                  </div>
+                </th>
+                <th
+                  className={`${
+                    moment(new Date()).format("YYYY-MM-DD") !==
+                      moment(startDate).format("YYYY-MM-DD") ||
+                    moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
+                      moment(endDate).format("YYYY-MM-DD") ||
+                    searched !== ""
+                      ? "p"
+                      : ""
+                  }`}
                 >
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <DatePicker
-                      // disablePast={true}
-                      label={`Check-in`}
-                      value={startDate}
-                      onChange={setStartDate}
-                      inputVariant="outlined"
-                      format="E, dd MMM"
-                      animateYearScrolling
-                    />
-                  </MuiPickersUtilsProvider>
-                </div>
-              </th>
-              <th
-                className={`${
-                  moment(new Date()).format("YYYY-MM-DD") !==
-                    moment(startDate).format("YYYY-MM-DD") ||
-                  moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
-                    moment(endDate).format("YYYY-MM-DD") ||
-                  searched !== ""
-                    ? "p"
-                    : ""
-                }`}
-              >
-                Check-out
-                <div
-                  className="dateFil"
-                  // style={{ opacity: "0.3", width: "15px", height: "20px", cursor:"pointer" }}
-                >
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <DatePicker
-                      // disablePast={true}
-                      label={`Check-out`}
-                      minDate={endDate}
-                      value={endDate}
-                      onChange={setEndDate}
-                      inputVariant="outlined"
-                      format="E, dd MMM"
-                      animateYearScrolling
-                    />
-                  </MuiPickersUtilsProvider>
-                </div>
-              </th>
-              <th>Package type</th>
-              <th>Cancelled on</th>
-            </tr>
-            {array.map((doc) => (
-              <tr key={doc.id}>
-                <td>{doc.user.name}</td>
-                <td>{doc.user.mobile}</td>
-                <td>{doc.user.email}</td>
-                <td>{moment(doc.checkin_date).format("DD MMM YYYY")}</td>
-                <td>{moment(doc.checkout_date).format("DD MMM YYYY")}</td>
-                <td>{doc.package.name}</td>
-                {doc.canceled_on !== "" ? (
-                  <td>{moment(doc.canceled_on).format("DD MMM YYYY")}</td>
-                ) : null}
+                  Check-out
+                  <div
+                    className="dateFil"
+                    // style={{ opacity: "0.3", width: "15px", height: "20px", cursor:"pointer" }}
+                  >
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <DatePicker
+                        // disablePast={true}
+                        label={`Check-out`}
+                        minDate={endDate}
+                        value={endDate}
+                        onChange={setEndDate}
+                        inputVariant="outlined"
+                        format="E, dd MMM"
+                        animateYearScrolling
+                      />
+                    </MuiPickersUtilsProvider>
+                  </div>
+                </th>
+                <th>Package type</th>
+                <th>Cancelled on</th>
               </tr>
-            ))}
+              {array.map((doc) => (
+                <tr key={doc.id}>
+                  <td>{doc.user.name}</td>
+                  <td>{doc.user.mobile}</td>
+                  <td>{doc.user.email}</td>
+                  <td>{moment(doc.checkin_date).format("DD MMM YYYY")}</td>
+                  <td>{moment(doc.checkout_date).format("DD MMM YYYY")}</td>
+                  <td>{doc.package.name}</td>
+                  {doc.canceled_on !== "" ? (
+                    <td>{moment(doc.canceled_on).format("DD MMM YYYY")}</td>
+                  ) : null}
+                </tr>
+              ))}
+            </tbody>
           </table>
+          <div className="page">
+            <ReactPaginate
+              previousLabel="<<"
+              nextLabel=">>"
+              breakLabel="..."
+              pageCount={total}
+              marginPagesDisplayed={3}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageClick}
+              containerClassName="ui pagination menu out"
+              pageClassName="ui pagination menu in"
+              pageLinkClassName="item"
+              previousClassName="ui pagination menu in prev"
+              previousLinkClassName="item"
+              nextClassName="ui pagination menu in next"
+              nextLinkClassName="item"
+              breakClassName="ui pagination menu in"
+              breakLinkClassName="item"
+              activeLinkClassName="active"
+            />
+          </div>
         </div>
         <NewMember draw={draw} setDraw={setDraw} />
       </div>

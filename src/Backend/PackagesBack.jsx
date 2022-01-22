@@ -9,24 +9,6 @@ import black from "../image/black.png";
 import Settings from "./Settings";
 import axios from "axios";
 
-const pack = [
-  {
-    name: "Executive",
-    room: 4500,
-    food: 500,
-  },
-  {
-    name: "Luxury",
-    room: 4500,
-    food: 2000,
-  },
-  {
-    name: "Paradise",
-    room: 4500,
-    food: 3000,
-  },
-];
-
 const PackagesBack = () => {
   const [data, setData] = useState({});
   const [on, setOn] = useState(false);
@@ -43,7 +25,6 @@ const PackagesBack = () => {
   useEffect(async () => {
     const tokenData = localStorage.getItem("access-token");
     const token = JSON.stringify(tokenData);
-    // console.log(token.slice(1, -1));
     const headers = {
       Authorization: `Bearer ${token.slice(1, -1)}`,
     };
@@ -58,11 +39,7 @@ const PackagesBack = () => {
         .then((res) => {
           if (res) {
             const info = res.data.data;
-            console.log("response user profile msg", info);
-            // console.log("file array state1: ", packed.length);
             setPackage([...info]);
-            // console.log("file array state2: ", packed.length);
-            console.log("pack array state: ", packed);
           }
         })
         .catch((err) => {
@@ -91,11 +68,6 @@ const PackagesBack = () => {
 
   React.useEffect(() => {
     if (on) {
-      console.log("data useState: ", data);
-      console.log("name useState: ", name);
-      console.log("room useState: ", room);
-      console.log("food useState: ", food);
-      console.log("id useState: ", num);
       if (name !== "" && room !== "" && food !== "") {
         setStart(true);
       }
@@ -103,7 +75,6 @@ const PackagesBack = () => {
   }, [data, on]);
 
   const handleChange = (e) => {
-    // console.log("e value", e);
     const value = e.target.value;
     switch (e.target.name) {
       case "name":
@@ -134,9 +105,7 @@ const PackagesBack = () => {
       });
       setStart(false);
       setValid(true);
-      // console.log(form);
     } else {
-      console.log(name);
       setValid(false);
     }
   };
@@ -144,12 +113,10 @@ const PackagesBack = () => {
   React.useEffect(async () => {
     const tokenData = localStorage.getItem("access-token");
     const token = JSON.stringify(tokenData);
-    // console.log(token.slice(1, -1));
     const headers = {
       Authorization: `Bearer ${token.slice(1, -1)}`,
     };
     if (valid) {
-      // console.log(form);
       try {
         const res = await axios.put(
           `${process.env.REACT_APP_PUBLIC_URL}admin/packages/${num}`,
@@ -159,24 +126,15 @@ const PackagesBack = () => {
           }
         );
         if (res) {
-          console.log(res.data.data);
           setStart(false);
-          console.log(form);
           window.location.reload();
           // setForm({});
         }
       } catch (err) {
-        console.log(name);
         console.log(err);
       }
     }
   }, [setForm, setValid, valid, form]);
-
-  // React.useEffect(() => {
-  //   if (on) {
-  //     console.log("form usesTate: ", form);
-  //   }
-  // }, [form, on]);
 
   return (
     <>
@@ -186,15 +144,15 @@ const PackagesBack = () => {
         <div className="contain">
           <h1>Packages</h1>
           <table className="mainData">
-            <tr>
-              <th>Package Name</th>
-              <th>Room Price</th>
-              <th>Food Price</th>
-            </tr>
-            {/* {packed >= 0 ? (
+            <tbody>
+              <tr>
+                <th>Package Name</th>
+                <th>Room Price</th>
+                <th>Food Price</th>
+              </tr>
+              {/* {packed >= 0 ? (
               <> */}
-            {packed.map((doc) => (
-              <>
+              {packed.map((doc) => (
                 <tr key={doc.id}>
                   <td>{doc.name}</td>
                   <td>{doc.room_price}</td>
@@ -208,11 +166,10 @@ const PackagesBack = () => {
                     </button>
                   </td>
                 </tr>
-                {/* <div className="border"></div> */}
-              </>
-            ))}
-            {/* </>
+              ))}
+              {/* </>
             ) : null} */}
+            </tbody>
           </table>
           <Modal
             className="modalBack"

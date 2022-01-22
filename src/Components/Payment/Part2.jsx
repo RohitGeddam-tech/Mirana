@@ -25,7 +25,7 @@ const Part2 = () => {
   const dataMoney = sessionStorage.getItem("bookMoney");
   const money = JSON.parse(dataMoney);
   const data = sessionStorage.getItem("paymentInfo");
-  console.log("paymentInfo: ", JSON.parse(data));
+  // console.log("paymentInfo: ", JSON.parse(data));
   const dataVal = JSON.parse(data);
   const [array, setArray] = useState({});
   // React.useEffect(() => {
@@ -49,7 +49,7 @@ const Part2 = () => {
       .then((res) => {
         if (res) {
           const info = res.data.data;
-          console.log("response user profile msg", info);
+          // console.log("response user profile msg", info);
           setArray({ ...info });
           // window.location.href = "/Part2#top";
         }
@@ -78,9 +78,9 @@ const Part2 = () => {
       name: array.name,
       image: array.image,
       handler: function (res) {
-        console.log("razor-pay: ", res.razorpay_payment_id);
-        console.log("razor-pay: ", res.razorpay_order_id);
-        console.log("razor-pay: ", res.razorpay_signature);
+        // console.log("razor-pay: ", res.razorpay_payment_id);
+        // console.log("razor-pay: ", res.razorpay_order_id);
+        // console.log("razor-pay: ", res.razorpay_signature);
         const data = {
           razorpay_payment_id: res.razorpay_payment_id,
           razorpay_order_id: res.razorpay_order_id,
@@ -102,7 +102,7 @@ const Part2 = () => {
           )
           .then((res) => {
             if (res) {
-              console.log(res.data);
+              // console.log(res.data);
               sessionStorage.setItem("dataInfo", JSON.stringify(res.data.data));
               window.location.href = "/Part3"
             }

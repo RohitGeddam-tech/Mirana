@@ -9,24 +9,24 @@ const Sidebar = () => {
       <img src={logo} alt="logo" />
       <div className="links">
         <NavHashLink
-          to="/RoomBack#top"
+          to="/Admin/Rooms#top"
           className="backLinks"
           activeClassName="active"
         >
           Rooms
         </NavHashLink>
         <NavHashLink
-          to="/PackagesBack#top"
+          to="/Admin/Packages#top"
           className="backLinks"
           activeClassName="active"
         >
           Packages
         </NavHashLink>
         <NavHashLink
-          to="/BookBack#top"
+          to="/Admin/Bookings/Ongoing#top"
           // className="backLinks"
           className={`${
-            window.location.href.includes("BookBack") ? "backLinks active" : "backLinks"
+            window.location.href.includes("Bookings") ? "backLinks active" : "backLinks"
           }`}
         >
           Bookings
