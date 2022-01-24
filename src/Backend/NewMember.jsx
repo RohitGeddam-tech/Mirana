@@ -146,7 +146,7 @@ const NewMember = ({ draw, setDraw }) => {
       >
         <div className="box">
           <div className="head">
-            <p>Edit Booking</p>
+            <p>Add new Booking</p>
             <img
               className="img"
               src={clear}

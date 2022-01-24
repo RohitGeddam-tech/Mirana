@@ -1041,7 +1041,7 @@ const UpBack = () => {
                     }
                     onClick={checkout}
                   >
-                    Checkout
+                    Check-in
                   </button>
                 </div>
               </div>
