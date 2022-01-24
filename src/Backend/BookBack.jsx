@@ -333,14 +333,8 @@ const BookBack = () => {
     ) {
       setRight(true);
       setPopup({
-        name: name,
-        mobile: phone,
-        email: mail,
-        checkin_date: moment(date1).format("YYYY-MM-DD"),
         checkout_date: moment(date2).format("YYYY-MM-DD"),
         package: packid,
-        number_of_rooms: room,
-        number_of_guests: guest,
       });
       setOpen(false);
     } else {

@@ -18,9 +18,9 @@ const Settings = () => {
         </div>
         <Dropdown className="d">
           <DropdownMenu>
-            <DropdownItem>
+            {/* <DropdownItem>
               <p>Settings</p>
-            </DropdownItem>
+            </DropdownItem> */}
             <DropdownItem onClick={()=>{localStorage.clear(); sessionStorage.clear(); window.location.href = "/#top"}}>
               <p>Log Out</p>
             </DropdownItem>
