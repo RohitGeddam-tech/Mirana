@@ -233,6 +233,16 @@ const BookBack = () => {
           guest: members.number_of_guests,
         });
         // setModal(true);
+
+        if (members.package.name === "Paradise") {
+          setPackid(3);
+        }
+        if (members.package.name === "Luxury") {
+          setPackid(2);
+        }
+        if (members.package.name === "Executive") {
+          setPackid(1);
+        }
         setOpen(true);
         setNum(room);
       }
