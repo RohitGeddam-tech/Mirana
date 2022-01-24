@@ -208,7 +208,7 @@ const BookBack = () => {
     ) {
       getData();
     }
-  }, [searched, startDate, endDate]);
+  }, [searched, startDate, endDate, current]);
 
   const handleSelect = (e, room) => {
     setSel(e.target.innerText);

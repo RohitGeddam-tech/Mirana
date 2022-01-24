@@ -170,7 +170,7 @@ const UpBack = () => {
             current > 0
               ? "?"
               : ""
-          }${
+          }page=${current}${
             (moment(new Date()).format("YYYY-MM-DD") !==
               moment(startDate).format("YYYY-MM-DD") ||
               moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
@@ -224,7 +224,7 @@ const UpBack = () => {
     ) {
       getData();
     }
-  }, [searched, startDate, endDate]);
+  }, [searched, startDate, endDate, current]);
 
   const handleSettings = (room) => {
     array.forEach((members) => {
@@ -241,6 +241,16 @@ const UpBack = () => {
           roomNo: members.number_of_rooms,
           guest: members.number_of_guests,
         });
+
+        if (members.package.name === "Paradise") {
+          setPackid(3);
+        }
+        if (members.package.name === "Luxury") {
+          setPackid(2);
+        }
+        if (members.package.name === "Executive") {
+          setPackid(1);
+        }
         // console.log({ message: "form array deployed", form });
         // setModal(true);
         setOpen(true);
@@ -456,6 +466,7 @@ const UpBack = () => {
   React.useEffect(() => {
     if (right) {
       // console.log("onForm submit: ", popup);
+      // console.log(num);
       putData();
     }
   }, [handleSubmit]);

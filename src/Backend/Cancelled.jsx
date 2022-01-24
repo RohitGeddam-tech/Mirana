@@ -67,7 +67,7 @@ const UpBack = () => {
             current > 0
               ? "?"
               : ""
-          }${
+          }page=${current}${
             (moment(new Date()).format("YYYY-MM-DD") !==
               moment(startDate).format("YYYY-MM-DD") ||
               moment(new Date()).add(1, "days").format("YYYY-MM-DD") !==
@@ -113,7 +113,7 @@ const UpBack = () => {
     ) {
       getData();
     }
-  }, [searched, startDate, endDate]);
+  }, [searched, startDate, endDate, current]);
 
   return (
     <>
