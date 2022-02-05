@@ -32,17 +32,15 @@ const Book = () => {
   const date2numbers = JSON.parse(date2Book);
 
   // const [date1, setDate1] = useState(new Date(`${date1numbers}`));
-  const [date1, setDate1] = useState(
-    moment(new Date(`${date1numbers}`)).format("YYYY-MM-DD")
-  );
-  const [guest, setGuest] = useState(guestnumbers);
-  const [room, setRoom] = useState(roomnumbers);
+  const [date1, setDate1] = useState(moment(new Date()).format("YYYY-MM-DD"));
+  const [guest, setGuest] = useState(1);
+  const [room, setRoom] = useState(1);
   // console.log(room, guest);
   const [data, setData] = useState({});
   const [on, setOn] = useState(false);
   // const [date2, setDate2] = useState(new Date(`${date2numbers}`));
   const [date2, setDate2] = useState(
-    moment(new Date(`${date2numbers}`)).format("YYYY-MM-DD")
+    moment(new Date()).add(1, "days").format("YYYY-MM-DD")
   );
   const [num, setNum] = useState(0);
   const [exec, setExec] = useState("");
@@ -54,54 +52,32 @@ const Book = () => {
   const [array, setArray] = useState([]);
   const [right, setRight] = useState(false);
 
-  // console.log("guestBook: ", guest);
-  // console.log("guestBook: ", room);
-  // console.log("guestBook: ", date1);
-  // console.log("guestBook: ", date2);
-  // console.log("guestBook: ", JSON.stringify(date2numbers));
-
-  // React.useEffect(() => {
-  //   axios
-  //     .get(`${process.env.REACT_APP_PUBLIC_URL}room-packages`)
-  //     .then((res) => {
-  //       if (res) {
-  //         const info = res.data.data;
-  //         console.log("response user profile msg", info);
-  //         setArray([...info]);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
-
-  // Date.prototype.addDays = function (days) {
-  //   const date = new Date(this.valueOf());
-  //   date.setDate(date.getDate() + days);
-  //   return date;
-  // };
   const handleChange = (e) => {
     setDate1(moment(e).format("YYYY-MM-DD"));
   };
 
   React.useEffect(() => {
-    if (sessionStorage.getItem("guestData") === null) {
+    if (sessionStorage.getItem("guestData") !== null) {
       // console.log("react usestae is running");
-      setGuest(1);
-      setRoom(1);
-      setDate2(moment(new Date()).add(1, "days").format("YYYY-MM-DD"));
-      setDate1(moment(new Date()).format("YYYY-MM-DD"));
+      setGuest(guestnumbers);
+      setRoom(roomnumbers);
+      setDate1(moment(new Date(`${date1numbers}`)).format("YYYY-MM-DD"));
+      setDate2(moment(new Date(`${date2numbers}`)).format("YYYY-MM-DD"));
     }
-    // else {
-    //   setGuest(guestnumbers);
-    //   setRoom(roomnumbers);
-    //   setDate1(moment(new Date(`${date1numbers}`)).format("YYYY-MM-DD"));
-    //   setDate2(moment(new Date(`${date2numbers}`)).format("YYYY-MM-DD"));
-    // }
   }, []);
 
   React.useEffect(() => {
-    // console.log(date1, date2);
+    if (
+      moment(date1).format("YYYY-MM-DD") >=
+        moment(date2).format("YYYY-MM-DD") ||
+      moment(date1).format("YYYY-MM-DD") === moment(date2).format("YYYY-MM-DD")
+    ) {
+      setDate2(moment(date1).add(1, "days").format("YYYY-MM-DD"));
+    }
+  }, [handleChange, date1, date2, setDate2, setDate1]);
+
+  React.useEffect(() => {
+    console.log(date1, date2);
     if (
       // date1.getTime() === date2.getTime() ||
       moment(date1).format("YYYY-MM-DD") >=
@@ -110,7 +86,7 @@ const Book = () => {
     ) {
       setDate2(moment(date1).add(1, "days").format("YYYY-MM-DD"));
     }
-  }, [handleChange, date1, date2, setDate2, setDate1]);
+  }, []);
 
   React.useEffect(() => {
     if (
@@ -300,7 +276,9 @@ const Book = () => {
                       <h1>Check out date</h1>
                       <DatePicker
                         disablePast={true}
-                        minDate={date2}
+                        minDate={moment(date1)
+                          .add(1, "day")
+                          .format("YYYY-MM-DD")}
                         format="E, dd MMM"
                         value={date2}
                         onChange={setDate2}
