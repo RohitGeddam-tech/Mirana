@@ -24,12 +24,12 @@ const Gallery = () => {
           <CustomSlider dot={true} />
         </div>
         <div className="bottom">
-          <button className="btn">
-            View More{" "}
+          <a href="/Book#top" className="btn">
+            Book Now{" "}
             <span>
               <img src={arrow} alt="arrow" />
             </span>
-          </button>
+          </a>
         </div>
       </div>
     </div>

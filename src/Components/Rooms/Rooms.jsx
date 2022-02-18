@@ -20,7 +20,7 @@ const Rooms = () => {
         <div className="end">
           <div className="container">
             <h1 style={{ color: "white" }}>Reserve your room today!</h1>
-            <NavHashLink to="/Rooms#top" className="btn">
+            <NavHashLink to="/Book#top" className="btn">
               Choose Rooms
               <span>
                 <img src={arrow} alt="arrow" />

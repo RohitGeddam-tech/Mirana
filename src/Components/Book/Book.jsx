@@ -10,6 +10,8 @@ import { useState } from "react";
 // import arrow2 from "../../image/Frame2.png";
 import add from "../../image/add.png";
 import clear from "../../image/clear.png";
+import call from "../../image/call1.png";
+import list from "../../image/list.png";
 import minus from "../../image/minus.png";
 import DateFnsUtils from "@date-io/date-fns";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
@@ -51,6 +53,7 @@ const Book = () => {
   const [view, setView] = useState([]);
   const [array, setArray] = useState([]);
   const [right, setRight] = useState(false);
+  const [roomApi, setRoomApi] = useState(1);
 
   const handleChange = (e) => {
     setDate1(moment(e).format("YYYY-MM-DD"));
@@ -61,6 +64,7 @@ const Book = () => {
       // console.log("react usestae is running");
       setGuest(guestnumbers);
       setRoom(roomnumbers);
+      setRoomApi(roomnumbers);
       setDate1(moment(new Date(`${date1numbers}`)).format("YYYY-MM-DD"));
       setDate2(moment(new Date(`${date2numbers}`)).format("YYYY-MM-DD"));
     }
@@ -96,7 +100,7 @@ const Book = () => {
         .get(
           `${
             process.env.REACT_APP_PUBLIC_URL
-          }room-packages?number_of_rooms=${room}&checkin_date=${moment(
+          }room-packages?number_of_rooms=${roomApi}&checkin_date=${moment(
             date1
           ).format("YYYY-MM-DD")}&checkout_date=${moment(date2).format(
             "YYYY-MM-DD"
@@ -113,7 +117,7 @@ const Book = () => {
           console.log(err);
         });
     }
-  }, [room, date1, date2]);
+  }, [roomApi, date1, date2]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -190,6 +194,7 @@ const Book = () => {
   //     console.log(data);
   //   }
   // }, [valid, handleMod]);
+  const [free, setFree] = useState(true);
 
   return (
     <>
@@ -291,7 +296,11 @@ const Book = () => {
                   Please note that the max. capacity in one room is 2 adults + 1
                   adult (at additional cost)
                 </p>
-                <button type="submit" className="btn">
+                <button
+                  type="submit"
+                  className="btn"
+                  onClick={() => setRoomApi(room)}
+                >
                   Apply
                 </button>
               </form>
@@ -349,6 +358,7 @@ const Book = () => {
               open={on}
               onClose={() => {
                 setOn(false);
+                setRoomApi(room);
               }}
             >
               <div className="box">
@@ -356,7 +366,10 @@ const Book = () => {
                   className="img"
                   src={clear}
                   alt="cancel"
-                  onClick={() => setOn(false)}
+                  onClick={() => {
+                    setOn(false);
+                    setRoomApi(room);
+                  }}
                 />
                 <div className="adult">
                   <h1>Adults (12+)</h1>
@@ -399,7 +412,13 @@ const Book = () => {
                   adult (at additional cost)
                 </p>
                 <div className="bottom">
-                  <button className="btn" onClick={() => setOn(false)}>
+                  <button
+                    className="btn"
+                    onClick={() => {
+                      setOn(false);
+                      setRoomApi(room);
+                    }}
+                  >
                     Proceed
                   </button>
                 </div>
@@ -451,7 +470,8 @@ const Book = () => {
                         setExec(doc.name);
                         setAmount(doc.total_amount);
                         setNum(doc.id);
-                        setRight(true);
+                        // setRight(true);
+                        setFree(true);
                       }}
                     >
                       Reserve
@@ -463,6 +483,35 @@ const Book = () => {
           ))}
         </div>
       </div>
+      <Modal
+        className="modalPop"
+        open={free}
+        onClose={() => {
+          setFree(false);
+        }}
+      >
+        <div className="box new-box">
+          <div className="head">
+            <h1>Reservation method:</h1>
+            <img src={clear} alt="close" onClick={() => setFree(false)} />
+          </div>
+          <div className="body">
+            <a href="tel:+91 9820347152" className="output">
+              <img src={call} alt="call" />
+              <p>Get instant reservations over a phone call</p>
+            </a>
+            <h2>OR</h2>
+            <div className="output" onClick={() => setRight(true)}>
+              <img src={list} alt="Form" />
+              <p>Get instant reservations over a phone call</p>
+            </div>
+            <p>
+              Note: You will receive a booking confirmation mail on both the
+              options
+            </p>
+          </div>
+        </div>
+      </Modal>
       <ContactModal
         draw={right}
         setDraw={setRight}

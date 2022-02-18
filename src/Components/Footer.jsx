@@ -97,7 +97,7 @@ const Footer = () => {
           </div>
           <p>© 2021 Mirana Resort. All Rights Reserved.</p>
           <div>
-            Website by <a href="/#top">Sugarlogger Technologies Pvt. Ltd.</a>
+            Website by <a href="https://tech.sugarlogger.com/">Sugarlogger Technologies Pvt. Ltd.</a>
           </div>
         </div>
       </div>

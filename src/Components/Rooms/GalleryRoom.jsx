@@ -18,7 +18,7 @@ const Gallery = () => {
           <CustomSlider dot={true} />
         </div>
         <div className="bottom">
-          <NavHashLink to="/#top" className="btn" style={{backgroundColor:"#BA7F45", color:"#fff", marginTop:"10px"}}>
+          <NavHashLink to="/Book#top" className="btn" style={{backgroundColor:"#BA7F45", color:"#fff", marginTop:"10px"}}>
             Book Now
             <span>
               <img src={arrow} alt="arrow" />

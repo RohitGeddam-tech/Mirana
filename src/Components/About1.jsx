@@ -26,7 +26,7 @@ const About1 = () => {
             and ‘gram later!
           </p>
           <div className="bottom">
-            <NavHashLink to="/#top" className="btn">
+            <NavHashLink to="/Restaurant#top" className="btn">
               View More
               <span>
                 <img src={arrow} alt="arrow" />

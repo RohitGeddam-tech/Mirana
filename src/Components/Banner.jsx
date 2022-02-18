@@ -44,12 +44,12 @@ const Banner1 = ({ image, title, head, para }) => {
         <h1>{title}</h1>
         <p>{para}</p>
         <div className="bottom">
-          <button className="btn">
+          <a href="/About#top" className="btn">
             Learn More
             <span>
               <img src={arrow} alt="arrow" />
             </span>
-          </button>
+          </a>
         </div>
       </div>
     </div>
