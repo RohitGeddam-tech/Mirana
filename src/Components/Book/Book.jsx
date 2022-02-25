@@ -429,58 +429,73 @@ const Book = () => {
       </div>
       <div className="book">
         <div className="container">
-          <h1>Choose a package</h1>
-          {array.map((doc) => (
-            <div className="package" key={doc.id}>
-              <div className="left">
-                <img src={book} alt="book" />
-              </div>
-              <div className="right">
-                <div className="top">
-                  <h1>{doc.name}</h1>
-                  <div className="topRight">
-                    <h1>₹ {doc.package_amount}</h1>
-                    <p>+{doc.tax_amount} taxes & fees</p>
+          {array.length > 1 ? (
+            <>
+              <h1>Choose a package</h1>
+              {array.map((doc) => (
+                <div className="package" key={doc.id}>
+                  <div className="left">
+                    <img src={book} alt="book" />
+                  </div>
+                  <div className="right">
+                    <div className="top">
+                      <h1>{doc.name}</h1>
+                      <div className="topRight">
+                        <h1>₹ {doc.package_amount}</h1>
+                        <p>+{doc.tax_amount} taxes & fees</p>
+                      </div>
+                    </div>
+                    <div className="border"></div>
+                    <div className="body">
+                      <ul>
+                        <li>
+                          Complimentary {doc.services.join(" + ")} available.
+                        </li>
+                        <li>
+                          Price for 2 adults + 1 adult (at additional cost){" "}
+                        </li>
+                        <li>
+                          Extra mattress available at extra charges.{" "}
+                          <a onClick={() => handleCharge(doc.id)}>
+                            View charges
+                          </a>
+                        </li>
+                        <li>Check-in: 12noon ; Check-out: 11 a.m.</li>
+                        <li>
+                          Free cancellation before 7 days of check-in.{" "}
+                          <a onClick={() => setDraw(true)}>
+                            View cancellation policy
+                          </a>
+                        </li>
+                      </ul>
+                      <div className="buttons">
+                        <NavHashLink to="/Rooms#top" className="loginBtn">
+                          View Room
+                        </NavHashLink>
+                        <button
+                          className="btn"
+                          onClick={() => {
+                            setExec(doc.name);
+                            setAmount(doc.total_amount);
+                            setNum(doc.id);
+                            // setRight(true);
+                            setFree(true);
+                          }}
+                        >
+                          Reserve
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="border"></div>
-                <div className="body">
-                  <ul>
-                    <li>Complimentary {doc.services.join(" + ")} available.</li>
-                    <li>Price for 2 adults + 1 adult (at additional cost) </li>
-                    <li>
-                      Extra mattress available at extra charges.{" "}
-                      <a onClick={() => handleCharge(doc.id)}>View charges</a>
-                    </li>
-                    <li>Check-in: 12noon ; Check-out: 11 a.m.</li>
-                    <li>
-                      Free cancellation before 7 days of check-in.{" "}
-                      <a onClick={() => setDraw(true)}>
-                        View cancellation policy
-                      </a>
-                    </li>
-                  </ul>
-                  <div className="buttons">
-                    <NavHashLink to="/Rooms#top" className="loginBtn">
-                      View Room
-                    </NavHashLink>
-                    <button
-                      className="btn"
-                      onClick={() => {
-                        setExec(doc.name);
-                        setAmount(doc.total_amount);
-                        setNum(doc.id);
-                        // setRight(true);
-                        setFree(true);
-                      }}
-                    >
-                      Reserve
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+              ))}
+            </>
+          ) : (
+            <h1>
+              Sorry. There are no rooms available for your selected
+              specifications.
+            </h1>
+          )}
         </div>
       </div>
       <Modal
