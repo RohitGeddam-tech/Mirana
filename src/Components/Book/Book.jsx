@@ -518,7 +518,7 @@ const Book = () => {
             <h2>OR</h2>
             <div className="output" onClick={() => setRight(true)}>
               <img src={list} alt="Form" />
-              <p>Get instant reservations over a phone call</p>
+              <p>Fill the booking form and receive a call back</p>
             </div>
             <p>
               Note: You will receive a booking confirmation mail on both the

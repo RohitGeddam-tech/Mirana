@@ -13,6 +13,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import CustomSlider from "./Slider";
 import { Modal } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 const bannerDetails = [
   {
@@ -63,6 +64,7 @@ const Banner = () => {
   const [data, setData] = useState({});
   const [on, setOn] = useState(false);
   const [valid, setValid] = useState(false);
+  let history = useHistory();
 
   Date.prototype.addDays = function (days) {
     const date = new Date(this.valueOf());
@@ -91,56 +93,27 @@ const Banner = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // var skip = 0;
-    // if (guest % 3 == 1) {
-    //   setRoom(room + 1);
-    //   console.log(room)
-    //   skip = 1;
-    // }
-    // for (var x = guest; x <= 100; x++) {
-    //   var skip = 0;
-    //   if (x % 3 == 1) {
-    //     setRoom(room + 1);
-    //     skip = 1;
-    //   }
-    //   if (!skip) {
-    //     document.write(x);
-    //   }
-    //   document.write("<br>"); //line breaks to enhance output readability
-    // }
     setData({
       guest: guest,
       room: room,
       date1: date1,
       date2: date2,
     });
-    // console.log("data link-/: ",data);
-    // console.log(`date1: ${date1.toString().slice(0, 10)}; 
-    // date2: ${date2.toString().slice(0, 10)};
-    // Guests: ${guest};
-    // rooms: ${room}
-    // `);
     if (!date1 || !date2 || guest !== 0 || room !== 0) {
       setValid(true);
     }
-    // else {
-    //   console.log("error");
-    // }
   };
 
   useEffect(() => {
     if (valid) {
-      // {
-      //   data === {}
-      //     ? console.log("empty data state")
-      //     : sessionStorage.setItem("bannerData", JSON.stringify(data));
-      // }
-      // console.log("data link-/: ", data);
       sessionStorage.setItem("guestData", JSON.stringify(guest));
       sessionStorage.setItem("roomData", JSON.stringify(room));
       sessionStorage.setItem("date1Data", JSON.stringify(date1));
       sessionStorage.setItem("date2Data", JSON.stringify(date2));
-      window.location.href = '/Book#top'
+      // window.location.href = '/Book#top';
+      history.push("/Book#top");
+      // window.open("/Book#top", "_blank");
+      // return false;
     }
   }, [data, valid]);
 
@@ -251,7 +224,9 @@ const Banner = () => {
             (at additional cost)
           </p>
           <div className="bottom">
-            <button className="btn" onClick={() => setOn(false)}>Proceed</button>
+            <button className="btn" onClick={() => setOn(false)}>
+              Proceed
+            </button>
           </div>
         </div>
       </Modal>
