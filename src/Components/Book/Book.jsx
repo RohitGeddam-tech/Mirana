@@ -518,7 +518,7 @@ const Book = () => {
             </a>
             <h2>OR</h2>
             <a
-              href="https://api.whatsapp.com/send?phone=+919820347152&text=I wanted to make a reservation"
+              href="https://api.whatsapp.com/send?phone=+919820347152&text=I want to make a reservation"
               target="_blank"
               className="output"
               // onClick={() => setRight(true)}
