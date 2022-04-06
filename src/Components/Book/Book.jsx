@@ -10,8 +10,9 @@ import { useState } from "react";
 // import arrow2 from "../../image/Frame2.png";
 import add from "../../image/add.png";
 import clear from "../../image/clear.png";
-import call from "../../image/call1.png";
-import list from "../../image/list.png";
+import call from "../../image/call1.svg";
+// import list from "../../image/list.png";
+import whatsapp from "../../image/whatsapp.svg";
 import minus from "../../image/minus.png";
 import DateFnsUtils from "@date-io/date-fns";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
@@ -19,7 +20,7 @@ import { Modal } from "@material-ui/core";
 import useWindowSize from "../useWindowSize";
 import moment from "moment";
 import axios from "axios";
-import ContactModal from "./ContactModal";
+// import ContactModal from "./ContactModal";
 
 const Book = () => {
   const [width] = useWindowSize();
@@ -511,15 +512,20 @@ const Book = () => {
             <img src={clear} alt="close" onClick={() => setFree(false)} />
           </div>
           <div className="body">
-            <a href="tel:+91 9820347152" className="output">
+            <a href="tel:+919820347152" className="output">
               <img src={call} alt="call" />
               <p>Get instant reservations over a phone call</p>
             </a>
             <h2>OR</h2>
-            <div className="output" onClick={() => setRight(true)}>
-              <img src={list} alt="Form" />
-              <p>Fill the booking form and receive a call back</p>
-            </div>
+            <a
+              href="https://api.whatsapp.com/send?phone=+919820347152&text=I wanted to make a reservation"
+              target="_blank"
+              className="output"
+              // onClick={() => setRight(true)}
+            >
+              <img src={whatsapp} alt="Form" style={{ minWidth: "40px" }} />
+              <p>Make a reservation through WhatsApp</p>
+            </a>
             <p>
               Note: You will receive a booking confirmation mail on both the
               options
@@ -527,7 +533,7 @@ const Book = () => {
           </div>
         </div>
       </Modal>
-      <ContactModal
+      {/* <ContactModal
         draw={right}
         setDraw={setRight}
         guest={guest}
@@ -537,7 +543,7 @@ const Book = () => {
         name={exec}
         amount={amount}
         num={num}
-      />
+      /> */}
       <Cancel draw={draw} setDraw={setDraw} />
       <Charge draw={charge} setDraw={setCharge} view={view} />
       <Footer />

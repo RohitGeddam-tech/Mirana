@@ -251,7 +251,7 @@ body {
                   }
                 }
               }
-              .bottom{
+              .bottom {
                 margin-top: 0;
               }
             }
@@ -286,6 +286,12 @@ body {
       }
       &.new-box {
         max-width: 380px;
+        .head {
+          h1 {
+            font-size: 20px;
+            line-height: 24px;
+          }
+        }
         .body {
           width: 100%;
           .output {
@@ -297,15 +303,19 @@ body {
             box-sizing: border-box;
             filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.3));
             border-radius: 10px;
-            padding: 30px 18px;
+            background-color: white;
+            padding: 22px 18px;
             cursor: pointer;
             img {
-              width: 30px;
+              // width: auto;
+              min-width: 30px;
+              margin-right: 10px;
+              background-color: transparent;
             }
             p {
               font-style: normal;
               margin-top: 0;
-              width: 85%;
+              width: fit-content;
               font-weight: 500;
               font-size: 20px;
               line-height: 23px;
