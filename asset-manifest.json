@@ -13,7 +13,7 @@
     "static/js/3.47284a74.chunk.js.map": "/Mirana/static/js/3.47284a74.chunk.js.map",
     "static/js/4.982bf0f0.chunk.js": "/Mirana/static/js/4.982bf0f0.chunk.js",
     "static/js/4.982bf0f0.chunk.js.map": "/Mirana/static/js/4.982bf0f0.chunk.js.map",
-    "main.css": "/Mirana/static/css/main.da1e7177.chunk.css",
+    "main.css": "/Mirana/static/css/main.f472c3a6.chunk.css",
     "main.js": "/Mirana/static/js/main.a4e70a55.chunk.js",
     "main.js.map": "/Mirana/static/js/main.a4e70a55.chunk.js.map",
     "runtime-main.js": "/Mirana/static/js/runtime-main.c2fc2e26.js",
@@ -62,7 +62,7 @@
     "static/css/3.e02a515f.chunk.css.map": "/Mirana/static/css/3.e02a515f.chunk.css.map",
     "static/css/7.edefee0d.chunk.css.map": "/Mirana/static/css/7.edefee0d.chunk.css.map",
     "static/css/8.0650590d.chunk.css.map": "/Mirana/static/css/8.0650590d.chunk.css.map",
-    "static/css/main.da1e7177.chunk.css.map": "/Mirana/static/css/main.da1e7177.chunk.css.map",
+    "static/css/main.f472c3a6.chunk.css.map": "/Mirana/static/css/main.f472c3a6.chunk.css.map",
     "static/js/1.a757b114.chunk.js.LICENSE.txt": "/Mirana/static/js/1.a757b114.chunk.js.LICENSE.txt",
     "static/js/16.0ba95e84.chunk.js.LICENSE.txt": "/Mirana/static/js/16.0ba95e84.chunk.js.LICENSE.txt",
     "static/js/2.2704a10f.chunk.js.LICENSE.txt": "/Mirana/static/js/2.2704a10f.chunk.js.LICENSE.txt",
@@ -103,7 +103,7 @@
   "entrypoints": [
     "static/js/runtime-main.c2fc2e26.js",
     "static/js/9.65d3957c.chunk.js",
-    "static/css/main.da1e7177.chunk.css",
+    "static/css/main.f472c3a6.chunk.css",
     "static/js/main.a4e70a55.chunk.js"
   ]
 }
