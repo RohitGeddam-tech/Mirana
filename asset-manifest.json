@@ -16,8 +16,8 @@
     "main.css": "/Mirana/static/css/main.da1e7177.chunk.css",
     "main.js": "/Mirana/static/js/main.a4e70a55.chunk.js",
     "main.js.map": "/Mirana/static/js/main.a4e70a55.chunk.js.map",
-    "runtime-main.js": "/Mirana/static/js/runtime-main.0e915f95.js",
-    "runtime-main.js.map": "/Mirana/static/js/runtime-main.0e915f95.js.map",
+    "runtime-main.js": "/Mirana/static/js/runtime-main.c2fc2e26.js",
+    "runtime-main.js.map": "/Mirana/static/js/runtime-main.c2fc2e26.js.map",
     "static/css/7.edefee0d.chunk.css": "/Mirana/static/css/7.edefee0d.chunk.css",
     "static/js/7.3984d715.chunk.js": "/Mirana/static/js/7.3984d715.chunk.js",
     "static/js/7.3984d715.chunk.js.map": "/Mirana/static/js/7.3984d715.chunk.js.map",
@@ -30,8 +30,8 @@
     "static/js/10.e2b1acbd.chunk.js": "/Mirana/static/js/10.e2b1acbd.chunk.js",
     "static/js/10.e2b1acbd.chunk.js.map": "/Mirana/static/js/10.e2b1acbd.chunk.js.map",
     "static/css/11.123071a5.chunk.css": "/Mirana/static/css/11.123071a5.chunk.css",
-    "static/js/11.c35fee04.chunk.js": "/Mirana/static/js/11.c35fee04.chunk.js",
-    "static/js/11.c35fee04.chunk.js.map": "/Mirana/static/js/11.c35fee04.chunk.js.map",
+    "static/js/11.5082bd39.chunk.js": "/Mirana/static/js/11.5082bd39.chunk.js",
+    "static/js/11.5082bd39.chunk.js.map": "/Mirana/static/js/11.5082bd39.chunk.js.map",
     "static/css/12.058b3c62.chunk.css": "/Mirana/static/css/12.058b3c62.chunk.css",
     "static/js/12.fb97409f.chunk.js": "/Mirana/static/js/12.fb97409f.chunk.js",
     "static/js/12.fb97409f.chunk.js.map": "/Mirana/static/js/12.fb97409f.chunk.js.map",
@@ -101,7 +101,7 @@
     "static/media/wifi.94d0cfd3.svg": "/Mirana/static/media/wifi.94d0cfd3.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.0e915f95.js",
+    "static/js/runtime-main.c2fc2e26.js",
     "static/js/9.65d3957c.chunk.js",
     "static/css/main.da1e7177.chunk.css",
     "static/js/main.a4e70a55.chunk.js"
