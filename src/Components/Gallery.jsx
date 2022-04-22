@@ -3,7 +3,7 @@ import React from "react";
 // import slide2 from "../image/slide2.png";
 // import about1 from "../image/about1.png";
 // import about2 from "../image/about2.png";
-import CustomSlider from "./CustomSlider";
+import CustomSlider from "./CustomSliderNew";
 import arrow from "../image/Frame2.png";
 import "./Gallery.scss";
 

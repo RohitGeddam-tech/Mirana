@@ -6,16 +6,26 @@ import "slick-carousel/slick/slick-theme.css";
 // import slide2 from "../image/slide2.webp";
 // import about1 from "../image/about1.webp";
 // import about2 from "../image/about2.webp";
-import slide1 from "../image/Mirana Our rooms/2036.jpg";
-import slide2 from "../image/Mirana Our rooms/2037.jpg";
-import slide3 from "../image/Mirana Our rooms/2038.jpg";
+import slide1 from "../image/Property Gallery - Mirana/1070.jpg";
+import slide2 from "../image/Property Gallery - Mirana/1956.jpg";
+import slide3 from "../image/Property Gallery - Mirana/1964.jpg";
+import slide4 from "../image/Property Gallery - Mirana/1967.jpg";
+import slide5 from "../image/Property Gallery - Mirana/1987.jpg";
+import slide6 from "../image/Property Gallery - Mirana/2005.jpg";
+import slide7 from "../image/Property Gallery - Mirana/2008.jpg";
+import slide8 from "../image/Property Gallery - Mirana/2009.jpg";
+import slide9 from "../image/Property Gallery - Mirana/2012.jpg";
+import slide10 from "../image/Property Gallery - Mirana/2015.jpg";
+import slide11 from "../image/Property Gallery - Mirana/2020.jpg";
+import slide12 from "../image/Property Gallery - Mirana/2028.jpg";
+import slide13 from "../image/Property Gallery - Mirana/2032.jpg";
 import SliderNextArrow from "./NextArrow";
 import SliderPrevArrow from "./PrevArrow";
 
-const CustomSlider = ({ dot }) => {
+const CustomSlider = () => {
   const settings = {
-    dots: dot,
-    infinite: false,
+    dots: true,
+    infinite: true,
     speed: 500,
     slidesToShow: 2.4,
     slidesToScroll: 1,
@@ -74,7 +84,16 @@ const CustomSlider = ({ dot }) => {
         <img src={slide1} alt="galleryImg" loading="lazy" />
         <img src={slide2} alt="galleryImg" loading="lazy" />
         <img src={slide3} alt="galleryImg" loading="lazy" />
-        {/* <img src={about2} alt="galleryImg" loading='lazy' /> */}
+        <img src={slide4} alt="galleryImg" loading="lazy" />
+        <img src={slide5} alt="galleryImg" loading="lazy" />
+        <img src={slide6} alt="galleryImg" loading="lazy" />
+        <img src={slide7} alt="galleryImg" loading="lazy" />
+        <img src={slide8} alt="galleryImg" loading="lazy" />
+        <img src={slide9} alt="galleryImg" loading="lazy" />
+        <img src={slide10} alt="galleryImg" loading="lazy" />
+        <img src={slide11} alt="galleryImg" loading="lazy" />
+        <img src={slide12} alt="galleryImg" loading="lazy" />
+        <img src={slide13} alt="galleryImg" loading="lazy" />
       </Slider>
     </>
   );

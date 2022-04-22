@@ -15,10 +15,18 @@ const Gallery = () => {
       <div className="container">
         <h1>Room Gallery</h1>
         <div className="Slider">
-          <CustomSlider dot={true} />
+          <CustomSlider dot={false} />
         </div>
         <div className="bottom">
-          <NavHashLink to="/Book#top" className="btn" style={{backgroundColor:"#BA7F45", color:"#fff", marginTop:"10px"}}>
+          <NavHashLink
+            to="/Book#top"
+            className="btn"
+            style={{
+              backgroundColor: "#BA7F45",
+              color: "#fff",
+              marginTop: "10px",
+            }}
+          >
             Book Now
             <span>
               <img src={arrow} alt="arrow" />
