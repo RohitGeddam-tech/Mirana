@@ -83,17 +83,17 @@ const CustomSlider = () => {
       <Slider {...settings}>
         <img src={slide1} alt="galleryImg" loading="lazy" />
         <img src={slide2} alt="galleryImg" loading="lazy" />
-        <img src={slide3} alt="galleryImg" loading="lazy" />
-        <img src={slide4} alt="galleryImg" loading="lazy" />
-        <img src={slide5} alt="galleryImg" loading="lazy" />
-        <img src={slide6} alt="galleryImg" loading="lazy" />
-        <img src={slide7} alt="galleryImg" loading="lazy" />
-        <img src={slide8} alt="galleryImg" loading="lazy" />
-        <img src={slide9} alt="galleryImg" loading="lazy" />
-        <img src={slide10} alt="galleryImg" loading="lazy" />
-        <img src={slide11} alt="galleryImg" loading="lazy" />
-        <img src={slide12} alt="galleryImg" loading="lazy" />
-        <img src={slide13} alt="galleryImg" loading="lazy" />
+        <img src={slide3} alt="galleryImg" />
+        <img src={slide4} alt="galleryImg" />
+        <img src={slide5} alt="galleryImg" />
+        <img src={slide6} alt="galleryImg" />
+        <img src={slide7} alt="galleryImg" />
+        <img src={slide8} alt="galleryImg" />
+        <img src={slide9} alt="galleryImg" />
+        <img src={slide10} alt="galleryImg" />
+        <img src={slide11} alt="galleryImg" />
+        <img src={slide12} alt="galleryImg" />
+        <img src={slide13} alt="galleryImg" />
       </Slider>
     </>
   );
